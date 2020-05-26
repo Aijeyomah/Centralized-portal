@@ -25,7 +25,7 @@ const comparePassword = (hashedPassword, password) => {
   };
   const generateToken = (id, first_name, last_name, email_address, phone_number, is_admin) => {
     const key = process.env.SECRET_KEY;
-    const token = jwt.sign({ id, email_address, first_name, last_name, phone_number, is_admin}, key, { expiresIn: '1h' });
+    const token = jwt.sign({ user_id: id, email_address, first_name, last_name, phone_number, is_admin}, key, { expiresIn: '1h' });
     return token;
   }
   module.exports = {
