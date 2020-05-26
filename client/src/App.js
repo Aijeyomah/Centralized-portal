@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom'
+import ApplicantSignUp from './Components/auth/Applicant/Signup/ApplicantSignUp';
+import Dashboard from './Components/dashboard/Applicant/DashBoard';
+import AdminDashboard from './Components/dashboard/Admin/AdminDashBoard';
+import ApplicationForm from './Components/auth/Applicant/ApplicationForm/ApplicationForm';
+import LandingPage from './Components/auth/Applicant/landing/landing';
+import AdminLogin from './Components/auth/Admin/adminLogin/adminLogin';
+import Login from './Components/auth/Applicant/login/login';
+import ForgotPassword from './Components/auth/Applicant/ForgotPassword/ForgotPassword'
+import ResetPassword from './Components/auth/Applicant/ForgotPassword/ResetPassword'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Route exact path="/signup" render={() => <ApplicantSignUp />} />
+        <Route exact path="/applicationform" component={ApplicationForm} />
+        <Route path="/applicantdashboard" component={Dashboard} />
+        <Route path="/admindashboard" component={AdminDashboard} />
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/admin/login' component={AdminLogin} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/forgotpassword' component={ForgotPassword} />
+        <Route exact path='/resetpassword' component={ResetPassword} />
+      </div>
+    </BrowserRouter>
   );
 }
 
