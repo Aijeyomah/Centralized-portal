@@ -47,15 +47,16 @@ const ApplicantSignUp = (props) => {
         let userDetails = { first_name, last_name, email_address, phone_number, password, confirm_password }
         let config = {
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
         }
-    axios.post('http://localhost:8000/api/v1/auth/signup', userDetails, config )
-    .then(res => {
-        console.log(res)
-    }).catch(err => {
-        console.log(err)
-    })
+        axios.post("http://localhost:8000/api/v1/auth/signup", userDetails, config)
+            .then(res => {
+                console.log(res)
+            }
+            ).catch(err => {
+                console.log(err)
+            })
     }
 
     return (

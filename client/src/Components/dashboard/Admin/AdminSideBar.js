@@ -7,6 +7,7 @@ import composeAssessIcon from '../../../Images/compose-assessment.svg'
 import assessHistoryIcon from '../../../Images/assess-history.svg'
 import results from '../../../Images/results.svg'
 import Navigation from './../Applicant/Navigation';
+import logoutIcon from '../../../Images/logout-icon.svg'
 
 const AdminSideBar = () => {
     return (
@@ -22,6 +23,7 @@ const AdminSideBar = () => {
                 <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
+            <Navigation url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
         </div>
     )
 }

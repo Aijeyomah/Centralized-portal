@@ -1,8 +1,7 @@
 import {useState} from 'react';
-import axios from 'axios'
 
 const initialstate = { 
-    email_address: "",
+    email: "",
     password: "",
     emailError: "",
     passwordError: "",
@@ -17,7 +16,7 @@ const useInput = () => {
         });  
     };
     const canBeSubmitted =() => {
-        return (state.email_address && state.password);
+        return (state.email && state.password);
     }
     const handleSubmit = (e) => {
         if (!canBeSubmitted()) {
@@ -27,7 +26,7 @@ const useInput = () => {
         e.preventDefault();        
         setState({
             ...state,
-            email_address: "",
+            email: "",
             password: "",
             emailError: "",
             passwordError: "",
@@ -38,9 +37,9 @@ const useInput = () => {
             const validEmailRegex = 
   RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
-            if(!state.email_address) {
+            if(!state.email) {
                 emailError = 'Email field cannot be empty';
-            } else if(!validEmailRegex.test(state.email_address)) {
+            } else if(!validEmailRegex.test(state.email)) {
                 emailError = 'Email is invalid';
             }
             
@@ -63,20 +62,10 @@ const useInput = () => {
         if (isValid) {
             setState(initialstate)
             const logindetails = {
-                email_address: state.email_address,
+                email: state.email,
                 password: state.password
                 }
-                let config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            axios.post('http://localhost:8000/api/v1/auth/signin', logindetails, config )
-            .then(res => {
-                console.log(res)
-            }).catch(err => {
-                console.log(err)
-            })
+                console.log(logindetails) 
         }
         // console.log(state)
     }

@@ -8,6 +8,7 @@ import ApplicationEntries from './ApplicationEntries';
 import ComposeAssessment from './ComposeAssessment';
 import AssessmentHistory from './AssessmentHistory';
 import Results from './Results';
+import AdminLogout from './AdminLogout';
 
 
 const AdminDashboard = () => {
@@ -21,6 +22,7 @@ const AdminDashboard = () => {
                 <Route exact path="/admindashboard/assessment" component={ComposeAssessment} />
                 <Route exact path="/admindashboard/history" component={AssessmentHistory} />
                 <Route exact path="/admindashboard/results" component={Results} />
+                <Route exact path="/admindashboard/logout" component={AdminLogout} />
             </Switch>
         </div>
     )

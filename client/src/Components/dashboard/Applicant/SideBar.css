@@ -5,7 +5,7 @@
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
 }
 
-.sidebar-head {
+.sidebar_head {
     width: 100%;
     height: 205px;
     background-color: #2B3C4E;
@@ -13,6 +13,7 @@
 
 .sidebar-links {
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .one, .two {
@@ -45,7 +46,17 @@
     height: 100%
 }
 
-.assess-active, .dash-active {
+.logout-icon {
+    width: 14.10px;
+    height: 13.43px;
+}
+
+.logout-icon img {
+    width: 100%;
+    height: 100%
+}
+
+.assess-active, .dash-active, .logout-active {
     border-left: 4px solid #31D283;
     height: 49px;
     font-family: Lato;
@@ -55,7 +66,7 @@
     font-size: 16px;
 }
 
-.assess-inactive, .dash-inactive {
+.assess-inactive, .dash-inactive, .logout-inactive {
     display: flex;
     text-decoration: none;
     color: #2B3C4E;

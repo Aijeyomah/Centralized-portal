@@ -27,7 +27,7 @@ const ApplicationForm = (props) => {
         e.preventDefault()
         const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file } = user
         let userDetails = { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file }
-        if (cv_file) { }
+        if (cv_file) { console.log(userDetails) } else { alert("Upload your CV") }
     }
 
     const handleFile = (e) => {

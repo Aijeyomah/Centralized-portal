@@ -24,7 +24,7 @@ const AdminLogin = () => {
             </div>
             <form className= 'loginForm' onSubmit={handleSubmit} noValidate>
                 <label className='label'>Email Address</label>
-                <input className="adminInput" type='email' name='email_address' value={state.email_address} onChange={handleChange} /> 
+                <input className="adminInput" type='email' name='email' value={state.email} onChange={handleChange} /> 
                 <p className= 'adminErrorMsg'>{state.emailError}</p>
                 <div className='passwordWrapper'>
                     <label className='label'>Password</label>
