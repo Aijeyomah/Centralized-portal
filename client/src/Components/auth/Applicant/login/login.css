@@ -30,10 +30,10 @@ margin: 9px 0 0 0;
 
 label {
     font-style: normal;
-font-weight: normal;
-font-size: 14px;
-line-height: 17px;
-color: #4F4F4F;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #4F4F4F;
 }
 
 .formText {

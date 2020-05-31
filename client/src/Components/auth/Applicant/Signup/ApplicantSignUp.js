@@ -4,6 +4,7 @@ import enyataLogo from '../../../../Images/enyata-logo.svg'
 import eye from '../../../../Images/eye.svg'
 import eyeSlashed from '../../../../Images/eye-slashed.svg'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const ApplicantSignUp = (props) => {
     const [state, setState] = useState({
@@ -44,7 +45,18 @@ const ApplicantSignUp = (props) => {
         e.preventDefault()
         const { first_name, last_name, email_address, phone_number, password, confirm_password } = user
         let userDetails = { first_name, last_name, email_address, phone_number, password, confirm_password }
-        console.log(userDetails)
+        let config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        axios.post("http://localhost:8000/api/v1/auth/signup", userDetails, config)
+            .then(res => {
+                console.log(res)
+            }
+            ).catch(err => {
+                console.log(err)
+            })
     }
 
     return (

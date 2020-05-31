@@ -1,5 +1,5 @@
 import React from 'react';
-import img from '../../../../Images/img.jpg';
+import landingImg from '../../../../Images/landing-img.svg';
 import './landing.css'
 import logo from '../../../../Images/logo.png'
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ export default () => {
         <div className='containerBody'>
             <div className='landingHeader'>
                 <img className='headerLogo' src={logo} alt='logo' />
-                <h2 className='headerText'>enyata</h2> 
+                <h2 className='headerText'>enyata</h2>
             </div>
             <div className='landingSection'>
                 <div className='textSection'>
@@ -21,7 +21,7 @@ export default () => {
 
                 </div>
                 <div className='imageSection'>
-                    <img src={img} alt='image_icon' />
+                    <img src={landingImg} alt='image_icon' />
                 </div>
             </div>
 
