@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const Timer = () => {
     const [timer, setTimer] = useState({
         m: 0,
-        ms: 0
+        s: 0
     })
 
     return (
@@ -11,7 +11,7 @@ const Timer = () => {
             <p className="timer-text">Timer</p>
             <div className="timer-count">
                 <p className="timer-count-mins">{timer.m >= 10 ? timer.m : "0" + timer.m}</p>
-                <p className="timer-count-sec">{timer.ms >= 10 ? timer.ms : "0" + timer.ms}</p>
+                <p className="timer-count-sec">{timer.s >= 10 ? timer.s : "0" + timer.s}</p>
             </div>
             <p className="minutes">mins</p>
             <p className="sec">sec</p>

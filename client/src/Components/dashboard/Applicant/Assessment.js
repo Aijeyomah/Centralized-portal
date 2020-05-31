@@ -6,6 +6,11 @@ import Timer from './Timer'
 const Assessment = () => {
     const [show, setShow] = useState(true)
 
+    const handleNextView = () => {
+        setShow(false)
+        console.log("Hello")
+    }
+
     return (
         <div>
             <div className="assessment_n_timer">
@@ -25,7 +30,7 @@ const Assessment = () => {
                         <img src={hourGlass} alt="hourglass"/>
                     </div>
                 <p>We have 4 days left until the next assessment. Watch this space</p>
-                <button onClick={() => {setShow(false)}}>Take Assessment</button>
+                <button onClick={handleNextView}>Take Assessment</button>
                 </div>
             </div>
         </div>
