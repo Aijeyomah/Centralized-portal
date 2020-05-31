@@ -33,6 +33,8 @@ const queries = {
    updateProfilePicture:`
    UPDATE users SET pictures=($1) WHERE id=($2)
    `,
+   findByEmail:`SELECT * FROM users WHERE email_address = ($1)`,
+
     RegisterApplicantQuery:`
     INSERT INTO applicants(
         user_id,
@@ -45,10 +47,18 @@ const queries = {
         university,
         course_of_study,
         cgpa,
-        created_at,
-        updated_at,
-        batch
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *
+        batch, 
+        age
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *
+    `,
+    testQuery:`
+    INSERT INTO tester(
+        first_name,
+        last_name,
+        date_of_birth,
+        age
+        
+    ) VALUES ($1, $2, $3, $4) RETURNING *
     `,
   getApplicationByID: ` SELECT COUNT (*) FROM applicants where batch = ($1);`,
   getAllApplication: `SELECT COUNT (*) FROM applicants `,
@@ -69,7 +79,25 @@ const queries = {
    UPDATE users SET sign_in_token=($1) WHERE email_address=($2) RETURNING *`,
    getAllApplicationBatchesQuery:`
    SELECT COUNT(*) FROM application  `,
-   getAllApplicationEntries:` SELECT  * FROM applicants WHERE batch=($1)`
+   findScore:`
+   SELECT * FROM applicants WHERE score=($1)`,
+   getAllsubmittedApplication:`
+   SELECT * FROM applicants WHERE batch=($1)`,
+   composeAssessmentQuery:`
+    INSERT INTO assessment(
+        file_upload,
+        set_time,
+        questions,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        correct_answer,
+        created_at,
+        batch_id
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+   getAllApplicationEntries:` SELECT  * FROM applicants WHERE batch=($1)`,
+   getAllAssessment:` SELECT  * FROM assessment ORDER BY random()`
 
 }
 module.exports = queries
