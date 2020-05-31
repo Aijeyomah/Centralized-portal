@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 
-const Timer = () => {
+const Timer = (props) => {
     const [timer, setTimer] = useState({
         m: 0,
         s: 0
     })
+
+    let updatedM = timer.m
+    let updatedS = timer.s
+
+    
 
     return (
         <div className="timer-section">
