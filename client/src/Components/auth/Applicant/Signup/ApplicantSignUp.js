@@ -58,6 +58,7 @@ const ApplicantSignUp = (props) => {
             .then(res => {
                 localStorage.setItem('token', res.data.data.token)
                 console.log(res)
+
             }).catch(err => {
                 console.log(err.message)
             })
