@@ -38,7 +38,7 @@ exports.updateUserBySuperAdmin = async (req, res, next) => {
       res.status(400).json({
           status: 'failure',
           code: 400,
-          message: "error finding id"
+          message: error.message
       })
   }
 }
