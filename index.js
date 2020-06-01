@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const route = require('./route')
-const cors = require('cors')
+//const cors = require('cors')
 const path = require("path")
 const fs = require('fs')
 const fileupload = require('express-fileupload')
@@ -12,7 +12,7 @@ let app = express();
  app.use(bodyParser.json({limit: '10mb', extended: true}))
  app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
  
-app.use(cors());
+//app.use(cors());
 
 
 app.use(fileupload())
