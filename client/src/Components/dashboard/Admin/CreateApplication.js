@@ -41,7 +41,7 @@ const CreateApplication = () => {
                 }
             }
 
-            axios.post("http://localhost:8000/api/v1/auth/createApplication", formData, config)
+            axios.post("/api/v1/auth/createApplication", formData, config)
 
                 .then(res => {
 

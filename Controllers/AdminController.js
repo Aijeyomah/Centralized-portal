@@ -57,8 +57,8 @@ exports.createApplicationAdmin = async (req, res) => {
             status: 'error',
             code: 99,
             message: "Request Processing Error",
-            error: err.message
-        })        }
+            error: error.message
+        }) }
     })
         if (!link || !application_closure_date || !batch_id || !instructions) {
         return res.status(400).json({
