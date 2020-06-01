@@ -17,10 +17,11 @@ exports.createApplicationForm = async (req, res) => {
     const d = new Date(req.body.date_of_birth)
     const birth = d.getFullYear()
     const age = created_at - birth
-
-     const img = req.files.cv_file
+   
+    const img = req.files.cv_file
+    
    images = img.name
-    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, batch } = req.body;
+    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
     const user_id = req.user.user_id
     if(email_address !==  res.locals.user.email){
         res.status(200).json({
@@ -40,7 +41,7 @@ exports.createApplicationForm = async (req, res) => {
     })
     
 
-if (!first_name || !last_name || !email_address || !date_of_birth || !address || !university || !course_of_study || !cgpa||!batch) {
+if (!first_name || !last_name || !email_address || !date_of_birth || !address || !university || !course_of_study || !cgpa) {
         return res.status(400).json({
             message: "Please fill all fields",
         });
@@ -65,10 +66,10 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
         university,
         course_of_study,
         cgpa,
-        batch,
         age
     ]
     };
+  
  
     try {
         const { rows, rowCount } = await db.query(queryObject)
@@ -82,8 +83,7 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
         const subject = 'Application status'
         const text = 'Applcation have been'
         await sendMail(email,  subject, text )
-
-        res.status(201).json({ message: "Application submitted ", dbresponse })
+         res.status(201).json({ message: "Application submitted ", dbresponse })
 
         }
         

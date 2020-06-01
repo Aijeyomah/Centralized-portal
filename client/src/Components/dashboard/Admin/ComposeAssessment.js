@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './ComposeAssessment.css'
 import uploadIcon from '../../../Images/upload-icon.svg'
 import AssessmentSuccessful from './AssessmentSuccessful';
+import axios from 'axios'
 
 const ComposeAssessment = () => {
     const [questions, setQuestions] = useState({
@@ -134,10 +135,31 @@ const ComposeAssessment = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        const { questionStore } = questions
+        const { questionStore,batch_id } = questions
         if (time) {
-            //axios post for time and questions
-            alert("axios can now be posted")
+            const token = localStorage.getItem('token')
+            var formData = new FormData()
+
+            for (var key in questionStore){
+                formData.append(key, questionStore[key])
+            }
+            let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+                 }
+            }
+            
+        axios.post("http://localhost:8000/api/v1/auth/composeAssessmentAdmin",formData, config)
+
+            .then(res => {
+               if(res.status !== 201){
+                    console.log(res)
+               }
+            }
+            ).catch(err => {
+                console.log(err.message)
+            })
             setNextQuestion(nextQuestion + 1)
         } else {
             alert("Set time")
@@ -173,7 +195,7 @@ const ComposeAssessment = () => {
                     </div>
                     <div className="set_time">
                         <p>Set Time</p>
-                        <select className="time-box" id="time" onChange={handleTime} >
+                        <select className="time-box" id="set_time" onChange={handleTime}>
                             <option value="5">00</option>
                             <option value="10">10</option>
                             <option value="15">15</option>

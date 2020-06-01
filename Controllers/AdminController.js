@@ -119,7 +119,7 @@ exports.updateUserToAdmin = async (req, res)=>{
        
 
     })
-    const{ batch_id} = req.body
+    const{ batch_id, set_time} = req.body
     const date = new Date();
     const created_at = moment(date).format('YYYY-MM-DD');
     const y = req.body.question;
@@ -130,7 +130,7 @@ exports.updateUserToAdmin = async (req, res)=>{
     for (let prop in ray) {
         queryObject = {
             text: queries.composeAssessmentQuery,
-            values: [fileName,ray[prop].settime,ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,created_at, batch_id]
+            values: [fileName, set_time,ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,created_at, batch_id]
              };
              try {
                 const{rowCount,rows}= await db.query(queryObject)

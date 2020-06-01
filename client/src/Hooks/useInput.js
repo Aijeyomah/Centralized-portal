@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import axios from 'axios'
 
 const initialstate = { 
     email: "",
@@ -62,12 +63,23 @@ const useInput = () => {
         if (isValid) {
             setState(initialstate)
             const logindetails = {
-                email: state.email,
+                email_address: state.email,
                 password: state.password
                 }
-                console.log(logindetails) 
+                let config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            axios.post('http://localhost:8000/api/v1/auth/signin', logindetails, config )
+            .then(res => {
+                localStorage.setItem('token', res.data.data.token)
+                console.log(res)
+            }).catch(err => {
+               console.log(err)
+            })
         }
-        // console.log(state)
+        
     }
     
     const isEnabled = canBeSubmitted();
