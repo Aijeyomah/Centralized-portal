@@ -26,11 +26,13 @@ const {
 const {
     createApplicationAdmin,
     composeAssessmentAdmin,
-    getAllAssessmentUser
+    getAllAssessmentUser,
+    updateUserBySuperAdmin
 } = require('./Controllers/AdminController')
 
 
 //post
+
 router.post('/auth/signup', signUpUser);
 router.post('/auth/signin', signInUser);
 router.post('/auth/signadmin', signInUser);
@@ -42,6 +44,7 @@ router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
 router.post('/auth/logOut', verifyUserToken, logOut)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
+router.put('/updateadmin/:id',  updateUserBySuperAdmin)
 
 
 

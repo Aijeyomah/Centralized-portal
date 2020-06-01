@@ -26,9 +26,9 @@ const ComposeAssessment = () => {
 
     const handleFile = e => {
         let files = e.target.files[0]
-            setQuestions({
-                ...questions, cv_file: files
-            })
+        setQuestions({
+            ...questions, cv_file: files
+        })
     }
 
     const handleTime = e => {
@@ -73,7 +73,7 @@ const ComposeAssessment = () => {
         let questionData = { question, option_a, option_b, option_c, option_d, correct_answer, batch_id }
         const { questionStore } = questions
         console.log(questions.cv_file)
-        if  (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id ) {
+        if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id) {
             alert("Please fill up all the necessary fields")
         } else if (questionStore.length === questionLength) {
             setQuestionNo(questionNo + 1)
@@ -144,16 +144,16 @@ const ComposeAssessment = () => {
             let attachedFiles = axios.post(url)
             let questionCollection = axios.post(url2)
 
-            axios.all([ attachedFiles, questionCollection ])
-            .then(
-                axios.spread((...allData) => {
-                    const allAttachedFiles = allData[0]
-                    const questionCollections = allData[1]
-                    setNextQuestion(nextQuestion + 1)
-                    console.log(allAttachedFiles)
-                    console.log(questionCollections)
-                })
-            )
+            axios.all([attachedFiles, questionCollection])
+                .then(
+                    axios.spread((...allData) => {
+                        const allAttachedFiles = allData[0]
+                        const questionCollections = allData[1]
+                        setNextQuestion(nextQuestion + 1)
+                        console.log(allAttachedFiles)
+                        console.log(questionCollections)
+                    })
+                )
         } else {
             alert("Set time")
         }

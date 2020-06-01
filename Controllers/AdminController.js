@@ -8,6 +8,42 @@ const path = require('path')
 const stream = require('stream')
 const fs = require('fs')
 
+
+exports.updateUserBySuperAdmin = async (req, res, next) => {
+  const { id } = req.params
+  
+  const {is_admin}=req.body
+ const queryObject = {
+      text: queries.updateIsAdminType,
+      values: [is_admin, id]
+  }
+
+  try {
+      const { rowCount } = await db.query(queryObject)
+      if (rowCount === 0) {
+          return res.status(400).json({
+              status: 'failure',
+              code: 400,
+              message: "user id not found"
+          })
+      }
+      if (rowCount > 0) {
+          return res.status(200).json({
+              status: 'success',
+              code: 200,
+              message: "user admin type updated successfully"
+          })
+      }
+  } catch (error) {
+      res.status(400).json({
+          status: 'failure',
+          code: 400,
+          message: error.message
+      })
+  }
+}
+
+
 exports.createApplicationAdmin = async (req, res) => {
     const date = new Date();
     const created_at = moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -15,14 +51,15 @@ exports.createApplicationAdmin = async (req, res) => {
     const files = req.files.file_upload
     console.log(req.files)
     fileName = files.name
-    files.mv('uploadfile/' + fileName, (error) => {
+    console.log()
+    files.mv('uploadingfile/' + fileName, (error) => {
         if (error) {
           res.status(500).json({
             status: 'error',
             code: 99,
             message: "Request Processing Error",
-            error: err.message
-        })        }
+            error: error.message
+        }) }
     })
         if (!link || !application_closure_date || !batch_id || !instructions) {
         return res.status(400).json({
@@ -119,7 +156,7 @@ exports.updateUserToAdmin = async (req, res)=>{
        
 
     })
-    const{ batch_id} = req.body
+    const{ batch_id, set_time} = req.body
     const date = new Date();
     const created_at = moment(date).format('YYYY-MM-DD');
     const y = req.body.question;
@@ -130,7 +167,7 @@ exports.updateUserToAdmin = async (req, res)=>{
     for (let prop in ray) {
         queryObject = {
             text: queries.composeAssessmentQuery,
-            values: [fileName,ray[prop].settime,ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,created_at, batch_id]
+            values: [fileName, set_time,ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,created_at, batch_id]
              };
              try {
                 const{rowCount,rows}= await db.query(queryObject)

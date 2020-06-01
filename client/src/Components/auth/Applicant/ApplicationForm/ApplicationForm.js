@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ApplicationForm.css'
 import enyataLogo from '../../../../Images/enyata-logo.svg'
 import uploadIcon from '../../../../Images/upload-icon.svg'
+import axios from 'axios'
 
 const ApplicationForm = (props) => {
 
@@ -27,19 +28,44 @@ const ApplicationForm = (props) => {
         e.preventDefault()
         const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file } = user
         let userDetails = { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file }
-        if (cv_file) { console.log(userDetails) } else { alert("Upload your CV") }
-    }
+        let file = cv_file
+        if (file) {  
+
+            console.log(file)      
+            const token = localStorage.getItem('token')
+            var formData = new FormData()
+
+            for (var key in userDetails){
+                formData.append(key, userDetails[key])
+            }
+            let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+                 }
+            }
+            
+        axios.post("/api/v1/auth/Applicationform",formData, config)
+
+            .then(res => {
+               if(res.status !== 201){
+                    console.log(res)
+               }
+            }
+            ).catch(err => {
+                console.log(err.message)
+            })
+    } else { alert("Upload your CV") }
+}
+   
 
     const handleFile = (e) => {
-        let files = e.target.files
-        let reader = new FileReader()
-        reader.readAsDataURL(files[0])
-        reader.onload = (e) => {
-            let result = e.target.result
+        let files = e.target.files[0]
             setUser({
-                ...user, cv_file: result
+                ...user, cv_file: files,
+               
             })
-        }
+     
     }
 
     const style = {

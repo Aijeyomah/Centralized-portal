@@ -16,6 +16,8 @@
   "bugs": {
     "url": "https://github.com/Aijeyomah/Centralized-portal/issues"
   },
+  
+  
   "homepage": "https://github.com/Aijeyomah/Centralized-portal#readme",
   "dependencies": {
     "bcrypt": "^4.0.1",
