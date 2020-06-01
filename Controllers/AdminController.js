@@ -11,13 +11,7 @@ const fs = require('fs')
 
 exports.updateUserBySuperAdmin = async (req, res, next) => {
   const { id } = req.params
-  if (!parseInt(id)) {
-      return res.status(400).json({
-          status: 'failure',
-          code: 400,
-          message: "Id must be an integer",
-      });
-  }
+  
   const {is_admin}=req.body
  const queryObject = {
       text: queries.updateIsAdminType,
