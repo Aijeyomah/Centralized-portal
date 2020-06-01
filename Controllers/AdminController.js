@@ -51,6 +51,7 @@ exports.createApplicationAdmin = async (req, res) => {
     const files = req.files.file_upload
     console.log(req.files)
     fileName = files.name
+    console.log()
     files.mv('uploadingfile/' + fileName, (error) => {
         if (error) {
           res.status(500).json({
