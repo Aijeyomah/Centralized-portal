@@ -71,7 +71,7 @@ const useInput = () => {
                         'Content-Type': 'application/json'
                     }
                 }
-            axios.post(' https://salty-ocean-37116.herokuapp.com/api/v1/auth/signin', logindetails, config )
+            axios.post('/api/v1/auth/signin', logindetails, config )
             .then(res => {
                 localStorage.setItem('token', res.data.data.token)
                 console.log(res)

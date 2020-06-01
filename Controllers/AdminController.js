@@ -8,6 +8,48 @@ const path = require('path')
 const stream = require('stream')
 const fs = require('fs')
 
+
+exports.updateUserBySuperAdmin = async (req, res, next) => {
+  const { id } = req.params
+  if (!parseInt(id)) {
+      return res.status(400).json({
+          status: 'failure',
+          code: 400,
+          message: "Id must be an integer",
+      });
+  }
+  
+ const queryObject = {
+      text: queries.updateIsAdminType,
+      values: [is_admin, id]
+  }
+
+  try {
+      const { rowCount } = await db.query(queryObject)
+      if (rowCount === 0) {
+          return res.status(400).json({
+              status: 'failure',
+              code: 400,
+              message: "user id not found"
+          })
+      }
+      if (rowCount > 0) {
+          return res.status(200).json({
+              status: 'success',
+              code: 200,
+              message: "user admin type updated successfully"
+          })
+      }
+  } catch (error) {
+      res.status(400).json({
+          status: 'failure',
+          code: 400,
+          message: "error finding id"
+      })
+  }
+}
+
+
 exports.createApplicationAdmin = async (req, res) => {
     const date = new Date();
     const created_at = moment(date).format('YYYY-MM-DD HH:mm:ss');

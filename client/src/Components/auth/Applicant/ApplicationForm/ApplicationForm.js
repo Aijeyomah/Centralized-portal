@@ -45,7 +45,7 @@ const ApplicationForm = (props) => {
                  }
             }
             
-        axios.post("http://localhost:8000/api/v1/auth/Applicationform",formData, config)
+        axios.post("/api/v1/auth/Applicationform",formData, config)
 
             .then(res => {
                if(res.status !== 201){
