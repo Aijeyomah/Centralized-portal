@@ -18,7 +18,7 @@ exports.updateUserBySuperAdmin = async (req, res, next) => {
           message: "Id must be an integer",
       });
   }
-  
+  const {is_admin}=req.body
  const queryObject = {
       text: queries.updateIsAdminType,
       values: [is_admin, id]
