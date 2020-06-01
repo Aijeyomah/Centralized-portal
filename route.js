@@ -44,7 +44,7 @@ router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
 router.post('/auth/logOut', verifyUserToken, logOut)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
-router.put('/updateadmin/id',  updateUserBySuperAdmin)
+router.put('/updateadmin/:id',  updateUserBySuperAdmin)
 
 
 
