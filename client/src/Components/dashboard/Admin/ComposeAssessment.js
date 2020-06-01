@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './ComposeAssessment.css'
 import uploadIcon from '../../../Images/upload-icon.svg'
 import AssessmentSuccessful from './AssessmentSuccessful';
+import axios from 'axios'
 
 const ComposeAssessment = () => {
     const [questions, setQuestions] = useState({
@@ -12,36 +13,33 @@ const ComposeAssessment = () => {
         option_d: "",
         correct_answer: "",
         batch_id: "",
+        set_time: "",
+        cv_file: "",
         questionStore: []
     }
     )
 
-    const [time, setTime] = useState("")
     const [questionLength, setQuestionLength] = useState(0)
     const [questionNo, setQuestionNo] = useState(1)
     const [prevQuestion, setprevQuestion] = useState(-1)
     const [nextQuestion, setNextQuestion] = useState(1)
 
-    const [file, setFile] = useState("")
-
     const handleFile = e => {
-        let files = e.target.files
-        let reader = new FileReader()
-        reader.readAsDataURL(files[0])
-        reader.onload = e => {
-            let result = e.target.result
-            console.log(result)
-            setFile(result)
-        }
+        let files = e.target.files[0]
+            setQuestions({
+                ...questions, cv_file: files
+            })
     }
 
     const handleTime = e => {
-        setTime(e.target.value)
+        setQuestions({
+            ...questions, [e.target.id]: e.target.value
+        })
     }
 
     const handleInputChange = e => {
         if (questions.batch_id === "") {
-            alert("Input your Batch ID")
+            alert("Please input your Batch ID before continuing. Thanks")
             setQuestions({ ...questions, batch_id: e.target.value })
         } else {
             setQuestions({
@@ -56,6 +54,7 @@ const ComposeAssessment = () => {
         setQuestionNo(questionNo - 1)
         setprevQuestion(prevQuestion - 1)
         setNextQuestion(nextQuestion - 1)
+        console.log(questions.cv_file)
         let one = questionStore[prevQuestion].question
         let two = questionStore[prevQuestion].option_a
         let three = questionStore[prevQuestion].option_b
@@ -73,8 +72,10 @@ const ComposeAssessment = () => {
         const { question, option_a, option_b, option_c, option_d, correct_answer, batch_id } = questions
         let questionData = { question, option_a, option_b, option_c, option_d, correct_answer, batch_id }
         const { questionStore } = questions
-
-        if (questionStore.length === questionLength) {
+        console.log(questions.cv_file)
+        if  (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id ) {
+            alert("Please fill up all the necessary fields")
+        } else if (questionStore.length === questionLength) {
             setQuestionNo(questionNo + 1)
             questionStore.push(questionData)
             console.log(questionStore)
@@ -134,18 +135,32 @@ const ComposeAssessment = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        const { questionStore } = questions
-        if (time) {
-            //axios post for time and questions
-            alert("axios can now be posted")
-            setNextQuestion(nextQuestion + 1)
+        const { questionStore, set_time, cv_file } = questions
+        let attachment = { set_time, cv_file }
+        if (set_time) {
+            const url = "http://dummyapi.com"
+            const url2 = "http://dummyapi.com"
+
+            let attachedFiles = axios.post(url)
+            let questionCollection = axios.post(url2)
+
+            axios.all([ attachedFiles, questionCollection ])
+            .then(
+                axios.spread((...allData) => {
+                    const allAttachedFiles = allData[0]
+                    const questionCollections = allData[1]
+                    setNextQuestion(nextQuestion + 1)
+                    console.log(allAttachedFiles)
+                    console.log(questionCollections)
+                })
+            )
         } else {
             alert("Set time")
         }
     }
 
     const style = {
-        display: file ? "block" : "none",
+        display: questions.cv_file ? "block" : "none",
         fontFamily: "Lato",
         fontWeight: 500,
         fontSize: "16px",
@@ -173,7 +188,7 @@ const ComposeAssessment = () => {
                     </div>
                     <div className="set_time">
                         <p>Set Time</p>
-                        <select className="time-box" id="time" onChange={handleTime} >
+                        <select className="time-box" id="set_time" onChange={handleTime} >
                             <option value="5">00</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -194,7 +209,7 @@ const ComposeAssessment = () => {
                     </div>
                 </div>
                 <p className="question">Question</p>
-                <textarea value={questions.question} type="reset" id="question" style={{ height: "200px", width: "100%" }} onChange={handleInputChange}></textarea>
+                <textarea value={questions.question} type="text" id="question" style={{ height: "200px", width: "100%" }} onChange={handleInputChange}></textarea>
 
                 <div className="input_row_wrapper">
                     <div className="input_row">

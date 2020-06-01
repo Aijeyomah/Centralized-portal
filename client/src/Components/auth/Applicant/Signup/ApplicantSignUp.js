@@ -45,12 +45,15 @@ const ApplicantSignUp = (props) => {
         e.preventDefault()
         const { first_name, last_name, email_address, phone_number, password, confirm_password } = user
         let userDetails = { first_name, last_name, email_address, phone_number, password, confirm_password }
+        setUser({
+            ...user,first_name: "", last_name: "", email_address: "", phone_number: "", password: "", confirm_password: "",
+        })
         let config = {
             headers: {
                 "Content-Type": "application/json"
             }
         }
-        axios.post("http://localhost:8000/api/v1/auth/signup", userDetails, config)
+        axios.post("https://sleepy-journey-48228.herokuapp.com/api/v1/auth/signup", userDetails, config)
             .then(res => {
                 console.log(res)
             }
@@ -69,36 +72,36 @@ const ApplicantSignUp = (props) => {
                 <div>
                     <label>First name</label>
                     <br />
-                    <input id="first_name" type="text" onChange={handleInputChange} required /><br />
+                    <input value={user.first_name} id="first_name" type="text" onChange={handleInputChange} required /><br />
                 </div>
                 <div>
                     <label>Last name</label>
                     <br />
-                    <input id="last_name" type="text" onChange={handleInputChange} required /><br />
+                    <input value={user.last_name} id="last_name" type="text" onChange={handleInputChange} required /><br />
                 </div>
             </div>
             <div className="second-row">
                 <div>
                     <label>Email Address</label>
                     <br />
-                    <input id="email_address" type="email" onChange={handleInputChange} required /><br />
+                    <input value={user.email_address} id="email_address" type="email" onChange={handleInputChange} required /><br />
                 </div>
                 <div>
                     <label>Phone Number</label>
                     <br />
-                    <input id="phone_number" type="tel" onChange={handleInputChange} required /><br />
+                    <input value={user.phone_number} id="phone_number" type="tel" onChange={handleInputChange} required /><br />
                 </div>
             </div>
             <div className="third-row">
                 <div>
                     <label>Password</label>
                     <br />
-                    <input id="password" type={(state.isPasswordShown) ? "text" : "password"} onChange={handleInputChange} required /><br />
+                    <input value={user.password} id="password" type={(state.isPasswordShown) ? "text" : "password"} onChange={handleInputChange} required /><br />
                 </div>
                 <div>
                     <label>Confirm Password</label>
                     <br />
-                    <input id="confirm_password" type={(state.isConfirmPasswordShown) ? "text" : "password"} onChange={handleInputChange} required /><br />
+                    <input value={user.confirm_password} id="confirm_password" type={(state.isConfirmPasswordShown) ? "text" : "password"} onChange={handleInputChange} required /><br />
                 </div>
                 <div className="eye-icon">
                     <img onClick={togglePassword} src={(state.isPasswordShown) ? eyeSlashed : eye} alt="eye" />
