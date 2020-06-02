@@ -471,10 +471,12 @@ exports.logOut = async (req, res) => {
 exports.userDetail = async (req, res) => {
 
     const id = res.locals.user.id
+    console.log(id)
     const queryObject = {
         text: queries.getUserdetail,
         values: [id]
     };
+    console.log(queryObject)
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
