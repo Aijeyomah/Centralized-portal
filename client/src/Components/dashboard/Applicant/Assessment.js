@@ -152,9 +152,6 @@ const Assessment = (props) => {
                 <p>We have received your assessment test, we will get back to you soon. Best of luck</p>
                 <Link to="/applicantdashboard"><button>Home</button></Link>
             </div>
-            <div>
-            
-            </div>
         </div>
     )
 }
