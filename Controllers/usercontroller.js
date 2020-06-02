@@ -94,10 +94,11 @@ exports.signUpUser = async (req, res, next) => {
     }}
     catch (error) {
         res.status(500).json({
-            status: 'error',
-            code: 99,
-            message: "Request Processing Error",
-            error: error.message
+
+             status: 'error',
+             code: 500,
+             message: "Request Processing Error",
+            // error: error.message
         })
 }
 }
