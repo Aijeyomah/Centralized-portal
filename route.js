@@ -22,7 +22,8 @@ const {
     getSubmittedApplicationByBatchID,
     getAllApplicationBatches,
     getSubmittedApplicationEntriesByBatchID,
-    getApplicationByAdmin
+    getApplicationByAdmin,
+    applicantDetails
 } = require('./Controllers/RegisterApplicant')
 const {
     createApplicationAdmin,
@@ -60,5 +61,6 @@ router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInC
 router.get('/getassessment',verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
 router.get('/getuserDetail', verifyUserToken, userDetail)
+router.get('/getapplicantdetail',verifyUserToken,applicantDetails )
 
 module.exports = router

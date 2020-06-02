@@ -98,7 +98,7 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
         })    }
 
 }
-exports.userDetail = async (req, res) => {
+exports.applicantDetails = async (req, res) => {
     const user_id = req.user.user_id
     const queryObject = {
         text: queries.getUserDetailById,
