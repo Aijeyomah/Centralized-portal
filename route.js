@@ -27,7 +27,8 @@ const {
     createApplicationAdmin,
     composeAssessmentAdmin,
     getAllAssessmentUser,
-    updateUserBySuperAdmin
+    updateUserBySuperAdmin,
+    uploadfileSetTime
 } = require('./Controllers/AdminController')
 
 
@@ -44,6 +45,8 @@ router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
 router.post('/auth/logOut', verifyUserToken, logOut)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
+router.post('/auth/uploadsetime', verifyAdminToken, uploadfileSetTime)
+
 router.put('/updateadmin/:id',  updateUserBySuperAdmin)
 
 

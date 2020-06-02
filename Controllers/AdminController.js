@@ -192,6 +192,41 @@ exports.composeAssessmentAdmin = async (req, res) => {
   }
 }
 
+exports.composeAssessmentAdmin = async (req, res) => {
+
+  const { batch_id } = req.body
+  const date = new Date();
+  const created_at = moment(date).format('YYYY-MM-DD');
+  const y = req.body.question;
+  console.log("here: " + y)
+  const ray = JSON.parse(y);
+  console.log("ray here: " + ray)
+
+  for (let prop in ray) {
+    queryObject = {
+      text: queries.composeAssessmentQuery,
+      values: [ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer, created_at, batch_id]
+    };
+    try {
+      const { rowCount, rows } = await db.query(queryObject)
+      result = rows[0]
+      res.status(201).json({
+        status: 'success',
+        code: 201,
+        message: "assessment Created Successfully",
+        result
+      })
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+        code: 99,
+        message: "Request Processing Error",
+        error: error.message
+      })
+    }
+  }
+}
+
 exports.getAllAssessmentUser = async (req, res) => {
   const queryObject = {
     text: queries.getAllAssessment
@@ -214,5 +249,49 @@ exports.getAllAssessmentUser = async (req, res) => {
     })
   }
 }
+
+exports.uploadfileSetTime = async (req, res) => {
+  const files = req.files.file_upload
+  fileName = files.name
+  files.mv('uploadFile/' + fileName, (error) => {
+    if (error) {
+      res.status(500).json({
+        status: 'error',
+        code: 99,
+        message: "Request Processing Error",
+        error: error.message
+      })
+    }
+
+  })
+  const { set_time } = req.body
+  const queryObject = {
+    text: queries.uploadtime,
+    values: [
+      file_upload,
+      set_time
+    ]
+  }
+
+  try {
+    const { rowCount, rows } = await db.query(queryObject)
+    const dbresponse = rows[0]
+    if (rowCount === 0) {
+      res.status(400).json({ message: "Time and file not uploaded" })
+    }
+    if (rowCount > 0) {
+      res.status(201).json({ message: "success uploading file ", dbresponse })
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+    })
+  }
+
+}
+
 
 

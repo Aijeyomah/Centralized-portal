@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://sleepy-journey-48228.herokuapp.com",
+  "proxy": "https://agile-cove-05072.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },
