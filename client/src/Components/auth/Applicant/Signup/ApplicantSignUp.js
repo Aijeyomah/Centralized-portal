@@ -54,7 +54,7 @@ const ApplicantSignUp = (props) => {
             }
         }
 
-        axios.post('/api/v1/auth/signin', userDetails, config)
+        axios.post('/api/v1/auth/signup', userDetails, config)
             .then(res => {
                 localStorage.setItem('token', res.data.data.token)
                 console.log(res)

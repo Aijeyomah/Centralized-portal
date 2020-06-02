@@ -11,6 +11,16 @@
     background-color: #5ABEFD;
 }
 
+.sidebar-head div {
+    width: 100%;
+    width: 100%;
+}
+
+.sidebar-head img {
+    width: 80px;
+    width: 80px;
+}
+
 .sidebar-links {
     margin-top: 20px;
 }
