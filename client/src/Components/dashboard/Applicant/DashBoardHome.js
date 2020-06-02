@@ -4,8 +4,24 @@ import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import axios from 'axios'
 
-const DashBoardHome = () => {
-    
+const DashBoardHome = (props) => {
+    const [userDetail, setUserDetail]  = useState({created_at:'', status:''})
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.get("/api/v1/getapplicantdetail", config)
+            .then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err.message)
+            })
+    }, [])
+    console.log(userDetail.first_name)
     return (
         <div className='dashboard_wrapper'>
             <div>

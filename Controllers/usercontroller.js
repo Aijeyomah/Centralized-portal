@@ -98,7 +98,7 @@ exports.signUpUser = async (req, res, next) => {
              status: 'error',
              code: 500,
              message: "Request Processing Error",
-            // error: error.message
+            error: error.message
         })
 }
 }
