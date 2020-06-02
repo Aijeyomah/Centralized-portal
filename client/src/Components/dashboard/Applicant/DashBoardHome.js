@@ -1,26 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useState} from 'react'
 import Info from './Info';
 import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import axios from 'axios'
 
 const DashBoardHome = () => {
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        let config = {
-            headers: {
-                "Content-Type": "application/json",
-                "token": token
-            }
-        }
-        axios.get("/api/v1/getuserDetail", config)
-            .then(res => {
-                console.log(res.data.id)
-            }).catch(err => {
-                console.log(err.message)
-            })
-    }, [])
-
+    
     return (
         <div className='dashboard_wrapper'>
             <div>
