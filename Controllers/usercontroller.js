@@ -467,3 +467,29 @@ exports.logOut = async (req, res) => {
         })
     }
 }
+
+exports.userDetail = async (req, res) => {
+
+    const id = res.locals.user.id
+    const queryObject = {
+        text: queries.getUserdetail,
+        values: [id]
+    };
+    try {
+        const { rows, rowCount } = await db.query(queryObject)
+        if (rowCount > 0) {
+          return res.status(200).json({ data: rows[0] })
+        }
+        if (rowCount === 0) {
+          return res.status(400).json({ message: "id not found" })
+        }
+      }
+      catch (error) {
+        res.status(500).json({
+          status: 'error',
+          code: 99,
+          message: "Request Processing Error",
+          error: error.message
+        })
+      }
+}

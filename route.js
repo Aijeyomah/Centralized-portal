@@ -8,7 +8,8 @@ const {
     forgotPassword,
     uploadProfilePics,
     logOut,
-    findSignInCode
+    findSignInCode,
+    userDetail
 } = userController
 const {
     verifyToken,
@@ -58,5 +59,6 @@ router.get('/getApplicationByBatch/:batch', verifyAdminToken, findSignInCode, ge
 router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationEntriesByBatchID)
 router.get('/getassessment',verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
+router.get('/getuserDetail', verifyUserToken, userDetail)
 
 module.exports = router

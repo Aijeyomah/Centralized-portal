@@ -12,6 +12,7 @@ const queries = {
         is_admin
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *
     `,
+    getUserdetail: `SELECT * FROM users WHERE id =($1)`,
     signInUserQuery: `
     SELECT * FROM users WHERE email_address=($1)`,
     findByEmailAddress: `

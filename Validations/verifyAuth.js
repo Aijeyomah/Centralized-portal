@@ -48,6 +48,7 @@ const generateCode = (id, email_address, is_admin) => {
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.user={
         email: decoded.email_address,
+        id: decoded.id,
         user_id: decoded.user_id
       }
       res.locals.user = req.user
@@ -70,6 +71,7 @@ const verifyUserToken = async (req, res, next) => {
     
     req.user={
       email: decoded.email_address,
+      id: decoded.id,
       user_id : decoded.user_id
     }
     res.locals.user = req.user
