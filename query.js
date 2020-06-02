@@ -84,8 +84,6 @@ const queries = {
    SELECT * FROM applicants WHERE batch=($1)`,
    composeAssessmentQuery:`
     INSERT INTO assessment(
-        file_upload,
-        set_time,
         questions,
         option_a,
         option_b,
@@ -94,9 +92,15 @@ const queries = {
         correct_answer,
         created_at,
         batch_id
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
    getAllApplicationEntries:` SELECT  * FROM applicants WHERE batch=($1)`,
-   getAllAssessment:` SELECT  * FROM assessment ORDER BY random()`
+   getAllAssessment:` SELECT  * FROM assessment ORDER BY random()`,
+   uploadtime:`
+   INSERT INTO assessment(
+    file_upload,
+    set_time
+    ) VALUES ($1, $2) RETURNING *
+   `
 
 }
 module.exports = queries

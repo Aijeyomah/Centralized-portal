@@ -143,20 +143,8 @@ exports.updateUserToAdmin = async (req, res)=>{
   }
 
   exports.composeAssessmentAdmin = async (req, res) => {
-    const files = req.files.file_upload
-    fileName = files.name
-    files.mv('uploadFile/' + fileName, (error) => {
-        if (error) {
-          res.status(500).json({
-            status: 'error',
-            code: 99,
-            message: "Request Processing Error",
-            error: error.message
-        })        }
-       
-
-    })
-    const{ batch_id, set_time} = req.body
+    
+    const{ batch_id} = req.body
     const date = new Date();
     const created_at = moment(date).format('YYYY-MM-DD');
     const y = req.body.question;
@@ -167,7 +155,7 @@ exports.updateUserToAdmin = async (req, res)=>{
     for (let prop in ray) {
         queryObject = {
             text: queries.composeAssessmentQuery,
-            values: [fileName, set_time,ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,created_at, batch_id]
+            values: [ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,created_at, batch_id]
              };
              try {
                 const{rowCount,rows}= await db.query(queryObject)
@@ -210,6 +198,47 @@ exports.updateUserToAdmin = async (req, res)=>{
             error: error.message
         })        
       }
+    }
+
+    exports.uploadfileSetTime = async (req, res)=>{
+      const files = req.files.file_upload
+    fileName = files.name
+    files.mv('uploadFile/' + fileName, (error) => {
+        if (error) {
+          res.status(500).json({
+            status: 'error',
+            code: 99,
+            message: "Request Processing Error",
+            error: error.message
+        }) }
+       
+})
+    const {set_time }= req.body
+    const queryObject={
+      text: queries.uploadtime,
+      values:[
+        file_upload,
+        set_time
+      ]
+    }
+
+    try {
+      const { rowCount, rows } = await db.query(queryObject)
+      const dbresponse = rows[0]
+      if (rowCount === 0) {
+          res.status(400).json({ message: "Time and file not uploaded" })
+      }
+      if (rowCount > 0) {
+          res.status(201).json({ message: "success uploading file ", dbresponse })
+      }
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+  })    }
+    
     }
     
   
