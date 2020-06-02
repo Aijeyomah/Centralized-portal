@@ -15,7 +15,7 @@ const DashBoardHome = () => {
         }
         axios.get("/api/v1/getuserDetail", config)
             .then(res => {
-                console.log(res.data.id)
+                console.log(res.data.data.id)
             }).catch(err => {
                 console.log(err.message)
             })
