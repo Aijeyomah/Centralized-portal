@@ -3,6 +3,8 @@ import './Assessment.css'
 import hourGlass from '../../../Images/hourglass.svg'
 import Timer from './Timer'
 import QuizData from './AssessmentQuestions'
+import congratsIcon from '../../../Images/congrats.svg'
+import { Link } from 'react-router-dom'
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -80,11 +82,13 @@ const Assessment = (props) => {
     }
 
     const handleSubmit = () => {
-
+        setShow(show + 1)
+        clearInterval(interv)
     }
 
     if (updatedM === 30) {
         clearInterval(interv)
+        setShow(show + 1)
     }
 
     if (questions.questionNo === 31) {
@@ -111,6 +115,7 @@ const Assessment = (props) => {
                     <p style={{ display: show === 2 ? "block" : "none" }} className="bottom-text">Click the finish button below to submit
                     assessment, you can go back at any time to edit your answers.
                     </p>
+                    <p className="thank-you" style={{ display: show === 3 ? "block" : "none" }} >Thank you!</p>
                 </div>
                 <Timer updatedM={updatedM} updatedS={updatedS} />
             </div>
@@ -139,6 +144,16 @@ const Assessment = (props) => {
                 <div class="finish-button">
                     <button style={{ backgroundColor: questionNo < 30 ? "#CECECE" : "#31D283" }} disabled={!questionNo === 30} type="submit" onClick={handleSubmit}>Finish</button>
                 </div>
+            </div>
+            <div className="congrats" style={{ display: show === 3 ? "block" : "none" }}>
+                <div >
+                    <img src={congratsIcon} />
+                </div>
+                <p>We have received your assessment test, we will get back to you soon. Best of luck</p>
+                <Link to="/applicantdashboard"><button>Home</button></Link>
+            </div>
+            <div>
+            
             </div>
         </div>
     )
