@@ -16,7 +16,7 @@ let app = express();
 
 
 app.use(fileupload())
-app.use(express.static(path.join(__dirname, 'uploadFile')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
   
 app.listen(port, ()=>{
