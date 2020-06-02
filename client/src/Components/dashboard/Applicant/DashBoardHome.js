@@ -4,8 +4,26 @@ import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import axios from 'axios'
 
-const DashBoardHome = () => {
-    
+const DashBoardHome = (props) => {
+    const [userDetail, setUserDetail]  = useState({created_at:'', status:''})
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.get("/api/v1/getapplicantdetail", config)
+            .then(res => {
+                setUserDetail({
+                    created_at: res.data.data.created_at, 
+                    status:  res.data.data.status
+                })
+            }).catch(err => {
+                console.log(err.message)
+            })
+    }, [])
     return (
         <div className='dashboard_wrapper'>
             <div>
@@ -13,8 +31,8 @@ const DashBoardHome = () => {
                 <p className='dashboard_italic_text'>Your Application is currently being reviewed, you wil be notified if successful</p>
             </div>
             <div className='info_wrapper'>
-                <Info text="Date of Application" total_number={'09.09.19'} text2="4 days since applied" className='info_one' />
-                <Info text="Application Status" total_number='Pending' text2="We will get back to you" className='info_three' />
+                <Info text="Date of Application" total_number={userDetail.created_at} text2="4 days since applied" className='info_one' />
+                <Info text="Application Status" total_number={userDetail.status} text2="We will get back to you" className='info_three' />
             </div>
             <div className='dashboard_section2'>
                 <div className='updates'>

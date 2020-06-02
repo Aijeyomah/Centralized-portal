@@ -19,7 +19,7 @@ exports.createApplicationForm = async (req, res) => {
     const birth = d.getFullYear()
     const age = created_at - birth
     const img = req.files.cv_file
-    const status = 'pending'
+    const status = 'Pending'
     
    images = img.name
     const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
