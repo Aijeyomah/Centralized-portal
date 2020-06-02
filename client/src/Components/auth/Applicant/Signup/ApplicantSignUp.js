@@ -48,6 +48,8 @@ const ApplicantSignUp = (props) => {
         setUser({
             ...user,first_name: "", last_name: "", email_address: "", phone_number: "", password: "", confirm_password: "",
         })
+        console.log(user)
+        console.log(userDetails)
         let config = {
             headers: {
                 'Content-Type': 'application/json'
