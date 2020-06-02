@@ -4,12 +4,17 @@ import dashIcon from '../../../Images/dashboard-icon.svg'
 import assessIcon from '../../../Images/assessment-icon.svg'
 import Navigation from './Navigation';
 import logoutIcon from '../../../Images/logout-icon.svg'
+import avatar from '../../../Images/avatar.svg'
 
 const SideBar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar_head">
-
+                <div>
+                    <img src={avatar} alt="avatar" />
+                </div>
+                <p>John Wick</p>
+                <p>Johnwick@gmail.com</p>
             </div>
             <div className="sidebar-links">
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />
