@@ -6,15 +6,16 @@ import Navigation from './Navigation';
 import logoutIcon from '../../../Images/logout-icon.svg'
 import avatar from '../../../Images/avatar.svg'
 
-const SideBar = () => {
+const SideBar = (props) => {
+    
     return (
         <div className="sidebar">
             <div className="sidebar_head">
                 <div className="sidebar_wrapper">
                     <img src={avatar} alt="avatar" />
                 </div>
-                <p className="applicant_name">John Wick</p>
-                <p className="applicant_email">Johnwick@gmail.com</p>
+        <p className="applicant_name">{props.first_name} {props.last_name}</p>
+        <p className="applicant_email">{props.email_address}</p>
             </div>
             <div className="sidebar-links">
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />

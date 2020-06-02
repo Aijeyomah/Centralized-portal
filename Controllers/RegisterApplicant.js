@@ -89,10 +89,7 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
          res.status(201).json({ message: "Application submitted ", dbresponse })
 
         }
-        
-        
-       
-    } catch (error) {
+     } catch (error) {
         res.status(500).json({
             status: 'error',
             code: 99,
@@ -101,9 +98,32 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
         })    }
 
 }
-exports.checkIfEmailExist= async(req,res, next)=>{
-
+exports.applicantDetails = async (req, res) => {
+    const user_id = req.user.user_id
+    const queryObject = {
+        text: queries.getUserDetailById,
+        values: [user_id]
+    };
+    console.log(queryObject)
+    try {
+        const { rows, rowCount } = await db.query(queryObject)
+        if (rowCount > 0) {
+          return res.status(200).json({ data: rows[0] })
+        }
+        if (rowCount === 0) {
+          return res.status(400).json({ message: "id not found" })
+        }
+      }
+      catch (error) {
+        res.status(500).json({
+          status: 'error',
+          code: 99,
+          message: "Request Processing Error",
+          error: error.message
+        })
+      }
 }
+
 
 exports.getSubmittedApplicationByBatchID = async (req,res) =>{
     const {batch} = req.params
