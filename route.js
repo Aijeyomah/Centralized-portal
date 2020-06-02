@@ -56,7 +56,7 @@ router.get('/getAllApplicationBatches', verifyAdminToken, findSignInCode, getAll
 router.get('/getApplication', verifyAdminToken, findSignInCode, getSubmittedAllApplication)
 router.get('/getApplicationByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationByBatchID)
 router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationEntriesByBatchID)
-router.get('/getassessment', getAllAssessmentUser)
+router.get('/getassessment',verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
 
 module.exports = router
