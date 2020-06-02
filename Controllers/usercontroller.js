@@ -470,8 +470,8 @@ exports.logOut = async (req, res) => {
 
 exports.userDetail = async (req, res) => {
 
-    const id = res.locals.user_id
-    console.log(id)
+    const id = req.user.user_id
+    console.log(req.user)
     const queryObject = {
         text: queries.getUserdetail,
         values: [id]
