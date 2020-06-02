@@ -12,8 +12,11 @@ const Assessment = (props) => {
         option_b: "",
         option_c: "",
         option_d: "",
-        correct_answer: "",
+        correct_answer: [],
+        nextQuestion: 0,
+        prevQuestion: -1,
         questionNo: 1,
+        score: [],
         disabled: true,
         currentIndex: 0
     })
@@ -46,17 +49,34 @@ const Assessment = (props) => {
     }
 
     const handlePreviousQuestion = () => {
-        const { currentIndex, questionNo } = questions
+        const { currentIndex, questionNo, score, userAnswer, nextQuestion, prevQuestion } = questions
+        let one = score[prevQuestion]
         setQuestions({
-            ...questions, currentIndex: currentIndex - 1, questionNo: questionNo - 1
+            ...questions, currentIndex: currentIndex - 1, questionNo: questionNo - 1, nextQuestion: nextQuestion - 1, prevQuestion: prevQuestion - 1, userAnswer: one
         })
+        console.log(one)
+        console.log(score)
     }
 
     const handleNextQuestion = () => {
-        const { currentIndex, questionNo } = questions
+        const { currentIndex, questionNo, score, prevQuestion, nextQuestion, userAnswer, correct_answer } = questions
+        let one = score[nextQuestion]
         setQuestions({
-            ...questions, currentIndex: currentIndex + 1, questionNo: questionNo + 1
+            ...questions, currentIndex: currentIndex + 1, questionNo: questionNo + 1, nextQuestion: nextQuestion + 1, prevQuestion: prevQuestion + 1, userAnswer: one
         })
+        if (currentIndex === score.length) {
+            score.push(userAnswer)
+            console.log(score)
+            console.log(nextQuestion)
+            correct_answer.push(QuizData[currentIndex].correct_answer)
+            console.log(correct_answer)
+        }
+        else if (currentIndex < score.length) {
+            score[nextQuestion] = userAnswer
+            console.log(nextQuestion)
+            console.log(score)
+            console.log(nextQuestion)
+        }
     }
 
     if (updatedM === 30) {
