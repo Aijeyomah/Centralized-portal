@@ -36,7 +36,11 @@ const useInput = () => {
             let emailError = "";
             let passwordError = "";
             const validEmailRegex =
+<<<<<<< HEAD
                 RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+=======
+                RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i);
+>>>>>>> 44e5b25d483a00912d4cc1d64db6b99f6328f586
 
             if (!state.email) {
                 emailError = 'Email field cannot be empty';

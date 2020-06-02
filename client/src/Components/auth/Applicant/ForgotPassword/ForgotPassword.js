@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import logo from '../../../../Images/logo.png';
 import './ForgotPassword.css';
 import Input from '../../../../Components/Input/Input';
 import { FormButton } from '../../../../Components/Button/Button';
 
-const initialstate = { 
+const initialstate = {
     email: "",
     emailError: "",
 };
-export default ()=> {
+export default () => {
     const [state, setState] = useState(initialstate);
     const handleChange = (e) => {
-        setState({ 
+        setState({
             ...state,
             [e.target.name]: e.target.value
-        });  
+        });
     };
-    const canBeSubmitted =() => {
+    const canBeSubmitted = () => {
         return (state.email);
     }
     const handleSubmit = (e) => {
@@ -24,20 +24,20 @@ export default ()=> {
             e.preventDefault();
             return;
         }
-        e.preventDefault();        
+        e.preventDefault();
         setState({
             ...state,
             email: "",
             emailError: "",
         })
         const validate = () => {
-            let emailError= "";
-            const validEmailRegex = 
-  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+            let emailError = "";
+            const validEmailRegex =
+                RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i);
 
-            if(!state.email) {
+            if (!state.email) {
                 emailError = 'Email field cannot be empty';
-            } else if(!validEmailRegex.test(state.email)) {
+            } else if (!validEmailRegex.test(state.email)) {
                 emailError = 'Email is invalid';
             }
 
@@ -55,27 +55,27 @@ export default ()=> {
             setState(initialstate)
             const logindetails = {
                 email: state.email
-                }
-                console.log(logindetails) 
+            }
+            console.log(logindetails)
         }
         // console.log(state)
     }
     const isEnabled = canBeSubmitted();
 
-    return(
-        <div className= 'container'>
-            <div className= 'logoDiv'>
+    return (
+        <div className='container'>
+            <div className='logoDiv'>
                 <img src={logo} className="logo" alt="logo" />
             </div>
             <div className='tagline'>
-                <h2 className= 'brandName'>enyata</h2>
-                <p className= 'brandText'>Forgot Password</p>
+                <h2 className='brandName'>enyata</h2>
+                <p className='brandText'>Forgot Password</p>
             </div>
             <p className='passwordResetText'> To reset your password, input your email below</p>
-            <form className= 'forgotPasswordForm' onSubmit={handleSubmit} noValidate>
+            <form className='forgotPasswordForm' onSubmit={handleSubmit} noValidate>
                 <Input type='email' name='email' value={state.email} handleChange={handleChange} errorMsg={state.emailError} />
                 <FormButton disabled={!isEnabled} text='Send Link' />
-            </form> 
+            </form>
         </div>
     );
 } 

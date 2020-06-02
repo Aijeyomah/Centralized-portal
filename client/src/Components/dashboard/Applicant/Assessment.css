@@ -3,7 +3,6 @@
     margin: 60px 70px 0 70px;
     justify-content: space-between;
     text-align: left;
-    margin-bottom: 140px;
 }
 
 .assessment_n_timer .top-text {
@@ -87,7 +86,7 @@
 }
 .hourglass_n_content {
     width: 345px;
-    margin: 0 auto;
+    margin: 120px auto;
     text-align: center;
     font-family: Lato;
     font-style: normal;
@@ -126,3 +125,120 @@
     cursor: pointer;
     transition: .5s
 }
+
+.question-display {
+    text-align: center;
+    margin: 70px auto 50px auto
+}
+
+.question-display h2 {
+    font-family: Lato;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    color: #2B3C4E;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.question-display h1 {
+    font-family: Lato;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    color: #2B3C4E;
+    margin: 0;
+    margin-bottom: 40px
+}
+
+.options {
+    font-family: Lato;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 16px;
+    color: #2B3C4E;
+    margin: 0 auto 20px auto;
+    width: 300px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 1px 0.3px #31D283;
+    border-radius: 4px;
+}
+
+.clicked {
+    font-family: Lato;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    margin: 0 auto 20px auto;
+    width: 300px;
+    height: 30px;
+    display: flex;
+    background-color: #31D283;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 10px 1.4px #31D283;
+    border-radius: 4px;
+}
+
+.question-display p:hover {
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 1px #31D283;
+    transition: .3s;
+    border: 0.3px solid #ccc
+}
+
+.prev-n-next-button {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 220px 20px 220px
+}
+
+.prev-n-next-button button {
+    width: 126px;
+    height: 41px;
+    background-color: #2B3C4E;
+    border-radius: 4px;
+    color: #fff;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    outline: none;
+    border: none;
+}
+
+.finish-button button {
+    width: 206px;
+    height: 41px;
+    background-color: #CECECE;
+    border-radius: 4px;
+    color: #fff;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    outline: none;
+    border: none;
+}
+
+.prev-n-next-button button:hover, .finish-button button:hover {
+    background-color: #5abefd;
+    transition: .5s;
+}
+
+.prev-n-next-button button:active, .finish-button button:active {
+    background-color: red;
+    transition: .5s;
+}
+
+.finish-button {
+    position: relative;
+    margin-left: 50%;
+    right: 103px;
+    margin-bottom: 20px;
+}
+
