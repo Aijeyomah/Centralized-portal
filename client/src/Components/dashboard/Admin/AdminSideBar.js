@@ -14,11 +14,11 @@ const AdminSideBar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar-head">
-                <div>
+                <div className="sidebar-wrapper">
                     <img src={avatar} alt="avatar" />
                 </div>
-                <p>John Wick</p>
-                <p>Johnwick@gmail.com</p>
+                <p className="admin_name">John Wick</p>
+                <p className="admin_email">Johnwick@gmail.com</p>
             </div>
             <div className="sidebar-links">
                 <Navigation url="/admindashboard" src={dashIcon} text="Dashboard" className="link-inactive" activeClassName="link-active" />

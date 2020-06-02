@@ -10,11 +10,11 @@ const SideBar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar_head">
-                <div>
+                <div className="sidebar_wrapper">
                     <img src={avatar} alt="avatar" />
                 </div>
-                <p>John Wick</p>
-                <p>Johnwick@gmail.com</p>
+                <p className="applicant_name">John Wick</p>
+                <p className="applicant_email">Johnwick@gmail.com</p>
             </div>
             <div className="sidebar-links">
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />

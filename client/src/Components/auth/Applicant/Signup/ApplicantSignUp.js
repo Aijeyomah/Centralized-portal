@@ -48,7 +48,6 @@ const ApplicantSignUp = (props) => {
         setUser({
             ...user, first_name: "", last_name: "", email_address: "", phone_number: "", password: "", confirm_password: "",
         })
-        console.log(user)
         console.log(userDetails)
         let config = {
             headers: {
@@ -60,8 +59,8 @@ const ApplicantSignUp = (props) => {
                 localStorage.setItem('token', res.data.data.token)
                 console.log(res)
 
-            }).catch(err => {
-                console.log(err.message)
+            }).catch(error => {
+                console.log(error.message)
             })
     }
 
