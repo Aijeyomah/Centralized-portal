@@ -69,7 +69,7 @@ const Assessment = (props) => {
         })
     }
 
-    const { question, option_a, option_b, option_c, option_d, correct_answer, currentIndex, userAnswer, questionNo } = questions
+    const { currentIndex, userAnswer, questionNo } = questions
 
     return (
         <div>

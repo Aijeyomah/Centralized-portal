@@ -46,25 +46,22 @@ const ApplicantSignUp = (props) => {
         const { first_name, last_name, email_address, phone_number, password, confirm_password } = user
         let userDetails = { first_name, last_name, email_address, phone_number, password, confirm_password }
         setUser({
-            ...user,first_name: "", last_name: "", email_address: "", phone_number: "", password: "", confirm_password: "",
+            ...user, first_name: "", last_name: "", email_address: "", phone_number: "", password: "", confirm_password: "",
         })
-        console.log(user)
         console.log(userDetails)
         let config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
+        axios.post('/api/v1/auth/signup', userDetails, config)
+            .then(res => {
+                localStorage.setItem('token', res.data.data.token)
+                console.log(res)
 
-    axios.post('/api/v1/auth/signup', user,config)
-    .then(res => {
-    //   localStorage.setItem('token', res.data.data.token)
-        console.log(res)
-    }).catch(err => {
-        console.log('got here')
-    console.log(err.message)
-    })
-
+            }).catch(error => {
+                console.log(error.message)
+            })
     }
 
     return (
