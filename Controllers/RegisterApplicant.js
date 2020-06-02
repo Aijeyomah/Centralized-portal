@@ -18,8 +18,8 @@ exports.createApplicationForm = async (req, res) => {
     const d = new Date(req.body.date_of_birth)
     const birth = d.getFullYear()
     const age = created_at - birth
-   
     const img = req.files.cv_file
+    const status = 'pending'
     
    images = img.name
     const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
@@ -68,7 +68,8 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
         course_of_study,
         cgpa,
         age,
-        date_of_application
+        date_of_application,
+        status
     ]
     };
   

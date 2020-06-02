@@ -48,8 +48,9 @@ const queries = {
         course_of_study,
         cgpa, 
         age,
-        created_at
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *
+        created_at,
+        status
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *
     `,
     testQuery:`
     INSERT INTO tester(
