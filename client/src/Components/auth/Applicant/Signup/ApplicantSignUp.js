@@ -51,14 +51,13 @@ const ApplicantSignUp = (props) => {
         console.log(userDetails)
         let config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             }
         }
         axios.post('/api/v1/auth/signup', userDetails, config)
             .then(res => {
                 localStorage.setItem('token', res.data.data.token)
                 console.log(res)
-
             }).catch(error => {
                 console.log(error.message)
             })

@@ -79,8 +79,18 @@ const Assessment = (props) => {
         }
     }
 
+    const handleSubmit = () => {
+
+    }
+
     if (updatedM === 30) {
         clearInterval(interv)
+    }
+
+    if (questions.questionNo === 31) {
+        setQuestions({
+            ...questions, questionNo: 30
+        })
     }
 
     const checkAnswer = (answer) => {
@@ -124,10 +134,10 @@ const Assessment = (props) => {
                 </div>
                 <div className="prev-n-next-button">
                     <button disabled={questionNo === 1} type="button" onClick={handlePreviousQuestion}>Previous</button>
-                    <button type="button" onClick={handleNextQuestion}>Next</button>
+                    <button disabled={questionNo === 30} type="button" onClick={handleNextQuestion}>Next</button>
                 </div>
                 <div class="finish-button">
-                    <button type="submit">Finish</button>
+                    <button style={{ backgroundColor: questionNo < 30 ? "#CECECE" : "#31D283" }} disabled={!questionNo === 30} type="submit" onClick={handleSubmit}>Finish</button>
                 </div>
             </div>
         </div>
