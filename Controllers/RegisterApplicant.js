@@ -13,6 +13,7 @@ const sendMail = require('./emailSenderController')
 
 exports.createApplicationForm = async (req, res) => {
    const date = new Date();
+   const date_of_application =  moment(date).format('DD.MM.YY');
     const created_at = date.getFullYear();
     const d = new Date(req.body.date_of_birth)
     const birth = d.getFullYear()
@@ -66,7 +67,8 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
         university,
         course_of_study,
         cgpa,
-        age
+        age,
+        date_of_application
     ]
     };
   
