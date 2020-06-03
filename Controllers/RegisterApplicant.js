@@ -19,10 +19,17 @@ exports.createApplicationForm = async (req, res) => {
     const birth = d.getFullYear()
     const age = created_at - birth
     const img = req.files.cv_file
+<<<<<<< HEAD
     const status = 'pending'
 
     images = img.name
     const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa } = req.body;
+=======
+    const status = 'Pending'
+    
+   images = img.name
+    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
+>>>>>>> da70ab77f2d5e6eb23b46b89ce6cba4b7a265062
     const user_id = req.user.user_id
     if (email_address !== res.locals.user.email) {
         res.status(400).json({
