@@ -307,6 +307,7 @@ exports.getApplicationByAdmin = async (req, res) => {
     }
 }
 exports.updateTestScores = async (req, res) => {
+    status = 'Taken'
     const { test_scores } = req.body
     const email_address = res.locals.user.email
     const queryObject = {
@@ -317,6 +318,10 @@ exports.updateTestScores = async (req, res) => {
     const queryObject1 = {
         text: queries.testScoresQuery,
         values: [test_scores, email_address]
+    };
+    const queryObject2 = {
+        text: queries.updateAssessmentStatusQuery,
+        values: [status, email_address]
     };
     console.log(queryObject1)
     try {
@@ -329,21 +334,18 @@ exports.updateTestScores = async (req, res) => {
             })
         }
         if (rowCount > 0) {
-            const { rowCount, rows } = await db.query(queryObject1)
-            if (rows[0].test_scores === null) {
-                return res.status(400).json({
-                    status: 'failure',
-                    code: 400,
-                    message: "you are yet to take d test"
-                })
-            } else {
-                return res.status(200).json({
-                    status: "success",
-                    code: 200,
-                    message: "your  scores has  been updated"
-                })
+            const { rows } = await db.query(queryObject1)
+            if (rows[0].test_scores !== null) {
+                const { rowCount } = await db.query(queryObject2)
+                if (rowCount > 0) {
+                    return res.status(200).json({
+                        status: "success",
+                        code: 200,
+                        message: "your  scores has  been updated"
+                    })
+                } 
             }
-        } 
+        }
     }
     catch (error) {
         console.log(error)
