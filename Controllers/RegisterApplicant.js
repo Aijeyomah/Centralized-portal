@@ -320,7 +320,7 @@ exports.updateTestScores = async (req, res) => {
     };
     console.log(queryObject1)
     try {
-        const { rowCount } = await db.query(queryObject)
+        const { rowCount, rows } = await db.query(queryObject)
         if (rowCount === 0) {
             return res.status(400).json({
                 status: "failure",
@@ -328,29 +328,35 @@ exports.updateTestScores = async (req, res) => {
                 message: "There is no user with this email"
             })
         }
-        if (rowCount > 0) {
-            const { rows } = await db.query(queryObject1)
-            if (rows[0].test_scores !== null) {
-                return res.status(200).json({
-                    status: 'success',
-                    code: 200,
-                    message: "your test scores has been updated"
-                })
-            } else {
+        if (rowCount > 0 && rows[0].test_scores === null) {
+            const { rowCount } = await db.query(queryObject1)
+            if (rowCount === 0) {
                 return res.status(400).json({
                     status: "failure",
                     code: 400,
                     message: "your test scores has not been updated"
                 })
+            } else {
+                return res.status(200).json({
+                    status: 'success',
+                    code: 200,
+                    message: "your test scores has been updated"
+                })
             }
+        } else {
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "your test scores has already been updated"
+            })
         }
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({
-            status: "failure",
-            code: 500,
-            message: error.message
-        })
-    }
+    console.log(error)
+    return res.status(500).json({
+        status: "failure",
+        code: 500,
+        message: error.message
+    })
+}
 }
 
