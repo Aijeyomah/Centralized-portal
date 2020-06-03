@@ -328,9 +328,11 @@ exports.updateTestScores = async (req, res) => {
                 message: "There is no user with this email"
             })
         }
-        if (rowCount > 0 && rows[0].test_scores === null) {
+        console.log(rows[0])
+        if (rowCount > 0 && rows[0].test_scores !== null) {
             console.log('got here')
             const { rowCount } = await db.query(queryObject1)
+            
             console.log(rowCount)
             if (rowCount === 0) {
                 console.log('got here1')
