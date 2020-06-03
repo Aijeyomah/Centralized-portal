@@ -22,7 +22,7 @@ const AdminDashboard = () => {
                 "token": token
             }
         }
-        axios.get("/api/v1/getuserDetail", config)
+        axios.get("/api/v1/getadmindetail", config)
             .then(res => {
                 setUserDetail({
                     first_name: res.data.data.first_name,
@@ -32,6 +32,15 @@ const AdminDashboard = () => {
             }).catch(err => {
                 console.log(err.message)
             })
+        axios.get("api/v1/getApplication", config)
+            .then(res => {
+                setUserDetail({
+                    currentApplication: res.data.data.count
+                })
+            }).catch(err => {
+                console.log(err)
+            })
+
     }, [])
     console.log(userDetail.first_name)
     return (
