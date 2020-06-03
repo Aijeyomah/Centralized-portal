@@ -15,7 +15,7 @@ const ComposeAssessment = () => {
         batch_id: "",
         set_time: "",
         cv_file: "",
-        question: []
+        questionStore: []
     }
     )
 
@@ -49,19 +49,19 @@ const ComposeAssessment = () => {
     }
 
     const handlePreviousQuestion = () => {
-        const { question } = questions
+        const { questionStore } = questions
         setQuestionLength(questionLength - 1)
         setQuestionNo(questionNo - 1)
         setprevQuestion(prevQuestion - 1)
         setNextQuestion(nextQuestion - 1)
         console.log(questions.cv_file)
-        let one = question[prevQuestion].question
-        let two = question[prevQuestion].option_a
-        let three = question[prevQuestion].option_b
-        let four = question[prevQuestion].option_c
-        let five = question[prevQuestion].option_d
-        let six = question[prevQuestion].correct_answer
-        let seven = question[prevQuestion].batch_id
+        let one = questionStore[prevQuestion].question
+        let two = questionStore[prevQuestion].option_a
+        let three = questionStore[prevQuestion].option_b
+        let four = questionStore[prevQuestion].option_c
+        let five = questionStore[prevQuestion].option_d
+        let six = questionStore[prevQuestion].correct_answer
+        let seven = questionStore[prevQuestion].batch_id
         setQuestions({
             ...questions, question: one, option_a: two, option_b: three, option_c: four, option_d: five, correct_answer: six, batch_id: seven
         })
@@ -71,14 +71,14 @@ const ComposeAssessment = () => {
     const handleNextQuestion = () => {
         const { question, option_a, option_b, option_c, option_d, correct_answer, batch_id } = questions
         let questionData = { question, option_a, option_b, option_c, option_d, correct_answer, batch_id }
-        const { question } = questions
+        const { questionStore } = questions
         console.log(questions.cv_file)
         if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id) {
             alert("Please fill up all the necessary fields")
-        } else if (question.length === questionLength) {
+        } else if (questionStore.length === questionLength) {
             setQuestionNo(questionNo + 1)
-            question.push(questionData)
-            console.log(question)
+            questionStore.push(questionData)
+            console.log(questionStore)
             setprevQuestion(prevQuestion + 1)
             console.log("Posted")
             setQuestionLength(questionLength + 1)
@@ -86,7 +86,7 @@ const ComposeAssessment = () => {
             setQuestions({
                 ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "",
             })
-        } else if (question.length > questionLength && question.length === nextQuestion) {
+        } else if (questionStore.length > questionLength && questionStore.length === nextQuestion) {
             setQuestions({
                 ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "",
             })
@@ -94,39 +94,39 @@ const ComposeAssessment = () => {
             setprevQuestion(prevQuestion + 1)
             setQuestionNo(questionNo + 1)
             setQuestionLength(questionLength + 1)
-            console.log(question)
-            question[questionLength].question = questionData.question
-            question[questionLength].option_a = questionData.option_a
-            question[questionLength].option_b = questionData.option_b
-            question[questionLength].option_c = questionData.option_c
-            question[questionLength].option_d = questionData.option_d
-            question[questionLength].correct_answer = questionData.correct_answer
-            question[questionLength].batch_id = questionData.batch_id
+            console.log(questionStore)
+            questionStore[questionLength].question = questionData.question
+            questionStore[questionLength].option_a = questionData.option_a
+            questionStore[questionLength].option_b = questionData.option_b
+            questionStore[questionLength].option_c = questionData.option_c
+            questionStore[questionLength].option_d = questionData.option_d
+            questionStore[questionLength].correct_answer = questionData.correct_answer
+            questionStore[questionLength].batch_id = questionData.batch_id
         }
-        else if (question.length > questionLength) {
+        else if (questionStore.length > questionLength) {
             setprevQuestion(prevQuestion + 1)
             setQuestionNo(questionNo + 1)
-            console.log(question)
+            console.log(questionStore)
             console.log("Updated")
             setNextQuestion(nextQuestion + 1)
             setQuestionLength(questionLength + 1)
-            let one = question[nextQuestion].question
-            let two = question[nextQuestion].option_a
-            let three = question[nextQuestion].option_b
-            let four = question[nextQuestion].option_c
-            let five = question[nextQuestion].option_d
-            let six = question[nextQuestion].correct_answer
-            let seven = question[nextQuestion].batch_id
+            let one = questionStore[nextQuestion].question
+            let two = questionStore[nextQuestion].option_a
+            let three = questionStore[nextQuestion].option_b
+            let four = questionStore[nextQuestion].option_c
+            let five = questionStore[nextQuestion].option_d
+            let six = questionStore[nextQuestion].correct_answer
+            let seven = questionStore[nextQuestion].batch_id
             setQuestions({
                 ...questions, question: one, option_a: two, option_b: three, option_c: four, option_d: five, correct_answer: six, batch_id: seven
             })
-            question[questionLength].question = questionData.question
-            question[questionLength].option_a = questionData.option_a
-            question[questionLength].option_b = questionData.option_b
-            question[questionLength].option_c = questionData.option_c
-            question[questionLength].option_d = questionData.option_d
-            question[questionLength].correct_answer = questionData.correct_answer
-            question[questionLength].batch_id = questionData.batch_id
+            questionStore[questionLength].question = questionData.question
+            questionStore[questionLength].option_a = questionData.option_a
+            questionStore[questionLength].option_b = questionData.option_b
+            questionStore[questionLength].option_c = questionData.option_c
+            questionStore[questionLength].option_d = questionData.option_d
+            questionStore[questionLength].correct_answer = questionData.correct_answer
+            questionStore[questionLength].batch_id = questionData.batch_id
         }
         if (nextQuestion === 30) {
             setQuestionNo(30)
@@ -135,8 +135,8 @@ const ComposeAssessment = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        const { question, set_time, cv_file } = questions
-        const Questions = { question }
+        const { questionStore, set_time, cv_file } = questions
+        const Questions = { questionStore }
         let attachment = { set_time, cv_file }
         if (set_time) {
             const token = localStorage.getItem('token')
