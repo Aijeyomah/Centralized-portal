@@ -328,44 +328,31 @@ exports.updateTestScores = async (req, res) => {
                 message: "There is no user with this email"
             })
         }
-        console.log(rows[0])
-        if (rowCount > 0 && rows[0].test_scores !== null) {
-            console.log('got here')
-            const { rowCount } = await db.query(queryObject1)
-            
-            console.log(rowCount)
-            if (rowCount === 0) {
-                console.log('got here1')
+        if (rowCount > 0) {
+            const { rowCount, rows } = await db.query(queryObject1)
+            if (rows[0].test_scores === null) {
                 return res.status(400).json({
-                    status: "failure",
+                    status: 'failure',
                     code: 400,
-                    message: "you are yet to take the test"
+                    message: "you are yet to take d test"
                 })
-            } 
-            if(rowCount>0) {
-                console.log('got here2')
+            } else {
                 return res.status(200).json({
-                    status: 'success',
+                    status: "success",
                     code: 200,
-                    message: "your test scores has been updated"
+                    message: "your  scores has  been updated"
                 })
-            }            
-        } else  {
-            return res.status(400).json({
-                status: "failure",
-                code: 400,
-                message: "you have taken this test"
-            })
-        }
+            }
+        } 
     }
- catch (error) {
-    console.log(error)
-    return res.status(500).json({
-        status: "failure",
-        code: 500,
-        message: error.message
-    })
-}
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            status: "failure",
+            code: 500,
+            message: error.message
+        })
+    }
 }
 
-    
+
