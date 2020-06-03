@@ -326,14 +326,22 @@ exports.updateTestScores = async (req, res) => {
     console.log(queryObject1)
     try {
         const { rowCount, rows } = await db.query(queryObject)
-        if (rowCount === 0) {
-            return res.status(400).json({
-                status: "failure",
-                code: 400,
-                message: "There is no user with this email"
-            })
-        }
-        if (rowCount > 0 && rows[0].test_scores === null) {
+        if (rows[0].test_scores !== null) {
+            const { rowCount, rows } = await db.query(queryObject2)
+            if (rowCount > 0) {
+                return res.status(200).json({
+                    status: "success",
+                    code: 200,
+                    message: "your assessment status has been updated successfully "
+                })
+            } else {
+                return res.status(400).json({
+                    status: "failure",
+                    code: 400,
+                    message: "you are yet to take the test"
+                })
+            }
+        } else {
             const { rowCount } = await db.query(queryObject1)
             if (rowCount === 0) {
                 return res.status(400).json({
@@ -346,21 +354,6 @@ exports.updateTestScores = async (req, res) => {
                     status: 'success',
                     code: 200,
                     message: "your test scores has been updated"
-                })
-            }
-        }  if (rows[0].test_scores !== null) {
-            const { rows } = await db.query(queryObject2)
-            if (rows[0].status === 'Pending') {
-                return res.status(400).json({
-                    status: "failure",
-                    code: 400,
-                    message: "your assessment status has not been updated"
-                })
-            } else if (rows[0].status === 'Taken') {
-                return res.status(200).json({
-                    status: "success",
-                    code: 200,
-                    message: "your assessment status has been updated successfully "
                 })
             }
         }
