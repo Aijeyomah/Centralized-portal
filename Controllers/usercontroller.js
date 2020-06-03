@@ -348,10 +348,11 @@ exports.uploadProfilePics = async (req, res, next) => {
     const {
         id
     } = req.user.user_id
+console.log(user_id)
 
     const pics = req.files.pictures
     const picture_name = pics.name
-
+console.log(pics)
     pics.mv(`./upload-profile ${picture_name}`), (err) => {
         if (err) {
             res.status(500).json({
@@ -366,6 +367,7 @@ exports.uploadProfilePics = async (req, res, next) => {
         text: queries.updateProfilePicture,
         values: [picture_name, id]
     };
+    console.log(queryObject1)
     try {
         const {
             rows,

@@ -118,7 +118,7 @@ const Assessment = (props) => {
 
     useEffect(()=>{
         return ()=>{
-            if (updatedM === 30) {
+            if (updatedM === 29 && updatedS===59 ) {
                 clearInterval(interv)
                 setShow(show + 1)
             }
