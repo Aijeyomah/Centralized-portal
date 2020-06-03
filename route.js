@@ -29,7 +29,6 @@ const {
     createApplicationAdmin,
     composeAssessmentAdmin,
     getAllAssessmentUser,
-    updateUserBySuperAdmin,
     uploadfileSetTime
 } = require('./Controllers/AdminController')
 
