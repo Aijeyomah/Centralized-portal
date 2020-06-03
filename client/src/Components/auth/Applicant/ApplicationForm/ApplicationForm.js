@@ -3,6 +3,7 @@ import './ApplicationForm.css'
 import enyataLogo from '../../../../Images/enyata-logo.svg'
 import uploadIcon from '../../../../Images/upload-icon.svg'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom';
 
 const ApplicationForm = (props) => {
     const [user, setUser] = useState({
@@ -151,4 +152,4 @@ const ApplicationForm = (props) => {
     )
 }
 
-export default ApplicationForm;
+export default withRouter(ApplicationForm);

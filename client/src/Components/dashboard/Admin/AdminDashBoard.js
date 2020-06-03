@@ -12,7 +12,7 @@ import AdminLogout from './AdminLogout';
 import axios from 'axios'
 
 
-const AdminDashboard = () => {
+const AdminDashboard = (props) => {
     const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -32,6 +32,9 @@ const AdminDashboard = () => {
             }).catch(err => {
                 console.log(err.message)
             })
+        if (!token) {
+            props.history.push('/admin/login')
+        }
     }, [])
     console.log(userDetail.totalApplications)
     return (
