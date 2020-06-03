@@ -6,6 +6,7 @@ import Navigation from './Navigation';
 import logoutIcon from '../../../Images/logout-icon.svg'
 import avatar from '../../../Images/avatar.svg'
 import Modal from './modal'
+import axios from 'axios'
 
 const SideBar = (props) => {
     const [state, setState] = useState({ show: false })
@@ -15,7 +16,24 @@ const SideBar = (props) => {
     
     const hideModal = () => {
     setState({ show: false });
-    };    
+    };   
+    
+    const handleLogOut = (e)=>{
+        e.preventDefault()
+        const token = localStorage.removeItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.put("/api/v1/auth/logOut", config)
+            .then((res) => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
+    } 
     return (
         <div className="sidebar">
             <div className="sidebar_head">
@@ -32,7 +50,7 @@ const SideBar = (props) => {
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />
                 <Navigation url="/applicantdashboard/assessment" src={assessIcon} text="Assessment" className="assess-inactive" activeClassName="assess-active" />
             </div>
-            <Navigation url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Navigation handleLogOut={handleLogOut} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
         </div>
     )
 }

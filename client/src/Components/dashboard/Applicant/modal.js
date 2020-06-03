@@ -32,7 +32,7 @@ const Modal = ({ handleClose, show }) => {
             }
 
         }
-            axios.post('/api/v1/uploadImage',userDetails, config)
+            axios.put('/api/v1/uploadImage',userDetails, config)
             .then(res => {
             console.log(res)
             }).catch(err => {
