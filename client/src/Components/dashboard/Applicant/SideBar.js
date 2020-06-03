@@ -29,7 +29,8 @@ const SideBar = (props) => {
         }
         axios.put("/api/v1/auth/logOut", config)
             .then((res) => {
-                console.log(res)
+                    
+        console.log(res)
             }).catch(err => {
                 console.log(err)
             })
