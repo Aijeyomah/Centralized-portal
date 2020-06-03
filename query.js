@@ -32,7 +32,7 @@ const queries = {
    SELECT * FROM users WHERE id=($1)
  `,
    updateProfilePicture:`
-   UPDATE users SET pictures=($1) WHERE email_address=($2)
+   UPDATE users SET pictures=($1) WHERE id=($2)
    `,
    findByEmail:`SELECT * FROM users WHERE email_address = ($1)`,
 
