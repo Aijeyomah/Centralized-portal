@@ -347,17 +347,10 @@ exports.setNewPassword = async (req, res) => {
 exports.uploadProfilePics = async (req, res, next) => {
     const {
         id
-    } = req.params
-    if (!parseInt(id)) {
-        return res.status(400).json({
-            message: "Id must be an integer",
-        });
-    }
+    } = req.user.user_id
 
     const pics = req.files.pictures
     const picture_name = pics.name
-
-
 
     pics.mv(`./upload-profile ${picture_name}`), (err) => {
         if (err) {
