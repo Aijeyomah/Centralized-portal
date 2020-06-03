@@ -26,7 +26,13 @@ const CreateApplication = () => {
         let admin_file = file_upload
 
         if (admin_file) {
-
+            setState({
+                link: '',
+                application_closure_date: '',
+                batch_id: '',
+                instructions: '',
+                file_upload: ''
+            })
             console.log(admin_file)
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -40,13 +46,9 @@ const CreateApplication = () => {
                     "token": token
                 }
             }
-
             axios.post("/api/v1/auth/createApplication", formData, config)
-
                 .then(res => {
-
                     console.log(res)
-
                 }
                 ).catch(err => {
                     console.log(err.message)
@@ -72,8 +74,6 @@ const CreateApplication = () => {
         width: '370px'
     }
 
-
-
     return (
         <div className="application-wrapper">
             <div>
@@ -90,7 +90,7 @@ const CreateApplication = () => {
                     <div>
                         <label>Link</label>
                         <br />
-                        <input id="link" type="text" onChange={handleChange} required /><br />
+                        <input value={state.link} id="link" type="text" onChange={handleChange} required /><br />
                     </div>
                 </div>
                 <div style={style}>Upload successful!</div>
@@ -98,20 +98,20 @@ const CreateApplication = () => {
                     <div>
                         <label>Application closure date</label>
                         <br />
-                        <input id="application_closure_date" type="text" placeholder="dd-mm-yyyy" required
+                        <input value={state.application_closure_date} id="application_closure_date" type="text" placeholder="dd-mm-yyyy" required
                             pattern="([12][0-9]|3[01]|0?[1-9])-(0?[1-9]|1[012])-((?:19|20)\d\d)" onChange={handleChange} /><br />
                     </div>
                     <div>
                         <label>Batch Id</label>
                         <br />
-                        <input id="batch_id" type="number" onChange={handleChange} required /><br />
+                        <input value={state.batch_id} id="batch_id" type="number" onChange={handleChange} required /><br />
                     </div>
                 </div>
                 <div className="application-third-row">
                     <div>
                         <label>Instructions</label>
                         <br />
-                        <textarea id="instructions" type="text" onChange={handleChange} required /><br />
+                        <textarea value={state.instructions} id="instructions" type="text" onChange={handleChange} required /><br />
                     </div>
                 </div>
                 <button className='applicationBtn' type="submit">Submit</button>

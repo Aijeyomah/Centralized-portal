@@ -32,17 +32,8 @@ const AdminDashboard = () => {
             }).catch(err => {
                 console.log(err.message)
             })
-        axios.get("api/v1/getApplication", config)
-            .then(res => {
-                setUserDetail({
-                    currentApplication: res.data.data.count
-                })
-            }).catch(err => {
-                console.log(err)
-            })
-
     }, [])
-    console.log(userDetail.first_name)
+    console.log(userDetail.totalApplications)
     return (
         <div className="_container">
             <AdminSideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
