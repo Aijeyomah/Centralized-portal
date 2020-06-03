@@ -173,6 +173,37 @@ exports.uploadfileSetTime = async (req, res) => {
   }
 
 }
-
+exports.getAllComposedApplicationByBatch = async(req,res)=>{
+  const { batch } = req.params
+    const queryObject = {
+        text: queries.getAllComposedApplicationByBatchQuery,
+        values: [batch]
+    }
+    try {
+        const { rows, rowCount } = await db.query(queryObject)
+        if (rowCount > 0) {
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows
+            })
+        }
+        if (rowCount === 0) {
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "there is no id found"
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            status: 'error',
+            code: 99,
+            message: "Request Processing Error",
+            error: error.message
+        })
+    }
+}
 
 

@@ -56,6 +56,7 @@ const queries = {
     getUserDetailById:`SELECT * FROM applicants WHERE user_id =($1)`,
   getApplicationByID: ` SELECT COUNT (*) FROM applicants where batch = ($1);`,
   getAllApplication: `SELECT COUNT (*) FROM applicants `,
+  getAllComposedApplicationByBatchQuery:`SELECT * FROM application WHERE batch=($1)`,
   createApplicationAdminQuery:`
     INSERT INTO application(
         file_upload,
