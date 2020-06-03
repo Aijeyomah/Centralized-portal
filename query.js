@@ -93,7 +93,7 @@ const queries = {
    getAllApplicationEntries:` SELECT  * FROM applicants WHERE batch=($1)`,
    getAllAssessment:` SELECT  * FROM assessment ORDER BY random()`,
    uploadtime:`
-   INSERT INTO assessment(
+   INSERT INTO filetime(
     file_upload,
     set_time
     ) VALUES ($1, $2) RETURNING *

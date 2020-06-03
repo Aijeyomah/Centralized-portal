@@ -306,8 +306,8 @@ exports.getApplicationByAdmin = async (req, res) => {
         })
     }
 }
-exports.updateTestScores = async (req, res, next) => {
-    const status = 'Taken'
+exports.updateTestScores = async (req, res) => {
+    status = 'Taken'
     const { test_scores } = req.body
     const email_address = res.locals.user.email
     const queryObject = {
@@ -333,33 +333,20 @@ exports.updateTestScores = async (req, res, next) => {
                 message: "There is no user with this email"
             })
         }
-        if (rowCount > 0 && rows[0].test_scores === null) {
-            const { rowCount } = await db.query(queryObject1)
-            if (rowCount > 0) {
-                return res.status(200).json({
-                    status: 'success',
-                    code: 200,
-                    message: "your test scores has been updated"
-                })
-            } next()
-            const { rows } = await db.query(queryObject2)
-            if (rows[0].status === 'Taken') {
-                return res.status(200).json({
-                    status: 'success',
-                    code: 200,
-                    message: "your test scores has been updated"
-                })
+        if (rowCount > 0) {
+            const { rows } = await db.query(queryObject1)
+            if (rows[0].test_scores !== null) {
+                const { rowCount } = await db.query(queryObject2)
+                if (rowCount > 0) {
+                    return res.status(200).json({
+                        status: "success",
+                        code: 200,
+                        message: "your  scores has  been updated"
+                    })
+                } 
             }
-            else  {
-                return res.status(400).json({
-                    status: "failure",
-                    code: 400,
-                    message: "your assessment status has not been updated"
-                })
-            }
-                   
-     } }
-
+        }
+    }
     catch (error) {
         console.log(error)
         return res.status(500).json({
