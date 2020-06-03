@@ -306,7 +306,7 @@ exports.getApplicationByAdmin = async (req, res) => {
         })
     }
 }
-exports.updateTestScores = async (req, res) => {
+exports.updateTestScores = async (req, res, next) => {
     const status = 'Taken'
     const { test_scores } = req.body
     const email_address = res.locals.user.email
@@ -335,36 +335,31 @@ exports.updateTestScores = async (req, res) => {
         }
         if (rowCount > 0 && rows[0].test_scores === null) {
             const { rowCount } = await db.query(queryObject1)
-            if (rowCount === 0) {
-                return res.status(400).json({
-                    status: "failure",
-                    code: 400,
-                    message: "you are yet to take the test"
-                })
-            } else {
+            if (rowCount > 0) {
                 return res.status(200).json({
                     status: 'success',
                     code: 200,
                     message: "your test scores has been updated"
                 })
-            }
-        } else if (rows[0].test_scores !== null) {
+            } next()
             const { rows } = await db.query(queryObject2)
-            if (rows[0].status === 'Pending') {
-                return res.status(400).json({
-                    status: "failure",
-                    code: 400,
-                    message: "your assessment status has not been updated"
-                })
-            } else if (rows[0].status === 'Taken') {
+            if (rows[0].status === 'Taken') {
                 return res.status(200).json({
                     status: "success",
                     code: 200,
                     message: "your assessment status has been updated successfully "
                 })
             }
-        }
-    }
+            else  {
+                return res.status(400).json({
+                    status: "failure",
+                    code: 400,
+                    message: "your assessment status has not been updated"
+                })
+            }
+                   
+     } }
+
     catch (error) {
         console.log(error)
         return res.status(500).json({
