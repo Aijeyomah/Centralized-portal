@@ -139,22 +139,33 @@ const ComposeAssessment = () => {
         const Questions = { questionStore }
         let attachment = { set_time, cv_file }
         if (set_time) {
-            const url = "api/v1/auth/composeAssessmentAdmin"
-            const url2 = "api/v1/auth/uploadsetime"
+            const token = localStorage.getItem('token')
+            var formData = new FormData()
 
-            let attachedFiles = axios.post(url, attachment)
-            let questionCollection = axios.post(url2, Questions)
+            for (var key in attachment) {
+                formData.append(key, attachment[key])
+            }
+            let config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    "token": token
+                }
+            }
+            const url = "/api/v1/auth/composeAssessmentAdmin"
+            const url2 = "/api/v1/auth/uploadsetime"
 
-            axios.all([attachedFiles, questionCollection])
-                .then(
-                    axios.spread((...allData) => {
-                        const allAttachedFiles = allData[0]
-                        const questionCollections = allData[1]
-                        setNextQuestion(nextQuestion + 1)
-                        console.log(allAttachedFiles)
-                        console.log(questionCollections)
-                    })
-                )
+            axios.post(url, formData, config)
+                .then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+            axios.post(url2, Questions, config)
+                .then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
         } else {
             alert("Set time")
         }

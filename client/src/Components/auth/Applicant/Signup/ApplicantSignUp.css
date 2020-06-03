@@ -1,8 +1,8 @@
 .signup_wrapper {
     width: 800px;
     margin: 0 auto 0 auto;
-    padding: 30px;
     position: relative;
+    opacity: 0
 }
 
 .signup_wrapper .applicant {

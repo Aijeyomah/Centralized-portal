@@ -28,12 +28,9 @@ const DashBoardHome = (props) => {
 
     if (userDetail.created_at === '') {
         setUserDetail({
-            update: <Link to="/applicationform">Apply to take assessment now</Link>
+            update: <Link to="/applicationform">Fill in the form to take assessment now</Link>
         })
     }
-
-
-
     return (
         <div className='dashboard_wrapper'>
             <div>
@@ -56,7 +53,7 @@ const DashBoardHome = (props) => {
                     <h4>Take Assessment</h4>
                     <div>
                         <p>We have 4 days left until the next assessment <br />Watch this space</p>
-                        <ClientButton text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
+                        <ClientButton disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
                     </div>
                 </div>
             </div>

@@ -5,12 +5,13 @@ import Input, { PasswordInput } from '../../../../Components/Input/Input';
 import { Link } from 'react-router-dom';
 import { FormButton } from '../../../../Components/Button/Button';
 import useInput from '../../../../Hooks/useInput';
+import { motion } from 'framer-motion'
 
 const Login = (props) => {
     const [state, handleChange, handleSubmit, isEnabled, isLoggedIn] = useInput();
 
     return (
-        <div className='container'>
+        <motion.div animate={{ scale: 1.07, opacity: 1 }} className='container'>
             <div className='logoDiv'>
                 <img src={logo} className="logo" alt="logo" />
             </div>
@@ -27,7 +28,7 @@ const Login = (props) => {
                     <p className='formText'><Link to='/forgotPassword'>Forgot Password?</Link></p>
                 </div>
             </form>
-        </div>
+        </motion.div>
     );
 }
 export default Login;
