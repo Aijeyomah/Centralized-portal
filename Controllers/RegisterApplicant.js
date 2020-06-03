@@ -345,9 +345,9 @@ exports.updateTestScores = async (req, res, next) => {
             const { rows } = await db.query(queryObject2)
             if (rows[0].status === 'Taken') {
                 return res.status(200).json({
-                    status: "success",
+                    status: 'success',
                     code: 200,
-                    message: "your assessment status has been updated successfully "
+                    message: "your test scores has been updated"
                 })
             }
             else  {
