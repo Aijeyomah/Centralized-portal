@@ -322,7 +322,7 @@ exports.updateTestScores = async (req, res) => {
     try {
         const { rowCount } = await db.query(queryObject)
         if (rowCount === 0) {
-            return Promise.reject({
+            return res.status(400).json({
                 status: "failure",
                 code: 400,
                 message: "There is no user with this email"
@@ -331,11 +331,13 @@ exports.updateTestScores = async (req, res) => {
         if (rowCount > 0) {
             const { rows } = await db.query(queryObject1)
             if (rows[0].test_scores !== null) {
-                return Promise.resolve({
+                return res.status(200).json({
+                    status: 'success',
+                    code: 200,
                     message: "your test scores has been updated"
                 })
             } else {
-                return Promise.reject({
+                return res.status(400).json({
                     status: "failure",
                     code: 400,
                     message: "your test scores has not been updated"
