@@ -98,7 +98,8 @@ const queries = {
     set_time
     ) VALUES ($1, $2) RETURNING *
    `,
-   testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` 
+   testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` ,
+   updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`
 
 }
 module.exports = queries

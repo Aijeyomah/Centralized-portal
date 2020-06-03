@@ -307,6 +307,7 @@ exports.getApplicationByAdmin = async (req, res) => {
     }
 }
 exports.updateTestScores = async (req, res) => {
+    const status = 'Taken'
     const { test_scores } = req.body
     const email_address = res.locals.user.email
     const queryObject = {
@@ -317,6 +318,10 @@ exports.updateTestScores = async (req, res) => {
     const queryObject1 = {
         text: queries.testScoresQuery,
         values: [test_scores, email_address]
+    };
+    const queryObject2 = {
+        text: queries.updateAssessmentStatusQuery,
+        values: [status,email_address]
     };
     console.log(queryObject1)
     try {
@@ -334,7 +339,7 @@ exports.updateTestScores = async (req, res) => {
                 return res.status(400).json({
                     status: "failure",
                     code: 400,
-                    message: "your test scores has not been updated"
+                    message: "you are yet to take the test"
                 })
             } else {
                 return res.status(200).json({
@@ -342,15 +347,26 @@ exports.updateTestScores = async (req, res) => {
                     code: 200,
                     message: "your test scores has been updated"
                 })
-            }
+            }            
         } else {
-            return res.status(400).json({
-                status: "failure",
-                code: 400,
-                message: "your test scores has already been updated"
-            })
+            const { rowCount,rows } = await db.query(queryObject2)
+            if (rows[0].status==='Pending'){
+                return res.status(400).json({
+                    status: "failure",
+                    code: 400,
+                    message: "your assessment status has not been updated"
+                })
+            }else if(rows[0].status==='Taken'){
+                return res.status(400).json({
+                    status: "failure",
+                    code: 400,
+                    message: "your assessment status has been updated successfully "
+                })
+            }
+            
         }
-    } catch (error) {
+    }
+ catch (error) {
     console.log(error)
     return res.status(500).json({
         status: "failure",
@@ -359,4 +375,29 @@ exports.updateTestScores = async (req, res) => {
     })
 }
 }
+exports.updateAssessmentStatus = async (req, res) => {
+    const email_address = res.locals.user.email
+    const queryObject = {
+        text: queries.findByEmail,
+        values: [email_address]
+    };
+    const queryObject = {
+        text: queries.findByEmail,
+        values: [email_address]
+    };
+    try {
+        const { rowCount, rows } = await db.query(queryObject)
+        if (rowCount === 0) {
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "There is no user with this email"
+            })
+        }
+        if (rowCount > 0 && rows[0].test_scores !== null){
 
+        }
+    } catch (error) {
+        
+    }
+}
