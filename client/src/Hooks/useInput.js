@@ -9,7 +9,7 @@ const initialstate = {
     passwordError: "",
 };
 
-const useInput = () => {
+const useInput = (props) => {
     const [state, setState] = useState(initialstate);
     const handleChange = (e) => {
         setState({
@@ -17,9 +17,11 @@ const useInput = () => {
             [e.target.name]: e.target.value
         });
     };
+
     const canBeSubmitted = () => {
         return (state.email && state.password);
     }
+
     const handleSubmit = (e) => {
         if (!canBeSubmitted()) {
             e.preventDefault();
@@ -73,7 +75,6 @@ const useInput = () => {
             }
             axios.post('/api/v1/auth/signin', logindetails, config)
                 .then(res => {
-
                     localStorage.setItem('token', res.data.data.token)
                     console.log(res)
                 }).catch(err => {

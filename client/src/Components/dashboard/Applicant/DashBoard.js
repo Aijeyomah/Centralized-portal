@@ -8,7 +8,7 @@ import DashBoardHome from './DashBoardHome';
 import Logout from './Logout'
 
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -28,6 +28,9 @@ const Dashboard = () => {
             }).catch(err => {
                 console.log(err.message)
             })
+        if (!token) {
+            props.history.push('/login')
+        }
     }, [])
     console.log(userDetail.first_name)
     return (

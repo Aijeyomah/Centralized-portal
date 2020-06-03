@@ -3,7 +3,7 @@ import './ApplicantSignUp.css'
 import enyataLogo from '../../../../Images/enyata-logo.svg'
 import eye from '../../../../Images/eye.svg'
 import eyeSlashed from '../../../../Images/eye-slashed.svg'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 
 const ApplicantSignUp = (props) => {
@@ -122,4 +122,4 @@ const ApplicantSignUp = (props) => {
     )
 }
 
-export default ApplicantSignUp
+export default withRouter(ApplicantSignUp)
