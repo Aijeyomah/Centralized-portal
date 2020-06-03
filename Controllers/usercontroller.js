@@ -514,3 +514,4 @@ exports.userDetail = async (req, res) => {
         })
     }
 }
+
