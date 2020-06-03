@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ApplicantSignUp.css'
 import enyataLogo from '../../../../Images/enyata-logo.svg'
 import eye from '../../../../Images/eye.svg'
@@ -41,6 +41,10 @@ const ApplicantSignUp = (props) => {
         })
     }
 
+    useEffect(() => {
+        console.log(props)
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const { first_name, last_name, email_address, phone_number, password, confirm_password } = user
@@ -58,6 +62,7 @@ const ApplicantSignUp = (props) => {
             .then(res => {
                 localStorage.setItem('token', res.data.data.token)
                 console.log(res)
+                props.history.push('/login')
             }).catch(error => {
                 console.log(error.message)
             })
