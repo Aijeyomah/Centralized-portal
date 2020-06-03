@@ -197,8 +197,6 @@ exports.signInUser = async (req, res, next) => {
     }
 }
 
-
-
 exports.forgotPassword = async (req, res) => {
     const {
         email_address
@@ -345,9 +343,9 @@ exports.setNewPassword = async (req, res) => {
 }
 
 exports.uploadProfilePics = async (req, res, next) => {
-    const id = res.locals.user.user_id
-console.log(id)
-console.log(req.user.user_id)
+    const email_address = res.locals.user.email
+console.log(email_address)
+console.log(res.locals.user.email)
     const pics = req.files.pictures
     const picture_name = pics.name
 console.log(pics)
@@ -363,7 +361,7 @@ console.log(pics)
     }
     const queryObject1 = {
         text: queries.updateProfilePicture,
-        values: [picture_name, id]
+        values: [picture_name, email_address]
     };
     console.log(queryObject1)
     try {
