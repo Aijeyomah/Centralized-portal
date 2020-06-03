@@ -377,7 +377,7 @@ console.log(pics)
         }
         if (rowCount > 0) {
             res.status(201).json({
-                message: "Application submitted ",
+                message: "Profile picture updated ",
                 dbresponse
             })
         }

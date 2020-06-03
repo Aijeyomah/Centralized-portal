@@ -17,7 +17,9 @@ const Modal = ({ handleClose, show }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const token = localStorage.getItem('token')
+        
+        if (pictures) {
+            const token = localStorage.getItem('token')
             var formData = new FormData()
 
             for (var key in userDetails) {
@@ -30,7 +32,6 @@ const Modal = ({ handleClose, show }) => {
             }
 
         }
-        if (pictures) {
             axios.post('api/v1/uploadImage',userDetails, config)
             .then(res => {
             console.log(res)
