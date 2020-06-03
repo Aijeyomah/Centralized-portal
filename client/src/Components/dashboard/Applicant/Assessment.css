@@ -242,3 +242,42 @@
     margin-bottom: 20px;
 }
 
+.congrats {
+    width: 550px;
+    margin: 0 auto
+}
+
+.congrats div {
+    width: 143px;
+    height: 143px;
+    margin: 100px auto 0 auto
+}
+
+.congrats img {
+    width: 100%;
+    height: 100%
+}
+
+.congrats p {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16.7273px;
+    text-align: center;
+    color: #4F4F4F;
+    margin-bottom: 30px
+}
+
+.congrats button {
+    width: 205px;
+    height: 41px
+}
+
+.thank-you {
+    font-family: Lato;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 16px;
+    color: #2B3C4E;
+}
+
