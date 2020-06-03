@@ -348,7 +348,7 @@ exports.updateTestScores = async (req, res) => {
                     message: "your test scores has been updated"
                 })
             }
-        } else if (rows[0].test_scores !== null) {
+        }  if (rows[0].test_scores !== null) {
             const { rows } = await db.query(queryObject2)
             if (rows[0].status === 'Pending') {
                 return res.status(400).json({
