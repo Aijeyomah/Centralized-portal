@@ -313,10 +313,12 @@ exports.updateTestScores = async (req, res) => {
         text: queries.findByEmail,
         values: [email_address]
     };
+    console.log(queryObject)
     const queryObject1 = {
         text: queries.testScoresQuery,
         values: [test_scores, email_address]
     };
+    console.log(queryObject1)
     try {
         const { rowCount } = await db.query(queryObject)
         if (rowCount === 0) {
@@ -341,10 +343,11 @@ exports.updateTestScores = async (req, res) => {
             }
         }
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             status: "failure",
             code: 500,
-            message: 'error updating status'
+            message: error.message
         })
     }
 }
