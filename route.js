@@ -57,7 +57,7 @@ router.get('/getApplicationByBatch/:batch', verifyAdminToken, findSignInCode, ge
 router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationEntriesByBatchID)
 router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
-router.get('/getcomposedadminapplication/:batch',verifyAdminToken,findSignInCode,getAllComposedApplicationByBatch )
+router.get('/getcomposedadminapplication/:batch_id',verifyAdminToken,findSignInCode,getAllComposedApplicationByBatch )
 router.get('/getuserDetail', verifyUserToken, userDetail)
 router.get('/getapplicantdetail', verifyUserToken, applicantDetails)
 router.get('/getadmindetail', verifyAdminToken, userDetail)
