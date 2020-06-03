@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Assessment.css'
 import hourGlass from '../../../Images/hourglass.svg'
 import Timer from './Timer'
 import QuizData from './AssessmentQuestions'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -22,6 +23,26 @@ const Assessment = (props) => {
         disabled: true,
         currentIndex: 0
     })
+
+    const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.get("/api/v1/getapplicantdetail", config)
+            .then(res => {
+                setUserDetail({
+                    created_at: res.data.data.created_at,
+                    status: res.data.data.status
+                })
+            }).catch(err => {
+                console.log(err.message)
+            })
+    }, [])
 
     const [show, setShow] = useState(1)
     const [interv, setInterv] = useState("")
@@ -93,10 +114,16 @@ const Assessment = (props) => {
         console.log(userScore.length)
     }
 
-    if (updatedM === 30) {
-        clearInterval(interv)
-        setShow(show + 1)
-    }
+
+
+    useEffect(() => {
+        return () => {
+            if (updatedM === 29 && updatedS === 59) {
+                clearInterval(interv)
+                setShow(show + 1)
+            }
+        }
+    })
 
     if (questions.questionNo === 31) {
         setQuestions({
@@ -118,10 +145,10 @@ const Assessment = (props) => {
                 <div>
                     <p className="top-text">Take Assessment</p>
                     <p style={{ display: show === 1 ? "block" : "none" }} className="bottom-text">Click the button below to start assessment, you have
-                    limited time for this test</p>
+limited time for this test</p>
                     <p style={{ display: show === 2 ? "block" : "none" }} className="bottom-text">Click the finish button below to submit
                     assessment, you can go back at any time to edit your answers.
-                    </p>
+</p>
                     <p className="thank-you" style={{ display: show === 3 ? "block" : "none" }} >Thank you!</p>
                 </div>
                 <Timer updatedM={updatedM} updatedS={updatedS} />
@@ -132,7 +159,7 @@ const Assessment = (props) => {
                         <img src={hourGlass} alt="hourglass" />
                     </div>
                     <p>We have 4 days left until the next assessment. Watch this space</p>
-                    <button onClick={handleNextPage}>Take Assessment</button>
+                    <button onClick={handleNextPage} disabled={!userDetail.created_at}>Take Assessment</button>
                 </div>
             </div>
             <div style={{ display: show === 2 ? "block" : "none" }}>
