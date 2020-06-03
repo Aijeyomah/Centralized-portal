@@ -13,11 +13,11 @@ const Modal = ({ handleClose, show }) => {
         })
     }
     const { pictures } = displaypicture;
-    const userDetails = { pictures };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        const userDetails = { pictures };
+        let pics = pictures
         if (pictures) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -32,7 +32,7 @@ const Modal = ({ handleClose, show }) => {
             }
 
         }
-            axios.put('/api/v1/uploadImage',userDetails, config)
+            axios.put('/api/v1/uploadImage',formData, config)
             .then(res => {
             console.log(res)
             }).catch(err => {

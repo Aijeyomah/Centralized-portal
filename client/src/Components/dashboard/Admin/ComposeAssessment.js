@@ -15,7 +15,7 @@ const ComposeAssessment = () => {
         batch_id: "",
         set_time: "",
         cv_file: "",
-        questionStore: []
+        question: []
     }
     )
 
@@ -49,19 +49,19 @@ const ComposeAssessment = () => {
     }
 
     const handlePreviousQuestion = () => {
-        const { questionStore } = questions
+        const { question } = questions
         setQuestionLength(questionLength - 1)
         setQuestionNo(questionNo - 1)
         setprevQuestion(prevQuestion - 1)
         setNextQuestion(nextQuestion - 1)
         console.log(questions.cv_file)
-        let one = questionStore[prevQuestion].question
-        let two = questionStore[prevQuestion].option_a
-        let three = questionStore[prevQuestion].option_b
-        let four = questionStore[prevQuestion].option_c
-        let five = questionStore[prevQuestion].option_d
-        let six = questionStore[prevQuestion].correct_answer
-        let seven = questionStore[prevQuestion].batch_id
+        let one = question[prevQuestion].question
+        let two = question[prevQuestion].option_a
+        let three = question[prevQuestion].option_b
+        let four = question[prevQuestion].option_c
+        let five = question[prevQuestion].option_d
+        let six = question[prevQuestion].correct_answer
+        let seven = question[prevQuestion].batch_id
         setQuestions({
             ...questions, question: one, option_a: two, option_b: three, option_c: four, option_d: five, correct_answer: six, batch_id: seven
         })
@@ -71,14 +71,14 @@ const ComposeAssessment = () => {
     const handleNextQuestion = () => {
         const { question, option_a, option_b, option_c, option_d, correct_answer, batch_id } = questions
         let questionData = { question, option_a, option_b, option_c, option_d, correct_answer, batch_id }
-        const { questionStore } = questions
+        const { question } = questions
         console.log(questions.cv_file)
         if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id) {
             alert("Please fill up all the necessary fields")
-        } else if (questionStore.length === questionLength) {
+        } else if (question.length === questionLength) {
             setQuestionNo(questionNo + 1)
-            questionStore.push(questionData)
-            console.log(questionStore)
+            question.push(questionData)
+            console.log(question)
             setprevQuestion(prevQuestion + 1)
             console.log("Posted")
             setQuestionLength(questionLength + 1)
@@ -86,7 +86,7 @@ const ComposeAssessment = () => {
             setQuestions({
                 ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "",
             })
-        } else if (questionStore.length > questionLength && questionStore.length === nextQuestion) {
+        } else if (question.length > questionLength && question.length === nextQuestion) {
             setQuestions({
                 ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "",
             })
@@ -94,39 +94,39 @@ const ComposeAssessment = () => {
             setprevQuestion(prevQuestion + 1)
             setQuestionNo(questionNo + 1)
             setQuestionLength(questionLength + 1)
-            console.log(questionStore)
-            questionStore[questionLength].question = questionData.question
-            questionStore[questionLength].option_a = questionData.option_a
-            questionStore[questionLength].option_b = questionData.option_b
-            questionStore[questionLength].option_c = questionData.option_c
-            questionStore[questionLength].option_d = questionData.option_d
-            questionStore[questionLength].correct_answer = questionData.correct_answer
-            questionStore[questionLength].batch_id = questionData.batch_id
+            console.log(question)
+            question[questionLength].question = questionData.question
+            question[questionLength].option_a = questionData.option_a
+            question[questionLength].option_b = questionData.option_b
+            question[questionLength].option_c = questionData.option_c
+            question[questionLength].option_d = questionData.option_d
+            question[questionLength].correct_answer = questionData.correct_answer
+            question[questionLength].batch_id = questionData.batch_id
         }
-        else if (questionStore.length > questionLength) {
+        else if (question.length > questionLength) {
             setprevQuestion(prevQuestion + 1)
             setQuestionNo(questionNo + 1)
-            console.log(questionStore)
+            console.log(question)
             console.log("Updated")
             setNextQuestion(nextQuestion + 1)
             setQuestionLength(questionLength + 1)
-            let one = questionStore[nextQuestion].question
-            let two = questionStore[nextQuestion].option_a
-            let three = questionStore[nextQuestion].option_b
-            let four = questionStore[nextQuestion].option_c
-            let five = questionStore[nextQuestion].option_d
-            let six = questionStore[nextQuestion].correct_answer
-            let seven = questionStore[nextQuestion].batch_id
+            let one = question[nextQuestion].question
+            let two = question[nextQuestion].option_a
+            let three = question[nextQuestion].option_b
+            let four = question[nextQuestion].option_c
+            let five = question[nextQuestion].option_d
+            let six = question[nextQuestion].correct_answer
+            let seven = question[nextQuestion].batch_id
             setQuestions({
                 ...questions, question: one, option_a: two, option_b: three, option_c: four, option_d: five, correct_answer: six, batch_id: seven
             })
-            questionStore[questionLength].question = questionData.question
-            questionStore[questionLength].option_a = questionData.option_a
-            questionStore[questionLength].option_b = questionData.option_b
-            questionStore[questionLength].option_c = questionData.option_c
-            questionStore[questionLength].option_d = questionData.option_d
-            questionStore[questionLength].correct_answer = questionData.correct_answer
-            questionStore[questionLength].batch_id = questionData.batch_id
+            question[questionLength].question = questionData.question
+            question[questionLength].option_a = questionData.option_a
+            question[questionLength].option_b = questionData.option_b
+            question[questionLength].option_c = questionData.option_c
+            question[questionLength].option_d = questionData.option_d
+            question[questionLength].correct_answer = questionData.correct_answer
+            question[questionLength].batch_id = questionData.batch_id
         }
         if (nextQuestion === 30) {
             setQuestionNo(30)
@@ -135,26 +135,37 @@ const ComposeAssessment = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        const { questionStore, set_time, cv_file } = questions
-        const Questions = { questionStore }
+        const { question, set_time, cv_file } = questions
+        const Questions = { question }
         let attachment = { set_time, cv_file }
         if (set_time) {
-            const url = "api/v1/auth/composeAssessmentAdmin"
-            const url2 = "api/v1/auth/uploadsetime"
+            const token = localStorage.getItem('token')
+            var formData = new FormData()
 
-            let attachedFiles = axios.post(url, attachment)
-            let questionCollection = axios.post(url2, Questions)
+            for (var key in attachment) {
+                formData.append(key, attachment[key])
+            }
+            let config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    "token": token
+                }
+            }
+            const url = "/api/v1/auth/composeAssessmentAdmin"
+            const url2 = "/api/v1/auth/uploadsetime"
 
-            axios.all([attachedFiles, questionCollection])
-                .then(
-                    axios.spread((...allData) => {
-                        const allAttachedFiles = allData[0]
-                        const questionCollections = allData[1]
-                        setNextQuestion(nextQuestion + 1)
-                        console.log(allAttachedFiles)
-                        console.log(questionCollections)
-                    })
-                )
+            axios.post(url2, formData, config)
+                .then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+            axios.post(url, Questions, config)
+                .then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
         } else {
             alert("Set time")
         }
