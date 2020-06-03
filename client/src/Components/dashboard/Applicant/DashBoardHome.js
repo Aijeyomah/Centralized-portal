@@ -1,11 +1,11 @@
-import React, { useEffect , useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Info from './Info';
 import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import axios from 'axios'
 
 const DashBoardHome = (props) => {
-    const [userDetail, setUserDetail]  = useState({created_at:'', status:''})
+    const [userDetail, setUserDetail] = useState({ created_at: '', status: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
         let config = {
@@ -17,8 +17,8 @@ const DashBoardHome = (props) => {
         axios.get("/api/v1/getapplicantdetail", config)
             .then(res => {
                 setUserDetail({
-                    created_at: res.data.data.created_at, 
-                    status:  res.data.data.status
+                    created_at: res.data.data.created_at,
+                    status: res.data.data.status
                 })
             }).catch(err => {
                 console.log(err.message)

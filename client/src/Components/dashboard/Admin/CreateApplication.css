@@ -38,12 +38,21 @@
     height: 100%;
 }
 
-.application-first-row, .application-second-row {
+.application-first-row {
     display: flex;
     justify-content: space-between;
     text-align: left;
     align-items: center;
-    width: 100%
+    width: 100%;
+    margin: 0
+}
+
+.application-second-row {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px
 }
 
 .application-first-row input, .application-second-row input {
@@ -103,4 +112,8 @@ input#closure_date, input#batch_id, input#instructions {
     cursor: pointer;
     background: #5abefd;
     transition: .5s;
+}
+
+label:hover {
+    cursor: pointer
 }

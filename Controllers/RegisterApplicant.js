@@ -12,37 +12,40 @@ const sendMail = require('./emailSenderController')
 
 
 exports.createApplicationForm = async (req, res) => {
-   const date = new Date();
-   const date_of_application =  moment(date).format('DD.MM.YY');
+    const date = new Date();
+    const date_of_application = moment(date).format('DD.MM.YY');
     const created_at = date.getFullYear();
     const d = new Date(req.body.date_of_birth)
     const birth = d.getFullYear()
     const age = created_at - birth
     const img = req.files.cv_file
+
     const status = 'Pending'
     
    images = img.name
     const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
     const user_id = req.user.user_id
-    if(email_address !==  res.locals.user.email){
-        res.status(200).json({
-            status: 'error',
+    if (email_address !== res.locals.user.email) {
+        res.status(400).json({
+            status: "failure",
+            code: 400,
             message: "Mail must correspond with signup mail"
-        })    
+        })
     }
-    img.mv('uploads/'+images, (error) => {
+    img.mv('uploads/' + images, (error) => {
         if (error) {
             res.status(500).json({
                 status: 'error',
                 code: 99,
                 message: "Error uploading file",
                 error: error.message
-            })        }
-      
-    })
-    
+            })
+        }
 
-if (!first_name || !last_name || !email_address || !date_of_birth || !address || !university || !course_of_study || !cgpa) {
+    })
+
+
+    if (!first_name || !last_name || !email_address || !date_of_birth || !address || !university || !course_of_study || !cgpa) {
         return res.status(400).json({
             message: "Please fill all fields",
         });
@@ -56,46 +59,55 @@ if (!first_name || !last_name || !email_address || !date_of_birth || !address ||
     }
     const queryObject = {
         text: queries.RegisterApplicantQuery,
-        values:   [
-        user_id,
-        images,
-        first_name,
-        last_name,
-        email_address,
-        date_of_birth ,
-        address,
-        university,
-        course_of_study,
-        cgpa,
-        age,
-        date_of_application,
-        status
-    ]
+        values: [
+            user_id,
+            images,
+            first_name,
+            last_name,
+            email_address,
+            date_of_birth,
+            address,
+            university,
+            course_of_study,
+            cgpa,
+            age,
+            date_of_application,
+            status
+        ]
     };
-  
- 
+
+
     try {
         const { rows, rowCount } = await db.query(queryObject)
         const dbresponse = rows[0]
         if (rowCount === 0) {
-            res.status(400).json({ message: "Application process not completed" })
+            res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "Application process not completed"
+            })
         }
         if (rowCount > 0) {
-        const email = req.body.email_address
-         console.log(email)
-        const subject = 'Application status'
-        const text = 'Applcation have been'
-        await sendMail(email,  subject, text )
-         res.status(201).json({ message: "Application submitted ", dbresponse })
+            const email = req.body.email_address
+            console.log(email)
+            const subject = 'Application status'
+            const text = 'Applcation have been'
+            await sendMail(email, subject, text)
+            res.status(201).json({
+                status: "success",
+                code: 201,
+                message: "Application form submitted ", dbresponse
+            })
 
         }
-     } catch (error) {
+    } catch (error) {
         res.status(500).json({
             status: 'error',
             code: 99,
             message: "Request Processing Error",
             error: error.message
-        })    }
+        })
+    }
 
 }
 exports.applicantDetails = async (req, res) => {
@@ -108,25 +120,33 @@ exports.applicantDetails = async (req, res) => {
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-          return res.status(200).json({ data: rows[0] })
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows[0]
+            })
         }
         if (rowCount === 0) {
-          return res.status(400).json({ message: "id not found" })
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "id not found"
+            })
         }
-      }
-      catch (error) {
+    }
+    catch (error) {
         res.status(500).json({
-          status: 'error',
-          code: 99,
-          message: "Request Processing Error",
-          error: error.message
+            status: 'error',
+            code: 99,
+            message: "Request Processing Error",
+            error: error.message
         })
-      }
+    }
 }
 
 
-exports.getSubmittedApplicationByBatchID = async (req,res) =>{
-    const {batch} = req.params
+exports.getSubmittedApplicationByBatchID = async (req, res) => {
+    const { batch } = req.params
     const queryObject = {
         text: queries.getApplicationByID,
         values: [batch]
@@ -134,32 +154,49 @@ exports.getSubmittedApplicationByBatchID = async (req,res) =>{
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-            return res.status(200).json({  data: rows[0] })
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows[0]
+            })
         }
         if (rowCount === 0) {
-            return res.status(400).json({ message: "there is no id found" })
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "there is no id found"
+            })
         }
     }
     catch (error) {
         res.status(500).json({
-            status: 'error',
-            code: 99,
+            status: 'failure',
+            code: 500,
             message: "Request Processing Error",
             error: error.message
-        })    }
+        })
+    }
 }
 
-exports.getSubmittedAllApplication = async (req,res) =>{
-const queryObject = {
+exports.getSubmittedAllApplication = async (req, res) => {
+    const queryObject = {
         text: queries.getAllApplication
-       }
+    }
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-            return res.status(200).json({  data: rows[0] })
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows[0]
+            })
         }
         if (rowCount === 0) {
-            return res.status(400).json({message: "there is no id found"})
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "there is no id found"
+            })
         }
     }
     catch (error) {
@@ -168,7 +205,8 @@ const queryObject = {
             code: 99,
             message: "Request Processing Error",
             error: error.message
-        })    }
+        })
+    }
 }
 
 exports.getAllApplicationBatches = async (req, res) => {
@@ -178,19 +216,28 @@ exports.getAllApplicationBatches = async (req, res) => {
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-            return res.status(200).json({ data: rows[0] })
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows[0]
+            })
         }
         if (rowCount === 0) {
-            return res.status(400).json({ message: "cannot get application batch" })
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "cannot get application batch"
+            })
         }
     }
     catch (error) {
         res.status(500).json({
             status: 'error',
-            code: 99,
+            code: 500,
             message: "Request Processing Error",
             error: error.message
-        })    }
+        })
+    }
 }
 
 exports.getSubmittedApplicationEntriesByBatchID = async (req, res) => {
@@ -202,77 +249,30 @@ exports.getSubmittedApplicationEntriesByBatchID = async (req, res) => {
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-            return res.status(200).json({ data: rows[0] })
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows[0]
+            })
         }
         if (rowCount === 0) {
-            return res.status(400).json({ message: "there is no id found" })
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "there is no id found"
+            })
         }
     }
     catch (error) {
         res.status(500).json({
-            status: 'error',
-            code: 99,
+            status: 'failure',
+            code: 500,
             message: "Request Processing Error",
             error: error.message
-        })    }
-}
-
-
-
-exports.createApplicationForm1 = async (req, res) => {
-    const date = new Date();
-    const created_at = moment(date).format('YYYY-MM-DD HH:mm:ss');
-
-     const img = req.files.cv_file
-   images = img.name
-    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, batch } = req.body;
-    
-    
-    img.mv('uploads/'+images, (error) => {
-        if (error) {
-            res.status(500).json({
-                status: 'error',
-                code: 99,
-                message: "Request Processing Error",
-                error: error.message
-            })        }
-    
-    })
-    
-
-
-
-    if (!first_name || !last_name || !email_address || !date_of_birth || !address || !university || !course_of_study || !cgpa||!batch) {
-        return res.status(400).json({
-            message: "Please fill all fields",
-        });
-    }
-    if (!isValidEmail(email_address)) {
-        return res.status(400).json({
-            status: 'failure',
-            code: 400,
-            message: "please put in a valid emailAddress"
         })
     }
-    const queryObject = {
-        text: queries.RegisterApplicantQuery,
-        values:   [
-        images,
-        first_name,
-        last_name,
-        email_address,
-        date_of_birth ,
-        address,
-        university,
-        course_of_study,
-        cgpa,
-         created_at,
-        created_at ,
-        batch
-    ]
-    };
 }
- 
+
 exports.getApplicationByAdmin = async (req, res) => {
     const { batch } = req.params
     const queryObject = {
@@ -282,10 +282,18 @@ exports.getApplicationByAdmin = async (req, res) => {
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-            return res.status(200).json({ data: rows[0] })
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows[0]
+            })
         }
         if (rowCount === 0) {
-            return res.status(400).json({ message: "there is no id found" })
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "there is no id found"
+            })
         }
     }
     catch (error) {
@@ -294,6 +302,7 @@ exports.getApplicationByAdmin = async (req, res) => {
             code: 99,
             message: "Request Processing Error",
             error: error.message
-        })    }
+        })
+    }
 }
 
