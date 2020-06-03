@@ -348,8 +348,8 @@ exports.updateTestScores = async (req, res) => {
                     message: "your test scores has been updated"
                 })
             }
-        } else {
-            const { rowCount, rows } = await db.query(queryObject2)
+        } else if (rows[0].test_scores !== null) {
+            const { rows } = await db.query(queryObject2)
             if (rows[0].status === 'Pending') {
                 return res.status(400).json({
                     status: "failure",
@@ -357,13 +357,12 @@ exports.updateTestScores = async (req, res) => {
                     message: "your assessment status has not been updated"
                 })
             } else if (rows[0].status === 'Taken') {
-                return res.status(400).json({
-                    status: "failure",
-                    code: 400,
+                return res.status(200).json({
+                    status: "success",
+                    code: 200,
                     message: "your assessment status has been updated successfully "
                 })
             }
-
         }
     }
     catch (error) {
