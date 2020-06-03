@@ -50,8 +50,9 @@ const queries = {
         cgpa, 
         age,
         created_at,
-        status
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *
+        status,
+        test_scores
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,$14) RETURNING *
     `,
     getUserDetailById:`SELECT * FROM applicants WHERE user_id =($1)`,
   getApplicationByID: ` SELECT COUNT (*) FROM applicants where batch = ($1);`,
@@ -96,7 +97,8 @@ const queries = {
     file_upload,
     set_time
     ) VALUES ($1, $2) RETURNING *
-   `
+   `,
+   testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` 
 
 }
 module.exports = queries

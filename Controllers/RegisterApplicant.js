@@ -21,9 +21,9 @@ exports.createApplicationForm = async (req, res) => {
     const img = req.files.cv_file
 
     const status = 'Pending'
-    
-   images = img.name
-    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
+
+    images = img.name
+    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa } = req.body;
     const user_id = req.user.user_id
     if (email_address !== res.locals.user.email) {
         res.status(400).json({
@@ -72,7 +72,8 @@ exports.createApplicationForm = async (req, res) => {
             cgpa,
             age,
             date_of_application,
-            status
+            status,
+            null
         ]
     };
 
@@ -302,6 +303,48 @@ exports.getApplicationByAdmin = async (req, res) => {
             code: 99,
             message: "Request Processing Error",
             error: error.message
+        })
+    }
+}
+exports.updateTestScores = async (req, res) => {
+    const { test_scores } = req.body
+    const email_address = res.locals.user.email
+    const queryObject = {
+        text: queries.findByEmail,
+        values: [email_address]
+    };
+    const queryObject1 = {
+        text: queries.testScoresQuery,
+        values: [test_scores, email_address]
+    };
+    try {
+        const { rowCount } = await db.query(queryObject)
+        if (rowCount === 0) {
+            return Promise.reject({
+                status: "failure",
+                code: 400,
+                message: "There is no user with this email"
+            })
+        }
+        if (rowCount > 0) {
+            const { rows } = await db.query(queryObject1)
+            if (rows[0].test_scores !== null) {
+                return Promise.resolve({
+                    message: "your test scores has been updated"
+                })
+            } else {
+                return Promise.reject({
+                    status: "failure",
+                    code: 400,
+                    message: "your test scores has not been updated"
+                })
+            }
+        }
+    } catch (error) {
+        return res.status(500).json({
+            status: "failure",
+            code: 500,
+            message: 'error updating status'
         })
     }
 }

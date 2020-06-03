@@ -317,17 +317,24 @@ exports.setNewPassword = async (req, res) => {
                             message: "Password updated"
                         })
                     } else {
-                        res.status(500).send({
+                        res.status(400).json({
+                            status: "failure",
+                            code: 400,
                             message: "Password forgot not updated"
                         })
                     }
                 } else {
-                    res.status(400).send({
+                    res.status(400).json({
+
+                        status: "failure",
+                            code: 400,
                         message: "invalid code"
                     })
                 }
             } else {
-                res.status(400).send({
+                res.status(400).json({
+                    status: "failure",
+                            code: 400,
                     message: "User does not exist"
                 })
             }
