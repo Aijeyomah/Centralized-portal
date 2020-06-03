@@ -4,20 +4,20 @@ import axios from 'axios'
 
 const Logout = () => {
     useEffect(() => {
-        const token = localStorage.removeItem('token')
+        const token = localStorage.getItem('token')
         let config = {
             headers: {
                 "Content-Type": "application/json",
                 "token": token
             }
         }
-        axios.post("api/v1/auth/logOut", config)
+        axios.put("/api/v1/auth/logOut", config)
             .then((res) => {
                 console.log(res)
             }).catch(err => {
                 console.log(err)
             })
-    }, [])
+    })
     return (
         <div>
             <p>This is the Logout section</p>
