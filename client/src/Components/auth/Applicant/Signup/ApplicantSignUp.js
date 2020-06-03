@@ -41,10 +41,6 @@ const ApplicantSignUp = (props) => {
         })
     }
 
-    useEffect(() => {
-        console.log(props)
-    }, [])
-
     const handleSubmit = (e) => {
         e.preventDefault()
         const { first_name, last_name, email_address, phone_number, password, confirm_password } = user

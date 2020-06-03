@@ -132,7 +132,7 @@ const QuizData = [
         option_a: "117",
         option_b: "3120",
         option_c: "3380",
-        option_d: "3120",
+        option_d: "3520",
         correct_answer: "3380",
     },
     {
@@ -204,7 +204,7 @@ const QuizData = [
         option_a: "117",
         option_b: "3120",
         option_c: "3380",
-        option_d: "3120",
+        option_d: "3520",
         correct_answer: "3380",
     },
     {

@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../../../Images/logo.png';
 import './login.css';
 import Input, { PasswordInput } from '../../../../Components/Input/Input';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormButton } from '../../../../Components/Button/Button';
 import useInput from '../../../../Hooks/useInput';
 

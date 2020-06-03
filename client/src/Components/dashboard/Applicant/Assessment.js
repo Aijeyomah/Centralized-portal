@@ -18,7 +18,7 @@ const Assessment = (props) => {
         nextQuestion: 0,
         prevQuestion: -1,
         questionNo: 1,
-        score: [],
+        userOptions: [],
         disabled: true,
         currentIndex: 0
     })
@@ -51,39 +51,46 @@ const Assessment = (props) => {
     }
 
     const handlePreviousQuestion = () => {
-        const { currentIndex, questionNo, score, userAnswer, nextQuestion, prevQuestion } = questions
-        let one = score[prevQuestion]
+        const { currentIndex, questionNo, userOptions, nextQuestion, prevQuestion } = questions
+        let one = userOptions[prevQuestion]
         setQuestions({
             ...questions, currentIndex: currentIndex - 1, questionNo: questionNo - 1, nextQuestion: nextQuestion - 1, prevQuestion: prevQuestion - 1, userAnswer: one
         })
         console.log(one)
-        console.log(score)
+        console.log(userOptions)
     }
 
     const handleNextQuestion = () => {
-        const { currentIndex, questionNo, score, prevQuestion, nextQuestion, userAnswer, correct_answer } = questions
-        let one = score[nextQuestion]
+        const { currentIndex, questionNo, userOptions, prevQuestion, nextQuestion, userAnswer, correct_answer } = questions
+        let one = userOptions[nextQuestion]
         setQuestions({
             ...questions, currentIndex: currentIndex + 1, questionNo: questionNo + 1, nextQuestion: nextQuestion + 1, prevQuestion: prevQuestion + 1, userAnswer: one
         })
-        if (currentIndex === score.length) {
-            score.push(userAnswer)
-            console.log(score)
+        if (currentIndex === userOptions.length) {
+            userOptions.push(userAnswer)
+            console.log(userOptions)
             console.log(nextQuestion)
             correct_answer.push(QuizData[currentIndex].correct_answer)
             console.log(correct_answer)
         }
-        else if (currentIndex < score.length) {
-            score[nextQuestion] = userAnswer
+        else if (currentIndex < userOptions.length) {
+            userOptions[nextQuestion] = userAnswer
             console.log(nextQuestion)
-            console.log(score)
+            console.log(userOptions)
             console.log(nextQuestion)
         }
     }
 
     const handleSubmit = () => {
+        const { currentIndex, userOptions, nextQuestion, userAnswer, correct_answer } = questions
+        correct_answer.push(QuizData[currentIndex].correct_answer)
+        console.log(userOptions)
+        console.log(nextQuestion)
+        userOptions.push(userAnswer)
         setShow(show + 1)
         clearInterval(interv)
+        let userScore = questions.userOptions.filter(val => questions.correct_answer.indexOf(val) !== -1)
+        console.log(userScore.length)
     }
 
     if (updatedM === 30) {
@@ -147,7 +154,7 @@ const Assessment = (props) => {
             </div>
             <div className="congrats" style={{ display: show === 3 ? "block" : "none" }}>
                 <div >
-                    <img src={congratsIcon} />
+                    <img src={congratsIcon} alt="congrats" />
                 </div>
                 <p>We have received your assessment test, we will get back to you soon. Best of luck</p>
                 <Link to="/applicantdashboard"><button>Home</button></Link>

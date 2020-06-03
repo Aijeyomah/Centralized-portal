@@ -315,7 +315,7 @@ exports.setNewPassword = async (req, res) => {
                     if (rowCount > 0) {
                         res.status(200).json({
                             status: "success",
-            code: 200,
+                            code: 200,
                             message: "Password updated"
                         })
                     } else {
