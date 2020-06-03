@@ -321,7 +321,7 @@ exports.updateTestScores = async (req, res) => {
     };
     const queryObject2 = {
         text: queries.updateAssessmentStatusQuery,
-        values: [status,email_address]
+        values: [status, email_address]
     };
     console.log(queryObject1)
     try {
@@ -347,57 +347,33 @@ exports.updateTestScores = async (req, res) => {
                     code: 200,
                     message: "your test scores has been updated"
                 })
-            }            
+            }
         } else {
-            const { rowCount,rows } = await db.query(queryObject2)
-            if (rows[0].status==='Pending'){
+            const { rowCount, rows } = await db.query(queryObject2)
+            if (rows[0].status === 'Pending') {
                 return res.status(400).json({
                     status: "failure",
                     code: 400,
                     message: "your assessment status has not been updated"
                 })
-            }else if(rows[0].status==='Taken'){
+            } else if (rows[0].status === 'Taken') {
                 return res.status(400).json({
                     status: "failure",
                     code: 400,
                     message: "your assessment status has been updated successfully "
                 })
             }
-            
-        }
-    }
- catch (error) {
-    console.log(error)
-    return res.status(500).json({
-        status: "failure",
-        code: 500,
-        message: error.message
-    })
-}
-}
-exports.updateAssessmentStatus = async (req, res) => {
-    const email_address = res.locals.user.email
-    const queryObject = {
-        text: queries.findByEmail,
-        values: [email_address]
-    };
-    const queryObject = {
-        text: queries.findByEmail,
-        values: [email_address]
-    };
-    try {
-        const { rowCount, rows } = await db.query(queryObject)
-        if (rowCount === 0) {
-            return res.status(400).json({
-                status: "failure",
-                code: 400,
-                message: "There is no user with this email"
-            })
-        }
-        if (rowCount > 0 && rows[0].test_scores !== null){
 
         }
-    } catch (error) {
-        
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            status: "failure",
+            code: 500,
+            message: error.message
+        })
     }
 }
+
+
