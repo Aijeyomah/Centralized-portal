@@ -252,7 +252,7 @@ exports.getSubmittedApplicationEntriesByBatchID = async (req, res) => {
             return res.status(200).json({
                 status: "success",
                 code: 200,
-                data: rows[0]
+                data: rows
             })
         }
         if (rowCount === 0) {
