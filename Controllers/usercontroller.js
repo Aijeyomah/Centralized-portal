@@ -35,7 +35,7 @@ exports.signUpUser = async (req, res, next) => {
         });
     }
     if (password !== confirm_password) {
-        res.status(200).json({
+        res.status(400).json({
             status: "failure",
             code: PASSWORD_MISMATCH,
             message: "This Password does not match"
@@ -44,14 +44,14 @@ exports.signUpUser = async (req, res, next) => {
     if (!isValidEmail(email_address)) {
         return res.status(200).json({
             status: 'failure',
-            code: 200,
+            code: 400,
             message: "please put in a valid emailAddress"
         })
     }
     if (!validatePassword(password)) {
-        return res.status(200).json({
+        return res.status(400).json({
             status: 'failure',
-            code: 200,
+            code: 400,
             message: "Invalid Password"
         })
     }
