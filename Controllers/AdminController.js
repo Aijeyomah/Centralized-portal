@@ -174,10 +174,10 @@ exports.uploadfileSetTime = async (req, res) => {
 
 }
 exports.getAllComposedApplicationByBatch = async(req,res)=>{
-  const { batch } = req.params
+  const { batch_id } = req.params
     const queryObject = {
         text: queries.getAllComposedApplicationByBatchQuery,
-        values: [batch]
+        values: [batch_id]
     }
     try {
         const { rows, rowCount } = await db.query(queryObject)
