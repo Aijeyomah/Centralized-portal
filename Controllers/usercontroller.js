@@ -345,7 +345,7 @@ exports.setNewPassword = async (req, res) => {
 }
 
 exports.uploadProfilePics = async (req, res, next) => {
-    const id = req.user.user_id
+    const id = res.locals.user.user_id
 console.log(id)
 console.log(req.user.user_id)
     const pics = req.files.pictures
