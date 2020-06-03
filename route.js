@@ -49,9 +49,6 @@ router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
 router.post('/auth/uploadsetime', verifyAdminToken, uploadfileSetTime)
 
-router.put('/updateadmin/:id',  updateUserBySuperAdmin)
-
-
 
 //get
 router.get('/getAllApplicationBatches', verifyAdminToken, findSignInCode, getAllApplicationBatches)

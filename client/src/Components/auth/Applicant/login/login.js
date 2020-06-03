@@ -5,7 +5,7 @@ import Input, { PasswordInput} from '../../../../Components/Input/Input';
 import { Link, Redirect } from 'react-router-dom';
 import { FormButton } from '../../../../Components/Button/Button';
 import useInput from '../../../../Hooks/useInput';
-
+import {browserHistory} from 'react-router-dom'
 const Login = (props) => {
 const [state, handleChange, handleSubmit, isEnabled, isLoggedIn] = useInput();
 // const referer = props.location.state.referer || '/';
