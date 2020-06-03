@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios'
 
+
 const initialstate = {
     email: "",
     password: "",
@@ -72,6 +73,7 @@ const useInput = () => {
             }
             axios.post('/api/v1/auth/signin', logindetails, config)
                 .then(res => {
+
                     localStorage.setItem('token', res.data.data.token)
                     console.log(res)
                 }).catch(err => {

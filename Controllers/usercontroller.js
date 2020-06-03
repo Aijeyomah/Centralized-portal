@@ -28,30 +28,30 @@ exports.signUpUser = async (req, res, next) => {
         confirm_password
     } = req.body;
     if (!first_name || !last_name || !email_address || !phone_number || !password || !confirm_password) {
-        return res.status(200).json({
+        return res.status(400).json({
             status: "failure",
-            code: 200,
+            code: 400,
             message: "Please fill all fields"
         });
     }
     if (password !== confirm_password) {
-        res.status(200).json({
+        res.status(400).json({
             status: "failure",
-            code: PASSWORD_MISMATCH,
+            code: 400,
             message: "This Password does not match"
         })
     }
     if (!isValidEmail(email_address)) {
-        return res.status(200).json({
+        return res.status(400).json({
             status: 'failure',
-            code: 200,
+            code: 400,
             message: "please put in a valid emailAddress"
         })
     }
     if (!validatePassword(password)) {
-        return res.status(200).json({
+        return res.status(400).json({
             status: 'failure',
-            code: 200,
+            code: 400,
             message: "Invalid Password"
         })
     }
@@ -71,36 +71,37 @@ exports.signUpUser = async (req, res, next) => {
             res.status(400).send({
                 message: "Email already exist"
             })
-        }else{
-                const { rows } = await db.query(queryObject);
-                const dbresponse = rows[0];
-                delete dbresponse.password
-                delete dbresponse.confirm_password
-                delete dbresponse.is_admin;
-                delete dbresponse.created_at;
-                delete dbresponse.updated_at;
-                delete dbresponse.forgotpasswordcode;
-                const tokens = generateToken(dbresponse.id, dbresponse.first_name, dbresponse.last_name, dbresponse.email_address, dbresponse.phone_number);
-                const data = {
-                    token: tokens,
-                    dbresponse
-                }
-                res.status(201).json({
-                    status: 'success',
-                    code: 201,
-                    message: "User Created Successfully",
-                    data
-                })
-    }}
+        } else {
+            const { rows } = await db.query(queryObject);
+            const dbresponse = rows[0];
+            delete dbresponse.password
+            delete dbresponse.confirm_password
+            delete dbresponse.is_admin;
+            delete dbresponse.created_at;
+            delete dbresponse.updated_at;
+            delete dbresponse.forgotpasswordcode;
+            const tokens = generateToken(dbresponse.id, dbresponse.first_name, dbresponse.last_name, dbresponse.email_address, dbresponse.phone_number);
+            const data = {
+                token: tokens,
+                dbresponse
+            }
+            res.status(201).json({
+                status: 'success',
+                code: 201,
+                message: "User Created Successfully",
+                data
+            })
+        }
+    }
     catch (error) {
         res.status(500).json({
 
-             status: 'error',
-             code: 500,
-             message: "Request Processing Error",
+            status: 'error',
+            code: 500,
+            message: "Request Processing Error",
             error: error.message
         })
-}
+    }
 }
 exports.signInUser = async (req, res, next) => {
     const {
@@ -109,16 +110,22 @@ exports.signInUser = async (req, res, next) => {
     } = req.body
     if (!email_address || !password) {
         return res.status(400).json({
+            status: "failure",
+            code: 400,
             message: "Please fill all fields",
         });
     }
     if (!isValidEmail(email_address)) {
         return res.status(400).json({
+            status: "failure",
+            code: 400,
             message: "Invalid email"
         })
     }
     if (!validatePassword(password)) {
         return res.status(400).json({
+            status: "failure",
+            code: 400,
             message: "Invalid Password"
         })
     }
@@ -167,11 +174,15 @@ exports.signInUser = async (req, res, next) => {
                 rowCount
             } = await db.query(queryObject1)
             if (rowCount > 0) {
-                res.status(200).send({
+                res.status(200).json({
+                    status: "success",
+                    code: 200,
                     message: "token saved"
                 })
             } else {
-                res.status(500).send({
+                res.status(500).json({
+                    status: "failure",
+                    code: 500,
                     message: "Error saving forgot password code."
                 })
             }
@@ -220,17 +231,23 @@ exports.forgotPassword = async (req, res) => {
                 rowCount
             } = await db.query(queryObject1)
             if (rowCount > 0) {
-                res.status(200).send({
+                res.status(200).json({
+                    status: "success",
+                    code: 200,
                     message: " Verification Email sent ",
                     code: code
                 })
             } else {
-                res.status(500).send({
+                res.status(500).json({
+                    status: "failure",
+                    code: 500,
                     message: "Error saving forgot password code."
                 })
             }
         } else {
-            res.status(400).send({
+            res.status(400).json({
+                status: "failure",
+                code: 400,
                 message: "User does not exist"
             })
         }
@@ -480,18 +497,18 @@ exports.userDetail = async (req, res) => {
     try {
         const { rows, rowCount } = await db.query(queryObject)
         if (rowCount > 0) {
-          return res.status(200).json({ data: rows[0] })
+            return res.status(200).json({ data: rows[0] })
         }
         if (rowCount === 0) {
-          return res.status(400).json({ message: "id not found" })
+            return res.status(400).json({ message: "id not found" })
         }
-      }
-      catch (error) {
+    }
+    catch (error) {
         res.status(500).json({
-          status: 'error',
-          code: 99,
-          message: "Request Processing Error",
-          error: error.message
+            status: 'error',
+            code: 99,
+            message: "Request Processing Error",
+            error: error.message
         })
-      }
+    }
 }
