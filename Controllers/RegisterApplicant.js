@@ -329,25 +329,30 @@ exports.updateTestScores = async (req, res) => {
             })
         }
         if (rowCount > 0 && rows[0].test_scores === null) {
+            console.log('got here')
             const { rowCount } = await db.query(queryObject1)
+            console.log(rowCount)
             if (rowCount === 0) {
+                console.log('got here1')
                 return res.status(400).json({
                     status: "failure",
                     code: 400,
                     message: "you are yet to take the test"
                 })
-            } else {
+            } 
+            if(rowCount>0) {
+                console.log('got here2')
                 return res.status(200).json({
                     status: 'success',
                     code: 200,
                     message: "your test scores has been updated"
                 })
             }            
-        } else {
+        } else  {
             return res.status(400).json({
                 status: "failure",
                 code: 400,
-                message: "your have taken this test"
+                message: "you have taken this test"
             })
         }
     }
