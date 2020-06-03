@@ -143,3 +143,10 @@
 #date_of_birth:focus {
     border-color: #2B3C4E;
 }
+
+.message {
+    font-size: 14px;
+    text-align: center;
+    color: #2B3C4E;
+    margin: 0 auto 20px auto
+}

@@ -136,13 +136,14 @@ const ComposeAssessment = () => {
     const handleSubmit = e => {
         e.preventDefault()
         const { questionStore, set_time, cv_file } = questions
+        const Questions = { questionStore }
         let attachment = { set_time, cv_file }
         if (set_time) {
-            const url = "http://dummyapi.com"
-            const url2 = "http://dummyapi.com"
+            const url = "api/v1/auth/composeAssessmentAdmin"
+            const url2 = "api/v1/auth/uploadsetime"
 
-            let attachedFiles = axios.post(url)
-            let questionCollection = axios.post(url2)
+            let attachedFiles = axios.post(url, attachment)
+            let questionCollection = axios.post(url2, Questions)
 
             axios.all([attachedFiles, questionCollection])
                 .then(

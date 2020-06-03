@@ -5,7 +5,6 @@ import uploadIcon from '../../../../Images/upload-icon.svg'
 import axios from 'axios'
 
 const ApplicationForm = (props) => {
-
     const [user, setUser] = useState({
         first_name: "",
         last_name: "",
@@ -15,7 +14,8 @@ const ApplicationForm = (props) => {
         university: "",
         course_of_study: "",
         cgpa: "",
-        cv_file: ""
+        cv_file: "",
+        message: ""
     })
 
     const handleChange = e => {
@@ -29,43 +29,44 @@ const ApplicationForm = (props) => {
         const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file } = user
         let userDetails = { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file }
         let file = cv_file
-        if (file) {  
+        if (file) {
 
-            console.log(file)      
+            console.log(file)
             const token = localStorage.getItem('token')
             var formData = new FormData()
 
-            for (var key in userDetails){
+            for (var key in userDetails) {
                 formData.append(key, userDetails[key])
             }
             let config = {
-            headers: {
-                "Content-Type": "application/json",
-                "token": token
-                 }
+                headers: {
+                    "Content-Type": "application/json",
+                    "token": token
+                }
             }
-            
-        axios.post("/api/v1/auth/Applicationform",formData, config)
 
-            .then(res => {
-               if(res.status !== 201){
+            axios.post("/api/v1/auth/Applicationform", formData, config)
+
+                .then(res => {
+                    setUser({
+                        message: res.data.message
+                    })
                     console.log(res)
-               }
-            }
-            ).catch(err => {
-                console.log(err.message)
-            })
-    } else { alert("Upload your CV") }
-}
-   
+                    props.history.push('/applicantdashboard')
+                }
+                ).catch(err => {
+                    setUser({
+                        message: err.message
+                    })
+                })
+        } else { alert("Upload your CV") }
+    }
 
     const handleFile = (e) => {
         let files = e.target.files[0]
-            setUser({
-                ...user, cv_file: files,
-               
-            })
-     
+        setUser({
+            ...user, cv_file: files,
+        })
     }
 
     const style = {
@@ -143,6 +144,7 @@ const ApplicationForm = (props) => {
                         <input id="cgpa" type="number" onChange={handleChange} required /><br />
                     </div>
                 </div>
+                <p className="message">{user.message}</p>
                 <button type="submit">Submit</button>
             </form>
         </div>

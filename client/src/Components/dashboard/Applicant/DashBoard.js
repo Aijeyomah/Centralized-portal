@@ -1,4 +1,4 @@
-import React,  {useState, useEffect} from 'react' 
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import SideBar from './SideBar';
 import './DashBoard.css'
@@ -9,7 +9,7 @@ import Logout from './Logout'
 
 
 const Dashboard = () => {
-    const [userDetail, setUserDetail]  = useState({first_name:'', last_name:'' , email_address:''})
+    const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
         let config = {
