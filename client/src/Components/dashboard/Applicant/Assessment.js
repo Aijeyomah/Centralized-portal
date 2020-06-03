@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import './Assessment.css'
 import hourGlass from '../../../Images/hourglass.svg'
 import Timer from './Timer'
 import QuizData from './AssessmentQuestions'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -18,10 +19,30 @@ const Assessment = (props) => {
         nextQuestion: 0,
         prevQuestion: -1,
         questionNo: 1,
-        score: [],
+        userOptions: [],
         disabled: true,
         currentIndex: 0
     })
+
+    const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.get("/api/v1/getapplicantdetail", config)
+            .then(res => {
+                setUserDetail({
+                    created_at: res.data.data.created_at,
+                    status: res.data.data.status
+                })
+            }).catch(err => {
+                console.log(err.message)
+            })
+    }, [])
 
     const [show, setShow] = useState(1)
     const [interv, setInterv] = useState("")
@@ -51,45 +72,58 @@ const Assessment = (props) => {
     }
 
     const handlePreviousQuestion = () => {
-        const { currentIndex, questionNo, score, userAnswer, nextQuestion, prevQuestion } = questions
-        let one = score[prevQuestion]
+        const { currentIndex, questionNo, userOptions, nextQuestion, prevQuestion } = questions
+        let one = userOptions[prevQuestion]
         setQuestions({
             ...questions, currentIndex: currentIndex - 1, questionNo: questionNo - 1, nextQuestion: nextQuestion - 1, prevQuestion: prevQuestion - 1, userAnswer: one
         })
         console.log(one)
-        console.log(score)
+        console.log(userOptions)
     }
 
     const handleNextQuestion = () => {
-        const { currentIndex, questionNo, score, prevQuestion, nextQuestion, userAnswer, correct_answer } = questions
-        let one = score[nextQuestion]
+        const { currentIndex, questionNo, userOptions, prevQuestion, nextQuestion, userAnswer, correct_answer } = questions
+        let one = userOptions[nextQuestion]
         setQuestions({
             ...questions, currentIndex: currentIndex + 1, questionNo: questionNo + 1, nextQuestion: nextQuestion + 1, prevQuestion: prevQuestion + 1, userAnswer: one
         })
-        if (currentIndex === score.length) {
-            score.push(userAnswer)
-            console.log(score)
+        if (currentIndex === userOptions.length) {
+            userOptions.push(userAnswer)
+            console.log(userOptions)
             console.log(nextQuestion)
             correct_answer.push(QuizData[currentIndex].correct_answer)
             console.log(correct_answer)
         }
-        else if (currentIndex < score.length) {
-            score[nextQuestion] = userAnswer
+        else if (currentIndex < userOptions.length) {
+            userOptions[nextQuestion] = userAnswer
             console.log(nextQuestion)
-            console.log(score)
+            console.log(userOptions)
             console.log(nextQuestion)
         }
     }
 
     const handleSubmit = () => {
+        const { currentIndex, userOptions, nextQuestion, userAnswer, correct_answer } = questions
+        correct_answer.push(QuizData[currentIndex].correct_answer)
+        console.log(userOptions)
+        console.log(nextQuestion)
+        userOptions.push(userAnswer)
         setShow(show + 1)
         clearInterval(interv)
+        let userScore = questions.userOptions.filter(val => questions.correct_answer.indexOf(val) !== -1)
+        console.log(userScore.length)
     }
 
-    if (updatedM === 30) {
-        clearInterval(interv)
-        setShow(show + 1)
-    }
+    
+
+    useEffect(()=>{
+        return ()=>{
+            if (updatedM === 29 && updatedS===59 ) {
+                clearInterval(interv)
+                setShow(show + 1)
+            }
+        }
+    })
 
     if (questions.questionNo === 31) {
         setQuestions({
@@ -125,7 +159,7 @@ const Assessment = (props) => {
                         <img src={hourGlass} alt="hourglass" />
                     </div>
                     <p>We have 4 days left until the next assessment. Watch this space</p>
-                    <button onClick={handleNextPage}>Take Assessment</button>
+                    <button onClick={handleNextPage} disabled={!userDetail.created_at}>Take Assessment</button>
                 </div>
             </div>
             <div style={{ display: show === 2 ? "block" : "none" }}>
@@ -147,7 +181,7 @@ const Assessment = (props) => {
             </div>
             <div className="congrats" style={{ display: show === 3 ? "block" : "none" }}>
                 <div >
-                    <img src={congratsIcon} />
+                    <img src={congratsIcon} alt="congrats" />
                 </div>
                 <p>We have received your assessment test, we will get back to you soon. Best of luck</p>
                 <Link to="/applicantdashboard"><button>Home</button></Link>

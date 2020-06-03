@@ -197,8 +197,6 @@ exports.signInUser = async (req, res, next) => {
     }
 }
 
-
-
 exports.forgotPassword = async (req, res) => {
     const {
         email_address
@@ -315,7 +313,7 @@ exports.setNewPassword = async (req, res) => {
                     if (rowCount > 0) {
                         res.status(200).json({
                             status: "success",
-            code: 200,
+                            code: 200,
                             message: "Password updated"
                         })
                     } else {
@@ -345,20 +343,12 @@ exports.setNewPassword = async (req, res) => {
 }
 
 exports.uploadProfilePics = async (req, res, next) => {
-    const {
-        id
-    } = req.params
-    if (!parseInt(id)) {
-        return res.status(400).json({
-            message: "Id must be an integer",
-        });
-    }
-
+    const id = req.user.user_id
+console.log(id)
+console.log(req.user.user_id)
     const pics = req.files.pictures
     const picture_name = pics.name
-
-
-
+console.log(pics)
     pics.mv(`./upload-profile ${picture_name}`), (err) => {
         if (err) {
             res.status(500).json({
@@ -373,6 +363,7 @@ exports.uploadProfilePics = async (req, res, next) => {
         text: queries.updateProfilePicture,
         values: [picture_name, id]
     };
+    console.log(queryObject1)
     try {
         const {
             rows,
@@ -386,7 +377,7 @@ exports.uploadProfilePics = async (req, res, next) => {
         }
         if (rowCount > 0) {
             res.status(201).json({
-                message: "Application submitted ",
+                message: "Profile picture updated ",
                 dbresponse
             })
         }

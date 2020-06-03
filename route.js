@@ -41,9 +41,9 @@ router.post('/auth/signadmin', signInUser);
 router.post('/auth/Applicationform', verifyUserToken, findSignInCode, createApplicationForm);
 router.post('/auth/setnewpassword', verifyToken, setNewPassword)
 router.post('/auth/forgotpassword', forgotPassword)
-router.post('/uploadImage/:id', uploadProfilePics)
+router.put('/uploadImage',verifyUserToken, uploadProfilePics)
 router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
-router.post('/auth/logOut', verifyUserToken, logOut)
+router.put('/auth/logOut', verifyUserToken, logOut)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
 router.post('/auth/uploadsetime', verifyAdminToken, uploadfileSetTime)
