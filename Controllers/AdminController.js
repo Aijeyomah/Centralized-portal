@@ -11,7 +11,7 @@ const fs = require('fs')
 
 exports.createApplicationAdmin = async (req, res) => {
   const date = new Date();
-  const created_at = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  const created_at = moment(date).format('YYYY-MM-DD');
   const { link, application_closure_date, batch_id, instructions } = req.body
   const files = req.files.file_upload
   console.log(req.files)
