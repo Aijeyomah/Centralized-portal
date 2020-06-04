@@ -12,6 +12,11 @@ const fs = require('fs')
 exports.createApplicationAdmin = async (req, res) => {
   const date = new Date();
   const created_at = moment(date).format('YYYY-MM-DD');
+
+  const status;
+ if(created_at=== application_closure_date){
+   status = ''
+ }
   const { link, application_closure_date, batch_id, instructions } = req.body
   const files = req.files.file_upload
   console.log(req.files)
@@ -34,9 +39,11 @@ exports.createApplicationAdmin = async (req, res) => {
       message: "Please fill all fields",
     });
   }
+    
+
   const queryObject = {
     text: queries.createApplicationAdminQuery,
-    values: [fileName, link, application_closure_date, batch_id, instructions, created_at]
+    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, status]
   };
   try {
     const { rowCount, rows } = await db.query(queryObject)
