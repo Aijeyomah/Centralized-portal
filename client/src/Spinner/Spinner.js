@@ -4,8 +4,10 @@ import './Spinner.css'
 
 const Spinner = (props) => {
     return (
-        <div className="spinner">
-            <SpinnerIcon />
+        <div className="spin">
+            <div className="spinner">
+                <SpinnerIcon />
+            </div>
         </div>
     )
 }

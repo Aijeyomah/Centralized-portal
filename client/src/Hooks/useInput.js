@@ -77,6 +77,7 @@ const useInput = (props) => {
                 .then(res => {
                     localStorage.setItem('token', res.data.data.token)
                     console.log(res)
+                    props.history.push('/applicantdashboard')
                 }).catch(err => {
                     console.log(err)
                 })

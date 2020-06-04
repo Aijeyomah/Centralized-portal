@@ -23,6 +23,7 @@ const ApplicantSignUp = (props) => {
         phone_number: "",
         password: "",
         confirm_password: "",
+        errorMessage: ""
     })
 
     const handleInputChange = e => {
@@ -74,7 +75,9 @@ const ApplicantSignUp = (props) => {
                 hideSpinner()
                 props.history.push('/login')
             }).catch(error => {
-                console.log(error)
+                setUser({
+                    errorMessage: "Fill in the details correctly"
+                })
                 hideSpinner()
             })
     }
@@ -102,7 +105,9 @@ const ApplicantSignUp = (props) => {
                     <div>
                         <label>Email Address</label>
                         <br />
-                        <input value={user.email_address} id="email_address" type="email" onChange={handleInputChange} required /><br />
+                        <input value={user.email_address} id="email_address" type="email"
+                            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                            onChange={handleInputChange} required /><br />
                     </div>
                     <div>
                         <label>Phone Number</label>
@@ -128,6 +133,7 @@ const ApplicantSignUp = (props) => {
                         <img onClick={toggleConfirmPassword} src={(state.isConfirmPasswordShown) ? eyeSlashed : eye} alt="eye" />
                     </div>
                 </div>
+                <p className="red" style={{ color: "red" }} >{user.errorMessage}</p>
                 <button onClick={handleSpinner} type="submit">Sign Up</button>
                 <p className="sign-in-link">Already have an account? <span ><Link to="/login">Sign in</Link></span></p>
             </motion.form>
