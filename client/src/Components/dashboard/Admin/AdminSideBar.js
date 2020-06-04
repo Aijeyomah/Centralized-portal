@@ -43,7 +43,7 @@ const AdminSideBar = (props) => {
                 <Navigation url="/admindashboard/createapplication" src={createAppIcon} text="Create Application" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/entries" src={appEntriesIcon} text="Application Entries" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/assessment" src={composeAssessIcon} text="Compose Assessment" className="link-inactive" activeClassName="link-active" />
-                <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" />
+                {/* <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" /> */}
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
             <Navigation handleLogOut={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
