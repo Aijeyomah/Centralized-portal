@@ -67,7 +67,6 @@ const queries = {
         batch_id,
         instructions,
         created_at,
-        status,
         total
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
     getAllApplicationSubmitted:`SELECT * application`,
