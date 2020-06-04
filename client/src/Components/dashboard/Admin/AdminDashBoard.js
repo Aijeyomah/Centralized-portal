@@ -10,9 +10,26 @@ import AssessmentHistory from './AssessmentHistory';
 import Results from './Results';
 import AdminLogout from './AdminLogout';
 import axios from 'axios'
-
+import useSpinner from './../../../Spinner/useSpinner';
 
 const AdminDashboard = (props) => {
+    const [spinner, showSpinner, hideSpinner] = useSpinner()
+
+    useEffect(() => {
+        showSpinner()
+        return (() => {
+            if (userDetail.first_name) {
+                hideSpinner()
+            }
+        })
+    })
+
+    useEffect(() => {
+        if (userDetail.first_name !== userDetail.last_name) {
+            hideSpinner()
+        }
+    })
+
     const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -48,6 +65,7 @@ const AdminDashboard = (props) => {
                 <Route exact path="/admindashboard/results" component={Results} />
                 <Route exact path="/admindashboard/logout" component={AdminLogout} />
             </Switch>
+            {spinner}
         </div>
     )
 }

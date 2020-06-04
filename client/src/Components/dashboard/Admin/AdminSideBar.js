@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './AdminSideBar.css'
 import dashIcon from '../../../Images/dashboard-icon.svg'
 import appEntriesIcon from '../../../Images/app-entries.svg'
@@ -10,8 +10,18 @@ import Navigation from './../Applicant/Navigation';
 import logoutIcon from '../../../Images/logout-icon.svg'
 import avatar from '../../../Images/avatar.svg'
 import { withRouter } from 'react-router-dom'
+import Modal from './../Applicant/modal';
 
 const AdminSideBar = (props) => {
+
+    const [state, setState] = useState({ show: false })
+    const showModal = () => {
+        setState({ show: true });
+    };
+
+    const hideModal = () => {
+        setState({ show: false });
+    };
 
     const handleLogOut = (e) => {
         e.preventDefault()
@@ -23,7 +33,7 @@ const AdminSideBar = (props) => {
         <div className="sidebar">
             <div className="sidebar-head">
                 <div className="sidebar-wrapper">
-                    <img src={avatar} alt="avatar" />
+                    <img onClick={showModal} src={avatar} alt="avatar" />
                 </div>
                 <p className="admin_name">{props.first_name} {props.last_name}</p>
                 <p className="admin_email">{props.email_address} </p>
@@ -37,6 +47,7 @@ const AdminSideBar = (props) => {
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
             <Navigation handleLogOut={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Modal show={state.show} handleClose={hideModal} />
         </div>
     )
 }
