@@ -138,7 +138,7 @@ const ComposeAssessment = () => {
         const { questionStore, set_time, cv_file } = questions
         const Questions = { questionStore }
         let attachment = { set_time, cv_file }
-        if (set_time) {
+        if (cv_file) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
 
@@ -166,7 +166,8 @@ const ComposeAssessment = () => {
                 }).catch(err => {
                     console.log(err)
                 })
-        } else {
+        } 
+        else {
             alert("Set time")
         }
     }
@@ -252,11 +253,11 @@ const ComposeAssessment = () => {
                     </div>
                     <div className="prev_n_next_btn">
                         <button type="button" disabled={questionNo === 1} onClick={handlePreviousQuestion} >Previous</button>
-                        <button type="button" disabled={nextQuestion === 31} onClick={handleNextQuestion}>Next</button>
+                        <button type="button" disabled={nextQuestion === 5} onClick={handleNextQuestion}>Next</button>
                     </div>
                     <p className="click_to_submit" style={{ display: nextQuestion === 31 ? "block" : "none" }}>Click finish to submit</p>
                     <div className="finish_btn">
-                        <button style={{ backgroundColor: nextQuestion === 31 ? "#31d283" : "#CECECE" }} disabled={nextQuestion < 31} type="submit">Finish</button>
+                        <button style={{ backgroundColor: nextQuestion === 5 ? "#31d283" : "#CECECE" }} disabled={nextQuestion < 5} type="submit">Finish</button>
                     </div>
                 </div>
             </form>
