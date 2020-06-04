@@ -68,7 +68,7 @@ exports.composeAssessmentAdmin = async (req, res) => {
   const { batch_id } = req.body
   const date = new Date();
   const created_at = moment(date).format('YYYY-MM-DD');
-  const y = req.body.question;
+  const y = req.body.questionStore;
   const ray = JSON.parse(y);
 
   for (let prop in ray) {
@@ -126,6 +126,7 @@ exports.getAllAssessmentUser = async (req, res) => {
 }
 
 exports.uploadfileSetTime = async (req, res) => {
+  const { set_time } = req.body
   const files = req.files.file_upload
   fileName = files.name
   files.mv('uploadFile/' + fileName, (error) => {
@@ -139,13 +140,10 @@ exports.uploadfileSetTime = async (req, res) => {
     }
 
   })
-  const { set_time } = req.body
+  
   const queryObject = {
     text: queries.uploadtime,
-    values: [
-      file_upload,
-      set_time
-    ]
+    values: [file_upload,set_time]
   }
 
   try {

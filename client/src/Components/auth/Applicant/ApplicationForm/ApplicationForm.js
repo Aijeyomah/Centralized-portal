@@ -4,8 +4,11 @@ import enyataLogo from '../../../../Images/enyata-logo.svg'
 import uploadIcon from '../../../../Images/upload-icon.svg'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom';
+import useSpinner from './../../../../Spinner/useSpinner';
+import { motion } from 'framer-motion'
 
 const ApplicationForm = (props) => {
+    const [spinner, showSpinner, hideSpinner] = useSpinner()
     const [user, setUser] = useState({
         first_name: "",
         last_name: "",
@@ -16,7 +19,8 @@ const ApplicationForm = (props) => {
         course_of_study: "",
         cgpa: "",
         cv_file: "",
-        message: ""
+        message: "",
+        emailVal: ""
     })
 
     const handleChange = e => {
@@ -25,10 +29,22 @@ const ApplicationForm = (props) => {
         })
     }
 
+    const handleSpinner = () => {
+        const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file } = user
+        if (!first_name || !last_name || !email_address || !date_of_birth || !address || !university || !course_of_study || !cgpa || !cv_file) {
+            hideSpinner()
+        } else {
+            showSpinner()
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file } = user
         let userDetails = { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file }
+        setUser({
+            first_name: "", last_name: "", email_address: "", date_of_birth: "", address: "", university: "", course_of_study: "", cgpa: "", cv_file: "",
+        })
         let file = cv_file
         if (file) {
 
@@ -53,12 +69,14 @@ const ApplicationForm = (props) => {
                         message: res.data.message
                     })
                     console.log(res)
+                    hideSpinner()
                     props.history.push('/applicantdashboard')
                 }
                 ).catch(err => {
                     setUser({
-                        message: err.message
+                        emailVal: "Email must match your sign up email"
                     })
+                    hideSpinner()
                 })
         } else { alert("Upload your CV") }
     }
@@ -82,7 +100,7 @@ const ApplicationForm = (props) => {
     }
 
     return (
-        <div>
+        <motion.div animate={{ scale: 1.07, opacity: 1 }}>
             <div className="enyata-logo">
                 <img src={enyataLogo} alt="Enyata logo" />
             </div>
@@ -100,24 +118,26 @@ const ApplicationForm = (props) => {
                     <div>
                         <label>First name</label>
                         <br />
-                        <input id="first_name" type="text" onChange={handleChange} required /><br />
+                        <input value={user.first_name} id="first_name" type="text" onChange={handleChange} required /><br />
                     </div>
                     <div>
                         <label>Last name</label>
                         <br />
-                        <input id="last_name" type="text" onChange={handleChange} required /><br />
+                        <input value={user.last_name} id="last_name" type="text" onChange={handleChange} required /><br />
                     </div>
                 </div>
                 <div className="second-row">
                     <div>
                         <label>Email Address</label>
                         <br />
-                        <input id="email_address" type="email" onChange={handleChange} required /><br />
+                        <input value={user.email_address} id="email_address" type="email" onChange={handleChange}
+                            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                            required /><br />
                     </div>
                     <div>
                         <label>Date of Birth</label>
                         <br />
-                        <input id="date_of_birth" type="text" placeholder="YYYY-MM-DD" required
+                        <input value={user.date_of_birth} id="date_of_birth" type="text" placeholder="YYYY-MM-DD" required
                             pattern="((?:19|20)\d\d)-(0?[1-9]|1[012])-([12][0-9]|3[01]|0?[1-9])" onChange={handleChange} /><br />
                     </div>
                 </div>
@@ -125,30 +145,32 @@ const ApplicationForm = (props) => {
                     <div>
                         <label>Address</label>
                         <br />
-                        <input id="address" type="text" onChange={handleChange} required /><br />
+                        <input value={user.address} id="address" type="text" onChange={handleChange} required /><br />
                     </div>
                     <div>
                         <label>University</label>
                         <br />
-                        <input id="university" type="text" onChange={handleChange} required /><br />
+                        <input value={user.university} id="university" type="text" onChange={handleChange} required /><br />
                     </div>
                 </div>
                 <div className="fourth-row">
                     <div>
                         <label>Course of Study</label>
                         <br />
-                        <input id="course_of_study" type="text" onChange={handleChange} required /><br />
+                        <input value={user.course_of_study} id="course_of_study" type="text" onChange={handleChange} required /><br />
                     </div>
                     <div>
                         <label>CGPA</label>
                         <br />
-                        <input id="cgpa" type="number" onChange={handleChange} required /><br />
+                        <input value={user.cgpa} id="cgpa" type="number" onChange={handleChange} required /><br />
                     </div>
                 </div>
-                <p className="message">{user.message}</p>
-                <button type="submit">Submit</button>
+                <p className="message" style={{ color: "green" }}>{user.message}</p>
+                <p className="message" style={{ color: "red" }}>{user.emailVal}</p>
+                <button onClick={handleSpinner} type="submit">Submit</button>
             </form>
-        </div>
+            {spinner}
+        </motion.div>
     )
 }
 
