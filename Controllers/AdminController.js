@@ -27,6 +27,8 @@ exports.createApplicationAdmin = async (req, res) => {
       })
     }
   })
+    const total = 0;
+
   if (!link || !application_closure_date || !batch_id || !instructions) {
     return res.status(400).json({
       status: "failure",
@@ -38,7 +40,7 @@ exports.createApplicationAdmin = async (req, res) => {
 
   const queryObject = {
     text: queries.createApplicationAdminQuery,
-    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, status]
+    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, total]
   };
   try {
     const { rowCount, rows } = await db.query(queryObject)
@@ -216,5 +218,37 @@ exports.getAllComposedApplicationByBatch = async (req, res) => {
     })
   }
 }
+// getAllApplicant
+// getAllApplicationSubmitted
 
 
+exports.getAllFromApplication = async (req, res) => {
+  const queryObject = {
+    text: queries.getAllApplicationSubmitted
+  }
+  try {
+    const { rows, rowCount } = await db.query(queryObject)
+    if (rowCount > 0) {
+      return res.status(200).json({
+        status: "success",
+        code: 200,
+        data: rows
+      })
+    }
+    if (rowCount === 0) {
+      return res.status(400).json({
+        status: "failure",
+        code: 400,
+        message: "Assessment"
+      })
+    }
+  }
+  catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+    })
+  }
+}
