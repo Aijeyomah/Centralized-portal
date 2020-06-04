@@ -10,52 +10,7 @@ const Results = () => {
     const [sortedField, setSortedField] = useState(null);
     const [batch, setBatch] = useState(1);
 
-    const tableData = [
-        {
-            name: 'Ify Chinke',
-            email: 'ify@enyata.com',
-            dob: '12/09/17',
-            age: 20,
-            address: '3 Sabo Ave, Yaba, Lagos',
-            university: 'University of Nigeria',
-            cgpa: 1.5,
-            score: 22,
-            batch: 1
-        },
-        {
-            name: 'Ify Chinke',
-            email: 'ify@enyata.com',
-            dob: '12/09/17',
-            age: 27,
-            address: '3 Sabo Ave, Yaba, Lagos',
-            university: 'University of Nigeria',
-            cgpa: 4.0,
-            score: 25,
-            batch: 1
-        },
-        {
-            name: 'Ify Chinke',
-            email: 'ify@enyata.com',
-            dob: '12/09/17',
-            age: 29,
-            address: '3 Sabo Ave, Yaba, Lagos',
-            university: 'University of Nigeria',
-            cgpa: 3.5,
-            score: 18,
-            batch: 2
-        },
-        {
-            name: 'Ify Chinke',
-            email: 'ify@enyata.com',
-            dob: '12/09/17',
-            age: 18,
-            address: '3 Sabo Ave, Yaba, Lagos',
-            university: 'University of Nigeria',
-            cgpa: 2.5,
-            score: 29,
-            batch: 3
-        }
-    ];
+    const tableData = [];
 
     const handleChange = (e) => {
         let text = e.target.value;
