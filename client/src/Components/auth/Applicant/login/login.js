@@ -103,25 +103,27 @@ const Login = (props) => {
 
 
     return (
-        <motion.div animate={{ scale: 1.07, opacity: 1 }} className='container'>
-            <div className='logoDiv'>
-                <img src={logo} className="logo" alt="logo" />
-            </div>
-            <div className='tagline'>
-                <h2 className='brandName'>enyata</h2>
-                <p className='brandText'>Applicant Log In</p>
-            </div>
-            <form className='loginForm' onSubmit={handleSubmit} noValidate>
-                <Input type='email' name='email' value={state.email} handleChange={handleChange} errorMsg={state.emailError} />
-                <PasswordInput name='password' value={state.password} handleChange={handleChange} errorMsg={state.passwordError} />
-                <FormButton onclick={handleSpinner} disabled={!isEnabled} text='Sign In' />
-                <div className='loginText'>
-                    <p className='formText'>Don’t have an account yet? <Link to='/signup'>Sign Up</Link></p>
-                    <p className='formText'><Link to='/forgotPassword'>Forgot Password?</Link></p>
+        <div>
+            <motion.div animate={{ scale: 1.07, opacity: 1 }} className='container'>
+                <div className='logoDiv'>
+                    <img src={logo} className="logo" alt="logo" />
                 </div>
-            </form>
-            {spinner}
-        </motion.div>
+                <div className='tagline'>
+                    <h2 className='brandName'>enyata</h2>
+                    <p className='brandText'>Applicant Log In</p>
+                </div>
+                <form className='loginForm' onSubmit={handleSubmit} noValidate>
+                    <Input type='email' name='email' value={state.email} handleChange={handleChange} errorMsg={state.emailError} />
+                    <PasswordInput name='password' value={state.password} handleChange={handleChange} errorMsg={state.passwordError} />
+                    <FormButton onclick={handleSpinner} disabled={!isEnabled} text='Sign In' />
+                    <div className='loginText'>
+                        <p className='formText'>Don’t have an account yet? <Link to='/signup'>Sign Up</Link></p>
+                        <p className='formText'><Link to='/forgotPassword'>Forgot Password?</Link></p>
+                    </div>
+                </form>
+                {spinner}
+            </motion.div>
+        </div>
     );
 }
 export default withRouter(Login);
