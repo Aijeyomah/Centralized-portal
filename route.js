@@ -65,5 +65,5 @@ router.get('/getcomposedadminapplication/:batch_id', verifyAdminToken, findSignI
 router.get('/getuserDetail', verifyUserToken, userDetail)
 router.get('/getapplicantdetail', verifyUserToken, applicantDetails)
 router.get('/getadmindetail', verifyAdminToken, userDetail)
-
+router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
 module.exports = router
