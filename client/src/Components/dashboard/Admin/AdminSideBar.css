@@ -25,6 +25,10 @@
     padding: 10px
 }
 
+.sidebar-wrapper:hover {
+    cursor: pointer
+}
+
 .admin_name {
     font-family: Lato;
     font-style: normal;
