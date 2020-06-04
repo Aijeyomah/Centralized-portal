@@ -121,8 +121,8 @@ const Login = (props) => {
                         <p className='formText'><Link to='/forgotPassword'>Forgot Password?</Link></p>
                     </div>
                 </form>
-                {spinner}
             </motion.div>
+            {spinner}
         </div>
     );
 }
