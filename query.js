@@ -65,8 +65,9 @@ const queries = {
         application_closure_date,
         batch_id,
         instructions,
-        created_at
-    ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        created_at,
+        status
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
     findSignInTokenQuery:`
    SELECT * FROM users WHERE email_address=($1)`,
    saveSignInTokenQuery:`
@@ -81,7 +82,7 @@ const queries = {
    SELECT * FROM applicants WHERE batch=($1)`,
    composeAssessmentQuery:`
     INSERT INTO assessment(
-        questions,
+        question,
         option_a,
         option_b,
         option_c,
