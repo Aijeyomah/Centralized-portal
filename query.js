@@ -55,6 +55,7 @@ const queries = {
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,$14) RETURNING *
     `,
     getUserDetailById:`SELECT * FROM applicants WHERE user_id =($1)`,
+  getAllApplicant:`SELECT * FROM applicants`,
   getApplicationByID: ` SELECT COUNT (*) FROM applicants where batch = ($1);`,
   getAllApplication: `SELECT COUNT (*) FROM applicants `,
   getAllComposedApplicationByBatchQuery:`SELECT * FROM application WHERE batch_id=($1)`,
@@ -66,8 +67,10 @@ const queries = {
         batch_id,
         instructions,
         created_at,
-        status
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+        status,
+        total
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+    getAllApplicationSubmitted:`SELECT * application`,
     findSignInTokenQuery:`
    SELECT * FROM users WHERE email_address=($1)`,
    saveSignInTokenQuery:`

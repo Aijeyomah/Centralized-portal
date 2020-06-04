@@ -27,6 +27,8 @@ exports.createApplicationAdmin = async (req, res) => {
       })
     }
   })
+    const total = 0;
+
   if (!link || !application_closure_date || !batch_id || !instructions) {
     return res.status(400).json({
       status: "failure",
@@ -38,7 +40,7 @@ exports.createApplicationAdmin = async (req, res) => {
 
   const queryObject = {
     text: queries.createApplicationAdminQuery,
-    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, status]
+    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, status, total]
   };
   try {
     const { rowCount, rows } = await db.query(queryObject)
@@ -210,5 +212,6 @@ exports.getAllComposedApplicationByBatch = async(req,res)=>{
         })
     }
 }
-
+// getAllApplicant
+// getAllApplicationSubmitted
 
