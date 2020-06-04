@@ -43,7 +43,11 @@ router.post('/auth/signadmin', signInUser);
 router.post('/auth/Applicationform', verifyUserToken, findSignInCode, createApplicationForm);
 router.post('/auth/setnewpassword', verifyToken, setNewPassword)
 router.post('/auth/forgotpassword', forgotPassword)
+<<<<<<< HEAD
 router.put('/uploadImage', verifyUserToken, uploadProfilePics)
+=======
+router.put('/uploadImage',verifyUserToken, uploadProfilePics)
+>>>>>>> c1bce4f2d3f002a0f4eab300060bf5b172848940
 router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
@@ -51,7 +55,11 @@ router.post('/auth/uploadsetime', verifyAdminToken, uploadfileSetTime)
 
 //put
 router.put('/auth/logOut', verifyUserToken, logOut)
+<<<<<<< HEAD
 router.put('/auth/updatetestscores', verifyUserToken, findSignInCode, updateTestScores)
+=======
+router.put('/auth/updatetestscores',verifyUserToken,findSignInCode, updateTestScores)
+>>>>>>> c1bce4f2d3f002a0f4eab300060bf5b172848940
 
 
 //get
@@ -61,7 +69,11 @@ router.get('/getApplicationByBatch/:batch', verifyAdminToken, findSignInCode, ge
 router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationEntriesByBatchID)
 router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
+<<<<<<< HEAD
 router.get('/getcomposedadminapplication/:batch_id', verifyAdminToken, findSignInCode, getAllComposedApplicationByBatch)
+=======
+router.get('/getcomposedadminapplication/:batch_id',verifyAdminToken,findSignInCode,getAllComposedApplicationByBatch )
+>>>>>>> c1bce4f2d3f002a0f4eab300060bf5b172848940
 router.get('/getuserDetail', verifyUserToken, userDetail)
 router.get('/getapplicantdetail', verifyUserToken, applicantDetails)
 router.get('/getadmindetail', verifyAdminToken, userDetail)

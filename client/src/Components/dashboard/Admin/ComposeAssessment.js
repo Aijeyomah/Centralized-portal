@@ -154,13 +154,13 @@ const ComposeAssessment = () => {
             const url = "/api/v1/auth/composeAssessmentAdmin"
             const url2 = "/api/v1/auth/uploadsetime"
 
-            axios.post(url, formData, config)
+            axios.post(url2, formData, config)
                 .then(res => {
                     console.log(res)
                 }).catch(err => {
                     console.log(err)
                 })
-            axios.post(url2, Questions, config)
+            axios.post(url, Questions, config)
                 .then(res => {
                     console.log(res)
                 }).catch(err => {

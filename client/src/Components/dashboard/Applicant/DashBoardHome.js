@@ -57,7 +57,6 @@ const DashBoardHome = (props) => {
                     <div>
                         <p>We have 4 days left until the next assessment <br />Watch this space</p>
                         <ClientButton disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
-                        {spinner}
                     </div>
                 </div>
             </div>
