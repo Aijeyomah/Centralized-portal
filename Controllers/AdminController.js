@@ -145,7 +145,7 @@ console.log(req.body)
   const queryObject = {
     text: queries.uploadtime,
     values: [
-      file_upload,
+      fileName,
     set_time
     ]
   }
