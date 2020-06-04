@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './SideBar.css'
 import dashIcon from '../../../Images/dashboard-icon.svg'
 import assessIcon from '../../../Images/assessment-icon.svg'
@@ -6,7 +6,7 @@ import Navigation from './Navigation';
 import logoutIcon from '../../../Images/logout-icon.svg'
 import avatar from '../../../Images/avatar.svg'
 import Modal from './modal'
-import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 const SideBar = (props) => {
     const [state, setState] = useState({ show: false })
@@ -20,21 +20,10 @@ const SideBar = (props) => {
 
     const handleLogOut = (e) => {
         e.preventDefault()
-        const token = localStorage.removeItem('token')
-        let config = {
-            headers: {
-                "Content-Type": "application/json",
-                "token": token
-            }
-        }
-        axios.put("/api/v1/auth/logOut", config)
-            .then((res) => {
-
-                console.log(res)
-            }).catch(err => {
-                console.log(err)
-            })
+        localStorage.removeItem('token')
+        props.history.push('/login')
     }
+
     return (
         <div className="sidebar">
             <div className="sidebar_head">
@@ -56,4 +45,4 @@ const SideBar = (props) => {
     )
 }
 
-export default SideBar
+export default withRouter(SideBar)

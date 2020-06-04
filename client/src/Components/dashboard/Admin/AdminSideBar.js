@@ -9,8 +9,16 @@ import results from '../../../Images/results.svg'
 import Navigation from './../Applicant/Navigation';
 import logoutIcon from '../../../Images/logout-icon.svg'
 import avatar from '../../../Images/avatar.svg'
+import { withRouter } from 'react-router-dom'
 
 const AdminSideBar = (props) => {
+
+    const handleLogOut = (e) => {
+        e.preventDefault()
+        localStorage.removeItem('token')
+        props.history.push('/admin/login')
+    }
+
     return (
         <div className="sidebar">
             <div className="sidebar-head">
@@ -28,9 +36,9 @@ const AdminSideBar = (props) => {
                 <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
-            <Navigation url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Navigation handleLogOut={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
         </div>
     )
 }
 
-export default AdminSideBar
+export default withRouter(AdminSideBar)
