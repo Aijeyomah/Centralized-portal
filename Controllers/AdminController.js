@@ -78,7 +78,7 @@ exports.composeAssessmentAdmin = async (req, res) => {
     };
     try {
       const { rows } = await db.query(queryObject)
-      result = rows[0]
+      result = rows
       res.status(201).json({
         status: 'success',
         code: 201,
