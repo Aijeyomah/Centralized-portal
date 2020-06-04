@@ -1,27 +1,27 @@
 .logo {
 /* position: absolute; */
-width: 48px;
-height: 52px;
-margin-top: 15%;
+    width: 48px;
+    height: 52px;
+    margin-top: 15%;
 }
 
 .brandName {
-font-style: normal;
-font-weight: bold;
-font-size: 30px;
-line-height: 38px;
-letter-spacing: -0.02em;
-color: #2B3C4E;
-margin-top: 16px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.02em;
+    color: #2B3C4E;
+    margin-top: 16px;
 }
 
 .brandText {
-font-style: italic;
-font-weight: 500;
-font-size: 24px;
-line-height: 29px;
-color: #2B3C4E;
-margin: 9px 0 0 0;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #2B3C4E;
+    margin: 9px 0 0 0;
 }
 
 .loginForm {

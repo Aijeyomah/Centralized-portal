@@ -7,6 +7,7 @@ const initialState = {
 const ApplicationEntries = () => {
     const [state, setState] = useState(initialState);
     const [sortedField, setSortedField] = useState(null);
+    const [batch, setBatch] = useState(1);
 
     const tableData = [
         {
@@ -16,7 +17,8 @@ const ApplicationEntries = () => {
             age: 20,
             address: '3 Sabo Ave, Yaba, Lagos',
             university: 'University of Nigeria',
-            cgpa: 1.5
+            cgpa: 1.5,
+            batch: 1,
         },
         {
             name: 'Ify Chinke',
@@ -25,7 +27,8 @@ const ApplicationEntries = () => {
             age: 27,
             address: '3 Sabo Ave, Yaba, Lagos',
             university: 'University of Nigeria',
-            cgpa: 4.0
+            cgpa: 4.0,
+            batch: 1,
         },
         {
             name: 'Ify Chinke',
@@ -34,7 +37,8 @@ const ApplicationEntries = () => {
             age: 29,
             address: '3 Sabo Ave, Yaba, Lagos',
             university: 'University of Nigeria',
-            cgpa: 3.5
+            cgpa: 3.5,
+            batch: 2,
         },
         {
             name: 'Ify Chinke',
@@ -43,9 +47,16 @@ const ApplicationEntries = () => {
             age: 18,
             address: '3 Sabo Ave, Yaba, Lagos',
             university: 'University of Nigeria',
-            cgpa: 2.5
+            cgpa: 2.5,
+            batch: 3,
         }
     ];
+
+    const handleChange = (e) => {
+        let text = e.target.value;
+        let batchId = parseInt(text.slice(5));
+        setBatch(batchId);
+    }
 
     const sortTypes = {
         up: {
@@ -84,48 +95,47 @@ const ApplicationEntries = () => {
         <div className='entries_wrapper'>
             <div>
                 <h2>Entries -
-                    <select className="entry_box">
+<select className="entry_box" value={batch.selectValue} onChange={handleChange}>
                         <option value='batch1'>Batch 1</option>
                         <option value='batch2'>Batch 2</option>
                         <option value='batch3'>Batch 3</option>
                     </select>
                 </h2>
-                <p>Comprises of all that applied for batch 2</p>
+                <p>Comprises of all that applied for batch {batch}</p>
             </div>
+            {tableData.length !== 0 ?
+                <table className='entries_table'>
 
-
-
-            <table className='entries_table'>
-                <thead>
-                    <tr className='table_head'>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>DOB-Age<button onClick={() => { setSortedField('age'); onSortChange() }}>
-                            <i className={`fas fa-${sortTypes[currentSort].class}`} />
-                        </button></th>
-                        <th>Address</th>
-                        <th>University</th>
-                        <th>CGPA
-                            <button onClick={() => { setSortedField('cgpa'); onSortChange() }}>
+                    <thead>
+                        <tr className='table_head'>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>DOB-Age<button onClick={() => { setSortedField('age'); onSortChange() }}>
                                 <i className={`fas fa-${sortTypes[currentSort].class}`} />
-                            </button>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {[...tableData].sort(sortTypes[currentSort].fn).map(el => (
-                        <tr className='entries_tr'>
-                            <td className='entries_batch'>{el.name}</td>
-                            <td>{el.email}</td>
-                            <td>{el.dob} - {el.age}</td>
-                            <td>{el.address}</td>
-                            <td>{el.university}</td>
-                            <td>{el.cgpa}</td>
+                            </button></th>
+                            <th>Address</th>
+                            <th>University</th>
+                            <th>CGPA
+<button onClick={() => { setSortedField('cgpa'); onSortChange() }}>
+                                    <i className={`fas fa-${sortTypes[currentSort].class}`} />
+                                </button>
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-
+                    </thead>
+                    <tbody>
+                        {[...tableData].sort(sortTypes[currentSort].fn).filter(e => { return e.batch == batch }).map(el => (
+                            <tr className='entries_tr'>
+                                <td className='entries_batch'>{el.name}</td>
+                                <td>{el.email}</td>
+                                <td>{el.dob} - {el.age}</td>
+                                <td>{el.address}</td>
+                                <td>{el.university}</td>
+                                <td>{el.cgpa}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table> : <div>There are no applications to review</div>
+            }
         </div>
     )
 }

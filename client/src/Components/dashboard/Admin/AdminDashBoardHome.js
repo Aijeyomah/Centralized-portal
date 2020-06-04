@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Info from './AdminInfo';
 import './AdminDashBoardHome.css'
-import { ClientButton } from '../../Button/Button';
+import { AdminClientButton } from '../../Button/Button';
 import axios from 'axios'
 
 const DashBoardHome = (props) => {
@@ -65,7 +65,7 @@ const DashBoardHome = (props) => {
                     <h4>Create Assessment</h4>
                     <div>
                         <p>Create test question for an incoming academy<br /> students </p>
-                        <ClientButton text='Create Assessment' className='grayBtn' link='/admindashboard/assessment' />
+                        <AdminClientButton text='Create Assessment' className='grayBtn' link='/admindashboard/assessment' />
                     </div>
                 </div>
             </div>

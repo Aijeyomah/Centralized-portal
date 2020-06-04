@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Assessment.css'
 import hourGlass from '../../../Images/hourglass.svg'
 import Timer from './Timer'
@@ -114,11 +114,11 @@ const Assessment = (props) => {
         console.log(userScore.length)
     }
 
-    
 
-    useEffect(()=>{
-        return ()=>{
-            if (updatedM === 29 && updatedS===59 ) {
+
+    useEffect(() => {
+        return () => {
+            if (updatedM === 29 && updatedS === 59) {
                 clearInterval(interv)
                 setShow(show + 1)
             }
@@ -145,10 +145,10 @@ const Assessment = (props) => {
                 <div>
                     <p className="top-text">Take Assessment</p>
                     <p style={{ display: show === 1 ? "block" : "none" }} className="bottom-text">Click the button below to start assessment, you have
-                    limited time for this test</p>
+limited time for this test</p>
                     <p style={{ display: show === 2 ? "block" : "none" }} className="bottom-text">Click the finish button below to submit
                     assessment, you can go back at any time to edit your answers.
-                    </p>
+</p>
                     <p className="thank-you" style={{ display: show === 3 ? "block" : "none" }} >Thank you!</p>
                 </div>
                 <Timer updatedM={updatedM} updatedS={updatedS} />

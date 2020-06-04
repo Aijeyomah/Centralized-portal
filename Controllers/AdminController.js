@@ -128,7 +128,9 @@ exports.getAllAssessmentUser = async (req, res) => {
 exports.uploadfileSetTime = async (req, res) => {
   const { set_time } = req.body
   const files = req.files.file_upload
+console.log(req.body)
   fileName = files.name
+  console.log(files)
   files.mv('uploadFile/' + fileName, (error) => {
     if (error) {
       res.status(500).json({
@@ -140,15 +142,18 @@ exports.uploadfileSetTime = async (req, res) => {
     }
 
   })
-  
   const queryObject = {
     text: queries.uploadtime,
-    values: [file_upload,set_time]
+    values: [
+      fileName,
+    set_time
+    ]
   }
-
+console.log(queryObject)
   try {
     const { rowCount, rows } = await db.query(queryObject)
     const dbresponse = rows[0]
+    console.log(dbresponse)
     if (rowCount === 0) {
       res.status(400).json({
         status: "failure",
@@ -157,7 +162,7 @@ exports.uploadfileSetTime = async (req, res) => {
     }
     if (rowCount > 0) {
       res.status(201).json({ 
-        status: "failure",
+        status: "success",
       code: 400,
         message: "success uploading file ", dbresponse })
     }

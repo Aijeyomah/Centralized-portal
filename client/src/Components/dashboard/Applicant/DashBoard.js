@@ -10,6 +10,8 @@ import Logout from './Logout'
 
 const Dashboard = (props) => {
     const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
+
+
     useEffect(() => {
         const token = localStorage.getItem('token')
         let config = {

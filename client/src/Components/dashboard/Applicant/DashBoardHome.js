@@ -4,10 +4,13 @@ import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import useSpinner from './../../../Spinner/useSpinner';
 
 const DashBoardHome = (props) => {
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
+    const [spinner, hideSpinner, showSpinner] = useSpinner()
     useEffect(() => {
+
         const token = localStorage.getItem('token')
         let config = {
             headers: {

@@ -13,11 +13,11 @@ const Modal = ({ handleClose, show }) => {
         })
     }
     const { pictures } = displaypicture;
-    const userDetails = { pictures };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        const userDetails = { pictures };
+        let pics = pictures
         if (pictures) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -25,19 +25,19 @@ const Modal = ({ handleClose, show }) => {
             for (var key in userDetails) {
                 formData.append(key, userDetails[key])
             }
-        let config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            let config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': token
+                }
 
-        }
-            axios.put('/api/v1/uploadImage',userDetails, config)
-            .then(res => {
-            console.log(res)
-            }).catch(err => {
-            console.log(err)
-            })
+            }
+            axios.put('/api/v1/uploadImage', formData, config)
+                .then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
         }
         console.log(pictures)
         handleClose();

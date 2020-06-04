@@ -36,7 +36,6 @@ const AdminDashboard = (props) => {
             props.history.push('/admin/login')
         }
     }, [])
-
     return (
         <div className="_container">
             <AdminSideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />

@@ -90,7 +90,9 @@ const CreateApplication = () => {
                     <div>
                         <label>Link</label>
                         <br />
-                        <input value={state.link} id="link" type="text" onChange={handleChange} required /><br />
+                        <input value={state.link} id="link" type="text"
+                            pattern="^http:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\w]*)*$"
+                            onChange={handleChange} required /><br />
                     </div>
                 </div>
                 <div style={style}>Upload successful!</div>
