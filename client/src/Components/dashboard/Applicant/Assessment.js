@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './Assessment.css'
 import hourGlass from '../../../Images/hourglass.svg'
 import Timer from './Timer'
-import QuizData from './AssessmentQuestions'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import QuizData from './AssessmentQuestions';
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -21,8 +21,16 @@ const Assessment = (props) => {
         questionNo: 1,
         userOptions: [],
         disabled: true,
-        currentIndex: 0
+        currentIndex: 0,
     })
+
+    /*     const [QuizQuestions, setQuizData] = useState({
+            
+        }) */
+
+    /*     useEffect(() => {
+            console.log("Found", QuizData)
+        }, [QuizQuestions]) */
 
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
     useEffect(() => {
@@ -44,10 +52,7 @@ const Assessment = (props) => {
             })
         axios.get("/api/v1/getassessment", config)
             .then((res) => {
-                console.log(res)
-                /*QuizData.push(res.data.data)
-                console.log(QuizData)
-                */
+                console.log(res.data.data)
             }).catch((err) => {
                 console.log(err)
             })
@@ -157,7 +162,7 @@ const Assessment = (props) => {
                     limited time for this test</p>
                     <p style={{ display: show === 2 ? "block" : "none" }} className="bottom-text">Click the finish button below to submit
                     assessment, you can go back at any time to edit your answers.
-</p>
+                    </p>
                     <p className="thank-you" style={{ display: show === 3 ? "block" : "none" }} >Thank you!</p>
                 </div>
                 <Timer updatedM={updatedM} updatedS={updatedS} />
