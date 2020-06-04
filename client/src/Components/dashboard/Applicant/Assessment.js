@@ -5,6 +5,7 @@ import Timer from './Timer'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import QuizData from './AssessmentQuestions';
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -21,7 +22,13 @@ const Assessment = (props) => {
         userOptions: [],
         disabled: true,
         currentIndex: 0,
-        QuizData: []
+        QuizData: [{
+            question: "",
+            option_a: "",
+            option_b: "",
+            option_c: "",
+            option_d: "",
+        }]
     })
 
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
@@ -44,6 +51,7 @@ const Assessment = (props) => {
             })
         axios.get("/api/v1/getassessment", config)
             .then((res) => {
+                console.log(res.data.data)
                 setQuestions({
                     ...questions, QuizData: res.data.data
                 })
@@ -118,8 +126,24 @@ const Assessment = (props) => {
         userOptions.push(userAnswer)
         setShow(show + 1)
         clearInterval(interv)
-        let userScore = questions.userOptions.filter(val => questions.correct_answer.indexOf(val) !== -1)
-        console.log(userScore.length)
+        let userResult = questions.userOptions.filter(val => questions.correct_answer.indexOf(val) !== -1)
+        const test_scores = userResult.length
+        const userScores = { test_scores }
+        console.log(userScores)
+        let token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        }
+        axios.put("/api/v1/auth/updatetestscores", userScores, config)
+            .then(res => {
+                console.log(res)
+                console.log(test_scores)
+            }).catch(err => {
+                console.log(err)
+            })
     }
 
     useEffect(() => {
@@ -143,7 +167,7 @@ const Assessment = (props) => {
         })
     }
 
-    const { currentIndex, userAnswer, questionNo, QuizData } = questions
+    const { currentIndex, userAnswer, questionNo, } = questions
 
     return (
         <div>
