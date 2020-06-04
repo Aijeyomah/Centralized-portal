@@ -5,7 +5,6 @@ import Timer from './Timer'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import QuizData from './AssessmentQuestions';
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -22,15 +21,8 @@ const Assessment = (props) => {
         userOptions: [],
         disabled: true,
         currentIndex: 0,
+        QuizData: []
     })
-
-    /*     const [QuizQuestions, setQuizData] = useState({
-            
-        }) */
-
-    /*     useEffect(() => {
-            console.log("Found", QuizData)
-        }, [QuizQuestions]) */
 
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
     useEffect(() => {
@@ -52,7 +44,9 @@ const Assessment = (props) => {
             })
         axios.get("/api/v1/getassessment", config)
             .then((res) => {
-                console.log(res.data.data)
+                setQuestions({
+                    ...questions, QuizData: res.data.data
+                })
             }).catch((err) => {
                 console.log(err)
             })
@@ -128,8 +122,6 @@ const Assessment = (props) => {
         console.log(userScore.length)
     }
 
-
-
     useEffect(() => {
         return () => {
             if (updatedM === 29 && updatedS === 59) {
@@ -151,7 +143,7 @@ const Assessment = (props) => {
         })
     }
 
-    const { currentIndex, userAnswer, questionNo } = questions
+    const { currentIndex, userAnswer, questionNo, QuizData } = questions
 
     return (
         <div>

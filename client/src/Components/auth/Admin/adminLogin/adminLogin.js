@@ -107,7 +107,7 @@ const AdminLogin = (props) => {
     return (
         <div>
             <div className='body'>
-                <motion.div animate={{ scale: 1.07, opacity: 1 }} className='admin_container'>
+                <motion.div animate={{ scale: 1.08, opacity: 1 }} className='admin_container'>
                     <div className='logoDiv'>
                         <img src={logo} className="logo" alt="logo" />
                     </div>
