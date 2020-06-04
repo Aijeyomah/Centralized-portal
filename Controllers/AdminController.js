@@ -129,7 +129,7 @@ exports.uploadfileSetTime = async (req, res) => {
   const files = req.files.file_upload
   const { set_time } = req.body
 console.log(req.body)
-  fileName = files.
+  fileName = files.name
   console.log(files)
   files.mv('uploadFile/' + fileName, (error) => {
     if (error) {
