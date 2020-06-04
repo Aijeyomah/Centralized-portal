@@ -12,11 +12,6 @@ const fs = require('fs')
 exports.createApplicationAdmin = async (req, res) => {
   const date = new Date();
   const created_at = moment(date).format('YYYY-MM-DD');
-
-  const status;
-  if (created_at === application_closure_date) {
-    status = ''
-  }
   const { link, application_closure_date, batch_id, instructions } = req.body
   const files = req.files.file_upload
   console.log(req.files)
@@ -87,7 +82,7 @@ exports.composeAssessmentAdmin = async (req, res) => {
     };
     try {
       const { rows } = await db.query(queryObject)
-      result = rows
+      result = rows[0]
       res.status(201).json({
         status: 'success',
         code: 201,
