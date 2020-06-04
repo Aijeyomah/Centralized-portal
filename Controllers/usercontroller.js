@@ -376,17 +376,18 @@ console.log(pics)
             rows,
             rowCount
         } = await db.query(queryObject1)
-        const dbresponse = rows[0]
+        
         if (rowCount === 0) {
             return res.status(400).json({
-                message: "Application process not completed"
+                message: "Application process not completed",
+                
             })
         }
         if (rowCount > 0) {
             res.status(201).json({
                 message: "Profile picture updated ",
-                dbresponse
-            })
+                data: rows[0]            
+})
         }
     } catch (error) {
         res.status(500).json({
