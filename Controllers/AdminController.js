@@ -27,7 +27,7 @@ exports.createApplicationAdmin = async (req, res) => {
       })
     }
   })
-    const total = 0;
+  const total = 0;
 
   if (!link || !application_closure_date || !batch_id || !instructions) {
     return res.status(400).json({
@@ -234,22 +234,25 @@ exports.getAllFromApplication = async (req, res) => {
         status: "success",
         code: 200,
         data: rows
-    
-    }
-    if (rowCount === 0) {
-      return res.status(400).json({
-        status: "failure",
-        code: 400,
-        message: "Assessment"
+
+      })
+      }
+    // if (rowCount === 0) {
+    //   return res.status(400).json({
+    //     status: "failure",
+    //     code: 400,
+    //     message: "Assessment"
+    //   })
+    // }
+  
+      }
+
+  catch (error) {
+      res.status(500).json({
+        status: 'error',
+        code: 99,
+        message: "Request Processing Error",
+        error: error.message
       })
     }
   }
-  catch (error) {
-    res.status(500).json({
-      status: 'error',
-      code: 99,
-      message: "Request Processing Error",
-      error: error.message
-    })
-  }
-}
