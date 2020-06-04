@@ -82,6 +82,8 @@ const queries = {
    SELECT * FROM applicants WHERE score=($1)`,
    getAllsubmittedApplication:`
    SELECT * FROM applicants WHERE batch=($1)`,
+   findApplicationTotalById:` SELECT total FROM application WHERE batch_id=($1)`
+ ,
    composeAssessmentQuery:`
     INSERT INTO assessment(
         question,

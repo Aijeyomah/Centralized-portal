@@ -358,3 +358,34 @@ exports.updateTestScores = async (req, res) => {
 }
 
 
+exports.getCurrentTotalApplications = async(req, res)=>{
+    const batch =req.params
+    const queryObj = {
+        text: queries.findApplicationTotalById,
+        values: [id],
+    };
+
+    try{
+        const { rowCount, rows } = await db.query(queryObj);
+        if (rowCount == 0) {
+
+            return Promise.reject({
+                status: "error",
+                code: 409,
+                message: "Application total error",
+            });
+        }
+        if (rowCount > 0) {
+            return Promise.resolve({
+                total: rows[0].applications_total
+            });
+        }
+    } catch(e) {
+        console.log(e);
+        return Promise.reject({
+            status: "error",
+            code: 500,
+            message: "Error finding application total",
+        });
+    }
+}
