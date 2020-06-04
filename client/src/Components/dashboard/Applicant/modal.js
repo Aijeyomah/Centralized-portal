@@ -13,11 +13,11 @@ const Modal = ({ handleClose, show }) => {
         })
     }
     const { pictures } = displaypicture;
-    const userDetails = { pictures };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        const userDetails = { pictures };
+        let pics = pictures
         if (pictures) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -32,7 +32,7 @@ const Modal = ({ handleClose, show }) => {
                 }
 
             }
-            axios.post('api/v1/uploadImage', userDetails, config)
+            axios.put('/api/v1/uploadImage', formData, config)
                 .then(res => {
                     console.log(res)
                 }).catch(err => {
@@ -63,7 +63,7 @@ const Modal = ({ handleClose, show }) => {
                 <h2>Upload a profile picture</h2>
                 <input type="file" name="file" id="file" className="modal_inputfile" onChange={handleFile} accept="image/png, image/jpeg" />
                 <div style={style}>Upload successful!</div>
-                <img className='close_icon' src={closeBtn} onClick={handleClose} alt="upload-pic" />
+                <img className='close_icon' src={closeBtn} onClick={handleClose} />
                 <button disabled={!pictures} className='modal_button' onClick={handleSubmit}>Submit</button>
             </section>
         </div>

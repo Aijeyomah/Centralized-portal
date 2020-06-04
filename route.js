@@ -23,10 +23,12 @@ const {
     getAllApplicationBatches,
     getSubmittedApplicationEntriesByBatchID,
     getApplicationByAdmin,
-    applicantDetails
+    applicantDetails,
+    updateTestScores
 } = require('./Controllers/RegisterApplicant')
 const {
     createApplicationAdmin,
+    getAllComposedApplicationByBatch,
     composeAssessmentAdmin,
     getAllAssessmentUser,
     uploadfileSetTime
@@ -41,12 +43,15 @@ router.post('/auth/signadmin', signInUser);
 router.post('/auth/Applicationform', verifyUserToken, findSignInCode, createApplicationForm);
 router.post('/auth/setnewpassword', verifyToken, setNewPassword)
 router.post('/auth/forgotpassword', forgotPassword)
-router.post('/uploadImage',verifyUserToken, uploadProfilePics)
+router.put('/uploadImage', verifyUserToken, uploadProfilePics)
 router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
-router.post('/auth/logOut', verifyUserToken, logOut)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)
 router.post('/auth/uploadsetime', verifyAdminToken, uploadfileSetTime)
+
+//put
+router.put('/auth/logOut', verifyUserToken, logOut)
+router.put('/auth/updatetestscores', verifyUserToken, findSignInCode, updateTestScores)
 
 
 //get
@@ -56,6 +61,7 @@ router.get('/getApplicationByBatch/:batch', verifyAdminToken, findSignInCode, ge
 router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationEntriesByBatchID)
 router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
+router.get('/getcomposedadminapplication/:batch_id', verifyAdminToken, findSignInCode, getAllComposedApplicationByBatch)
 router.get('/getuserDetail', verifyUserToken, userDetail)
 router.get('/getapplicantdetail', verifyUserToken, applicantDetails)
 router.get('/getadmindetail', verifyAdminToken, userDetail)

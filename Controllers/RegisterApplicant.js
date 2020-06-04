@@ -21,9 +21,9 @@ exports.createApplicationForm = async (req, res) => {
     const img = req.files.cv_file
 
     const status = 'Pending'
-    
-   images = img.name
-    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa} = req.body;
+
+    images = img.name
+    const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa } = req.body;
     const user_id = req.user.user_id
     if (email_address !== res.locals.user.email) {
         res.status(400).json({
@@ -72,7 +72,8 @@ exports.createApplicationForm = async (req, res) => {
             cgpa,
             age,
             date_of_application,
-            status
+            status,
+            null
         ]
     };
 
@@ -252,7 +253,7 @@ exports.getSubmittedApplicationEntriesByBatchID = async (req, res) => {
             return res.status(200).json({
                 status: "success",
                 code: 200,
-                data: rows[0]
+                data: rows
             })
         }
         if (rowCount === 0) {
@@ -305,4 +306,55 @@ exports.getApplicationByAdmin = async (req, res) => {
         })
     }
 }
+exports.updateTestScores = async (req, res) => {
+    status = 'Taken'
+    const { test_scores } = req.body
+    const email_address = res.locals.user.email
+    const queryObject = {
+        text: queries.findByEmail,
+        values: [email_address]
+    };
+    console.log(queryObject)
+    const queryObject1 = {
+        text: queries.testScoresQuery,
+        values: [test_scores, email_address]
+    };
+    const queryObject2 = {
+        text: queries.updateAssessmentStatusQuery,
+        values: [status, email_address]
+    };
+    console.log(queryObject1)
+    try {
+        const { rowCount, rows } = await db.query(queryObject)
+        if (rowCount === 0) {
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "There is no user with this email"
+            })
+        }
+        if (rowCount > 0) {
+            const { rows } = await db.query(queryObject1)
+            if (rows[0].test_scores !== null) {
+                const { rowCount } = await db.query(queryObject2)
+                if (rowCount > 0) {
+                    return res.status(200).json({
+                        status: "success",
+                        code: 200,
+                        message: "your  scores has  been updated"
+                    })
+                } 
+            }
+        }
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            status: "failure",
+            code: 500,
+            message: error.message
+        })
+    }
+}
+
 

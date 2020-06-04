@@ -11,7 +11,7 @@ const fs = require('fs')
 
 exports.createApplicationAdmin = async (req, res) => {
   const date = new Date();
-  const created_at = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  const created_at = moment(date).format('YYYY-MM-DD');
   const { link, application_closure_date, batch_id, instructions } = req.body
   const files = req.files.file_upload
   console.log(req.files)
@@ -68,7 +68,7 @@ exports.composeAssessmentAdmin = async (req, res) => {
   const { batch_id } = req.body
   const date = new Date();
   const created_at = moment(date).format('YYYY-MM-DD');
-  const y = req.body.question;
+  const y = req.body.questionStore;
   const ray = JSON.parse(y);
 
   for (let prop in ray) {
@@ -127,7 +127,10 @@ exports.getAllAssessmentUser = async (req, res) => {
 
 exports.uploadfileSetTime = async (req, res) => {
   const files = req.files.file_upload
+  const { set_time } = req.body
+console.log(req.body)
   fileName = files.name
+  console.log(files)
   files.mv('uploadFile/' + fileName, (error) => {
     if (error) {
       res.status(500).json({
@@ -139,18 +142,18 @@ exports.uploadfileSetTime = async (req, res) => {
     }
 
   })
-  const { set_time } = req.body
   const queryObject = {
     text: queries.uploadtime,
     values: [
-      file_upload,
-      set_time
+      fileName,
+    set_time
     ]
   }
-
+console.log(queryObject)
   try {
     const { rowCount, rows } = await db.query(queryObject)
     const dbresponse = rows[0]
+    console.log(dbresponse)
     if (rowCount === 0) {
       res.status(400).json({
         status: "failure",
@@ -159,7 +162,7 @@ exports.uploadfileSetTime = async (req, res) => {
     }
     if (rowCount > 0) {
       res.status(201).json({ 
-        status: "failure",
+        status: "success",
       code: 400,
         message: "success uploading file ", dbresponse })
     }
@@ -173,6 +176,37 @@ exports.uploadfileSetTime = async (req, res) => {
   }
 
 }
-
+exports.getAllComposedApplicationByBatch = async(req,res)=>{
+  const { batch_id } = req.params
+    const queryObject = {
+        text: queries.getAllComposedApplicationByBatchQuery,
+        values: [batch_id]
+    }
+    try {
+        const { rows, rowCount } = await db.query(queryObject)
+        if (rowCount > 0) {
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                data: rows
+            })
+        }
+        if (rowCount === 0) {
+            return res.status(400).json({
+                status: "failure",
+                code: 400,
+                message: "there is no id found"
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            status: 'error',
+            code: 99,
+            message: "Request Processing Error",
+            error: error.message
+        })
+    }
+}
 
 
