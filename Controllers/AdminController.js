@@ -126,8 +126,8 @@ exports.getAllAssessmentUser = async (req, res) => {
 }
 
 exports.uploadfileSetTime = async (req, res) => {
-  const files = req.files.file_upload
   const { set_time } = req.body
+  const files = req.files.file_upload
 console.log(req.body)
   fileName = files.name
   console.log(files)
