@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ApplicantSignUp.css'
 import enyataLogo from '../../../../Images/enyata-logo.svg'
 import eye from '../../../../Images/eye.svg'
