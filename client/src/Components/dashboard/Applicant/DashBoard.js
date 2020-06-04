@@ -6,9 +6,26 @@ import { Switch, Route } from 'react-router-dom'
 import Assessment from './Assessment';
 import DashBoardHome from './DashBoardHome';
 import Logout from './Logout'
+import useSpinner from './../../../Spinner/useSpinner';
 
 
 const Dashboard = (props) => {
+    const [spinner, showSpinner, hideSpinner] = useSpinner()
+
+    useEffect(() => {
+        showSpinner()
+        return (() => {
+            if (userDetail.first_name) {
+                hideSpinner()
+            }
+        })
+    })
+
+    useEffect(() => {
+        if (userDetail.first_name !== userDetail.last_name) {
+            hideSpinner()
+        }
+    })
     const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
 
 
@@ -34,7 +51,7 @@ const Dashboard = (props) => {
             props.history.push('/login')
         }
     }, [])
-    console.log(userDetail.first_name)
+
     return (
         <div className="_container">
             <SideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
@@ -43,6 +60,7 @@ const Dashboard = (props) => {
                 <Route exact path="/applicantdashboard" component={DashBoardHome} />
                 <Route exact path="/applicantdashboard/logout" component={Logout} />
             </Switch>
+            {spinner}
         </div>
     )
 }

@@ -55,6 +55,7 @@ const queries = {
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,$14) RETURNING *
     `,
     getUserDetailById:`SELECT * FROM applicants WHERE user_id =($1)`,
+  getAllApplicant:`SELECT * FROM applicants`,
   getApplicationByID: ` SELECT COUNT (*) FROM applicants where batch = ($1);`,
   getAllApplication: `SELECT COUNT (*) FROM applicants `,
   getAllComposedApplicationByBatchQuery:`SELECT * FROM application WHERE batch_id=($1)`,
@@ -65,8 +66,10 @@ const queries = {
         application_closure_date,
         batch_id,
         instructions,
-        created_at
-    ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        created_at,
+        total
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    getAllApplicationSubmitted:`SELECT * application`,
     findSignInTokenQuery:`
    SELECT * FROM users WHERE email_address=($1)`,
    saveSignInTokenQuery:`
@@ -79,9 +82,11 @@ const queries = {
    SELECT * FROM applicants WHERE score=($1)`,
    getAllsubmittedApplication:`
    SELECT * FROM applicants WHERE batch=($1)`,
+   findApplicationTotalById:` SELECT total FROM application WHERE batch_id=($1)`
+ ,
    composeAssessmentQuery:`
     INSERT INTO assessment(
-        questions,
+        question,
         option_a,
         option_b,
         option_c,

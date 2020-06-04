@@ -4,11 +4,10 @@ import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import useSpinner from './../../../Spinner/useSpinner';
 
 const DashBoardHome = (props) => {
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
-    const [spinner, hideSpinner, showSpinner] = useSpinner()
+
     useEffect(() => {
 
         const token = localStorage.getItem('token')
@@ -56,7 +55,7 @@ const DashBoardHome = (props) => {
                     <h4>Take Assessment</h4>
                     <div>
                         <p>We have 4 days left until the next assessment <br />Watch this space</p>
-                        <ClientButton disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
+                        <ClientButton status={userDetail.status} disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
                     </div>
                 </div>
             </div>

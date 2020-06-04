@@ -27,6 +27,8 @@ exports.createApplicationAdmin = async (req, res) => {
       })
     }
   })
+    const total = 0;
+
   if (!link || !application_closure_date || !batch_id || !instructions) {
     return res.status(400).json({
       status: "failure",
@@ -34,24 +36,28 @@ exports.createApplicationAdmin = async (req, res) => {
       message: "Please fill all fields",
     });
   }
+
+
   const queryObject = {
     text: queries.createApplicationAdminQuery,
-    values: [fileName, link, application_closure_date, batch_id, instructions, created_at]
+    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, total]
   };
   try {
     const { rowCount, rows } = await db.query(queryObject)
     const dbresponse = rows[0]
     if (rowCount === 0) {
-      res.status(400).json({ 
+      res.status(400).json({
         status: "failure",
-      code: 400,
-        message: "Application not completed" })
+        code: 400,
+        message: "Application not completed"
+      })
     }
     if (rowCount > 0) {
-      res.status(201).json({ 
+      res.status(201).json({
         status: "success",
-      code: 201,
-        message: "Application submitted ", dbresponse })
+        code: 201,
+        message: "Application submitted ", dbresponse
+      })
     }
   } catch (error) {
     res.status(500).json({
@@ -78,7 +84,7 @@ exports.composeAssessmentAdmin = async (req, res) => {
     };
     try {
       const { rows } = await db.query(queryObject)
-      result = rows
+      result = rows[0]
       res.status(201).json({
         status: 'success',
         code: 201,
@@ -103,16 +109,18 @@ exports.getAllAssessmentUser = async (req, res) => {
   try {
     const { rows, rowCount } = await db.query(queryObject)
     if (rowCount > 0) {
-      return res.status(200).json({ 
+      return res.status(200).json({
         status: "success",
-      code: 200,
-        data: rows })
+        code: 200,
+        data: rows
+      })
     }
     if (rowCount === 0) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         status: "failure",
-      code: 400,
-        message: "Assessment" })
+        code: 400,
+        message: "Assessment"
+      })
     }
   }
   catch (error) {
@@ -128,7 +136,7 @@ exports.getAllAssessmentUser = async (req, res) => {
 exports.uploadfileSetTime = async (req, res) => {
   const { set_time } = req.body
   const files = req.files.file_upload
-console.log(req.body)
+  console.log(req.body)
   fileName = files.name
   console.log(files)
   files.mv('uploadFile/' + fileName, (error) => {
@@ -146,10 +154,10 @@ console.log(req.body)
     text: queries.uploadtime,
     values: [
       fileName,
-    set_time
+      set_time
     ]
   }
-console.log(queryObject)
+  console.log(queryObject)
   try {
     const { rowCount, rows } = await db.query(queryObject)
     const dbresponse = rows[0]
@@ -157,14 +165,16 @@ console.log(queryObject)
     if (rowCount === 0) {
       res.status(400).json({
         status: "failure",
-      code: 400,
-        message: "Time and file not uploaded" })
+        code: 400,
+        message: "Time and file not uploaded"
+      })
     }
     if (rowCount > 0) {
-      res.status(201).json({ 
+      res.status(201).json({
         status: "success",
-      code: 400,
-        message: "success uploading file ", dbresponse })
+        code: 400,
+        message: "success uploading file ", dbresponse
+      })
     }
   } catch (error) {
     res.status(500).json({
@@ -176,39 +186,70 @@ console.log(queryObject)
   }
 
 }
-exports.getAllComposedApplicationByBatch = async(req,res)=>{
+exports.getAllComposedApplicationByBatch = async (req, res) => {
   const { batch_id } = req.params
-    const queryObject = {
-        text: queries.getAllComposedApplicationByBatchQuery,
-        values: [batch_id]
+  const queryObject = {
+    text: queries.getAllComposedApplicationByBatchQuery,
+    values: [batch_id]
+  }
+  try {
+    const { rows, rowCount } = await db.query(queryObject)
+    if (rowCount > 0) {
+      return res.status(200).json({
+        status: "success",
+        code: 200,
+        data: rows
+      })
     }
-    try {
-        const { rows, rowCount } = await db.query(queryObject)
-        if (rowCount > 0) {
-            return res.status(200).json({
-                status: "success",
-                code: 200,
-                data: rows
-            })
-        }
-        if (rowCount === 0) {
-            return res.status(400).json({
-                status: "failure",
-                code: 400,
-                message: "there is no id found"
-            })
-        }
+    if (rowCount === 0) {
+      return res.status(400).json({
+        status: "failure",
+        code: 400,
+        message: "there is no id found"
+      })
     }
-    catch (error) {
-        res.status(500).json({
-            status: 'error',
-            code: 99,
-            message: "Request Processing Error",
-            error: error.message
-        })
-    }
+  }
+  catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+    })
+  }
 }
-// exports.getCurrentApplicationAdmin = async (req, res) => {
+// getAllApplicant
+// getAllApplicationSubmitted
 
 // }
 
+exports.getAllFromApplication = async (req, res) => {
+  const queryObject = {
+    text: queries.getAllApplicationSubmitted
+  }
+  try {
+    const { rows, rowCount } = await db.query(queryObject)
+    if (rowCount > 0) {
+      return res.status(200).json({
+        status: "success",
+        code: 200,
+        data: rows
+    
+    }
+    if (rowCount === 0) {
+      return res.status(400).json({
+        status: "failure",
+        code: 400,
+        message: "Assessment"
+      })
+    }
+  }
+  catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+    })
+  }
+}

@@ -35,7 +35,7 @@ const DashBoardHome = (props) => {
                 <h2>Dashboard</h2>
             </div>
             <div className='admin_info_wrapper'>
-                <Info text="Current Applications" total_number={233} text2="Academy 2.0" className='admin_info_one' />
+                <Info text="Current Applications" total_number={34} text2="Academy 2.0" className='admin_info_one' />
                 <Info text="Total Applications" total_number={application} text2="All entries so far" className='admin_info_two' />
                 <Info text="Academies" total_number={applications} text2="So far" className='admin_info_three' />
             </div>

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './Assessment.css'
 import hourGlass from '../../../Images/hourglass.svg'
 import Timer from './Timer'
-import QuizData from './AssessmentQuestions'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import QuizData from './AssessmentQuestions';
 
 const Assessment = (props) => {
     const [questions, setQuestions] = useState({
@@ -21,7 +21,14 @@ const Assessment = (props) => {
         questionNo: 1,
         userOptions: [],
         disabled: true,
-        currentIndex: 0
+        currentIndex: 0,
+        QuizData: [{
+            question: "",
+            option_a: "",
+            option_b: "",
+            option_c: "",
+            option_d: "",
+        }]
     })
 
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
@@ -41,6 +48,15 @@ const Assessment = (props) => {
                 })
             }).catch(err => {
                 console.log(err.message)
+            })
+        axios.get("/api/v1/getassessment", config)
+            .then((res) => {
+                console.log(res.data.data)
+                setQuestions({
+                    ...questions, QuizData: res.data.data
+                })
+            }).catch((err) => {
+                console.log(err)
             })
     }, [])
 
@@ -110,11 +126,25 @@ const Assessment = (props) => {
         userOptions.push(userAnswer)
         setShow(show + 1)
         clearInterval(interv)
-        let userScore = questions.userOptions.filter(val => questions.correct_answer.indexOf(val) !== -1)
-        console.log(userScore.length)
+        let userResult = questions.userOptions.filter(val => questions.correct_answer.indexOf(val) !== -1)
+        const test_scores = userResult.length
+        const userScores = { test_scores }
+        console.log(userScores)
+        let token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        }
+        axios.put("/api/v1/auth/updatetestscores", userScores, config)
+            .then(res => {
+                console.log(res)
+                console.log(test_scores)
+            }).catch(err => {
+                console.log(err)
+            })
     }
-
-
 
     useEffect(() => {
         return () => {
@@ -137,7 +167,7 @@ const Assessment = (props) => {
         })
     }
 
-    const { currentIndex, userAnswer, questionNo } = questions
+    const { currentIndex, userAnswer, questionNo, } = questions
 
     return (
         <div>
@@ -145,10 +175,10 @@ const Assessment = (props) => {
                 <div>
                     <p className="top-text">Take Assessment</p>
                     <p style={{ display: show === 1 ? "block" : "none" }} className="bottom-text">Click the button below to start assessment, you have
-limited time for this test</p>
+                    limited time for this test</p>
                     <p style={{ display: show === 2 ? "block" : "none" }} className="bottom-text">Click the finish button below to submit
                     assessment, you can go back at any time to edit your answers.
-</p>
+                    </p>
                     <p className="thank-you" style={{ display: show === 3 ? "block" : "none" }} >Thank you!</p>
                 </div>
                 <Timer updatedM={updatedM} updatedS={updatedS} />
@@ -175,7 +205,7 @@ limited time for this test</p>
                     <button disabled={questionNo === 1} type="button" onClick={handlePreviousQuestion}>Previous</button>
                     <button disabled={questionNo === 30} type="button" onClick={handleNextQuestion}>Next</button>
                 </div>
-                <div class="finish-button">
+                <div className="finish-button">
                     <button style={{ backgroundColor: questionNo < 30 ? "#CECECE" : "#31D283" }} disabled={!questionNo === 30} type="submit" onClick={handleSubmit}>Finish</button>
                 </div>
             </div>
