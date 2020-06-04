@@ -68,7 +68,7 @@ const queries = {
         instructions,
         created_at,
         total
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
     getAllApplicationSubmitted:`SELECT * application`,
     findSignInTokenQuery:`
    SELECT * FROM users WHERE email_address=($1)`,

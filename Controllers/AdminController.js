@@ -27,7 +27,7 @@ exports.createApplicationAdmin = async (req, res) => {
       })
     }
   })
-    const total = 0;
+    const total = 1;
 
   if (!link || !application_closure_date || !batch_id || !instructions) {
     return res.status(400).json({
