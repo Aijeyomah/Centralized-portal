@@ -17,6 +17,12 @@ let app = express();
 
 
 app.use(fileupload())
+app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
+app.use('/upload_profile',express.static(path.join(__dirname, 'upload-profile')));
+app.use('/uploadFile',express.static(path.join(__dirname, 'uploadFile')));
+app.use('/uploading',express.static(path.join(__dirname, 'uploadingfile')));
+app.use('/uploadFileAssesment',express.static(path.join(__dirname, 'uploadFileAssesment')));
+
 
 app.use('/img',express.static(path.join(__dirname, 'public/images')));
 app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
