@@ -46,7 +46,7 @@ const AdminSideBar = (props) => {
                 {/* <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" /> */}
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
-            <Navigation handleLogOut={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Navigation clicked={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
             <Modal show={state.show} handleClose={hideModal} />
         </div>
     )

@@ -11,6 +11,7 @@ import Results from './Results';
 import AdminLogout from './AdminLogout';
 import axios from 'axios'
 import useSpinner from './../../../Spinner/useSpinner';
+import { motion } from 'framer-motion'
 
 const AdminDashboard = (props) => {
     const [spinner, showSpinner, hideSpinner] = useSpinner()
@@ -30,7 +31,7 @@ const AdminDashboard = (props) => {
         }
     })
 
-    const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '' })
+    const [userDetail, setUserDetail] = useState({ first_name: '', last_name: '', email_address: '', is_admin: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
         let config = {
@@ -44,17 +45,17 @@ const AdminDashboard = (props) => {
                 setUserDetail({
                     first_name: res.data.data.first_name,
                     last_name: res.data.data.last_name,
-                    email_address: res.data.data.email_address
+                    email_address: res.data.data.email_address,
+                    is_admin: res.data.data.is_admin
                 })
+                console.log(res)
             }).catch(err => {
                 console.log(err.message)
+                props.history.push('/applicantdashboard')
             })
-        if (!token) {
-            props.history.push('/admin/login')
-        }
     }, [])
     return (
-        <div className="_container">
+        <motion.div initial={{ y: -1650 }} animate={{ y: 0 }} className="_container ">
             <AdminSideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
             <Switch>
                 <Route exact path="/admindashboard" component={AdminDashBoardHome} />
@@ -66,7 +67,7 @@ const AdminDashboard = (props) => {
                 <Route exact path="/admindashboard/logout" component={AdminLogout} />
             </Switch>
             {spinner}
-        </div>
+        </motion.div>
     )
 }
 

@@ -7,8 +7,10 @@ import logoutIcon from '../../../Images/logout-icon.svg'
 import avatar from '../../../Images/avatar.svg'
 import Modal from './modal'
 import { withRouter } from 'react-router-dom'
+import useSpinner from './../../../Spinner/useSpinner';
 
 const SideBar = (props) => {
+    const [spinner, showSpinner] = useSpinner()
     const [state, setState] = useState({ show: false })
     const showModal = () => {
         setState({ show: true });
@@ -22,6 +24,10 @@ const SideBar = (props) => {
         e.preventDefault()
         localStorage.removeItem('token')
         props.history.push('/login')
+    }
+
+    const loadSpinner = () => {
+        showSpinner()
     }
 
     return (
@@ -40,7 +46,8 @@ const SideBar = (props) => {
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />
                 <Navigation url="/applicantdashboard/assessment" src={assessIcon} text="Assessment" className="assess-inactive" activeClassName="assess-active" />
             </div>
-            <Navigation handleLogOut={handleLogOut} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Navigation clicked={handleLogOut} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            {spinner}
         </div>
     )
 }

@@ -9,6 +9,9 @@ const DashBoardHome = (props) => {
     const [applications, getApplicationBatches] = useState('')
     useEffect(() => {
         const token = localStorage.getItem('token')
+        if (!token) {
+            props.history.push('/admin/login')
+        }
         let config = {
             headers: {
                 "Content-Type": "application/json",
@@ -27,8 +30,18 @@ const DashBoardHome = (props) => {
             }).catch(err => {
                 console.log(err)
             })
+           
+    axios.get('/api/v1/getApplicationTable', config)
+        .then(res => {
+            
+            console.log(res)
+          }).catch(error => {
+            console.log(error)
+            
+        })
+
     }, [])
-    console.log(applications)
+
     return (
         <div className='admin_dashboard_wrapper'>
             <div>

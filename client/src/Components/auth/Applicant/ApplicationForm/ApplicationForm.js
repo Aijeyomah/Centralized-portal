@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ApplicationForm.css'
 import enyataLogo from '../../../../Images/enyata-logo.svg'
 import uploadIcon from '../../../../Images/upload-icon.svg'
@@ -38,6 +38,13 @@ const ApplicationForm = (props) => {
         }
     }
 
+    const token = localStorage.getItem('token')
+    useEffect(() => {
+
+        if (!token) {
+            props.history.push('/login')
+        }
+    }, [])
     const handleSubmit = (e) => {
         e.preventDefault()
         const { first_name, last_name, email_address, date_of_birth, address, university, course_of_study, cgpa, cv_file } = user
@@ -49,9 +56,8 @@ const ApplicationForm = (props) => {
         if (file) {
 
             console.log(file)
-            const token = localStorage.getItem('token')
-            var formData = new FormData()
 
+            var formData = new FormData()
             for (var key in userDetails) {
                 formData.append(key, userDetails[key])
             }
@@ -100,7 +106,7 @@ const ApplicationForm = (props) => {
     }
 
     return (
-        <motion.div animate={{ scale: 1.07, opacity: 1 }}>
+        <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} >
             <div className="enyata-logo">
                 <img src={enyataLogo} alt="Enyata logo" />
             </div>
