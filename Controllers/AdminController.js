@@ -258,13 +258,15 @@ exports.getLastRowFromApplication = async (req, res) => {
   const queryObject = {
     text: queries.getLastCreateApplicationQuery
   }
+  console.log(queryObject)
   try {
     const { rows, rowCount } = await db.query(queryObject)
+    console.log(rows)
     if (rowCount > 0) {
       return res.status(200).json({
         status: "success",
         code: 200,
-        data: rows
+        data: rows[0]
       })
     }
     if (rowCount === 0) {
