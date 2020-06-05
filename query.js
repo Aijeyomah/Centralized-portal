@@ -106,7 +106,7 @@ const queries = {
    `,
    testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` ,
    updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`,
-   getLastCreateApplicationQuery:`SELECT * FROM application order by id=($1) desc limit 1`
+   getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`
 
 }
 module.exports = queries
