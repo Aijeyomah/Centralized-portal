@@ -30,8 +30,18 @@ const DashBoardHome = (props) => {
             }).catch(err => {
                 console.log(err)
             })
+           
+    axios.get('/api/v1/getApplicationTable', config)
+        .then(res => {
+            
+            console.log(res)
+          }).catch(error => {
+            console.log(error)
+            
+        })
+
     }, [])
-    console.log(applications)
+
     return (
         <div className='admin_dashboard_wrapper'>
             <div>
