@@ -10,7 +10,13 @@ export const FormButton = (props) => {
 
 export const ClientButton = (props) => {
     return (
-        <Link to={props.link}> <button disabled={!props.disabled || props.status === "Taken"} className={props.className} type='button'>{props.text}</button></Link>
+        <Link to={props.link}>
+            <button
+                style={{ display: props.status === "Taken" ? "none" : "block" }}
+                disabled={!props.disabled || props.status === "Taken"}
+                className={props.className} type='button'>{props.text}
+            </button>
+        </Link>
     );
 }
 

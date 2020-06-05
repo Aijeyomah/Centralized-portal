@@ -94,6 +94,7 @@ const Login = (props) => {
                     props.history.push('/applicantdashboard')
                 }).catch(err => {
                     console.log(err)
+                    hideSpinner()
                 })
         }
     }
@@ -104,7 +105,8 @@ const Login = (props) => {
 
     return (
         <div>
-            <motion.div animate={{ scale: 1.07, opacity: 1 }} className='container'>
+            <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }}
+                className='container'>
                 <div className='logoDiv'>
                     <img src={logo} className="logo" alt="logo" />
                 </div>

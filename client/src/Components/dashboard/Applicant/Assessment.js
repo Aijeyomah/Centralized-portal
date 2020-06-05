@@ -6,8 +6,11 @@ import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import QuizData from './AssessmentQuestions';
+import { motion } from 'framer-motion'
+import useSpinner from './../../../Spinner/useSpinner';
 
 const Assessment = (props) => {
+    const [spinner, hideSpinner] = useSpinner()
     const [questions, setQuestions] = useState({
         userAnswer: null,
         question: "",
@@ -55,6 +58,7 @@ const Assessment = (props) => {
                 setQuestions({
                     ...questions, QuizData: res.data.data
                 })
+                hideSpinner()
             }).catch((err) => {
                 console.log(err)
             })
@@ -188,8 +192,10 @@ const Assessment = (props) => {
                     <div className="hourglass-icon">
                         <img src={hourGlass} alt="hourglass" />
                     </div>
-                    <p>We have 4 days left until the next assessment. Watch this space</p>
-                    <button onClick={handleNextPage} disabled={!userDetail.created_at}>Take Assessment</button>
+                    <p style={{ display: userDetail.status === "Taken" ? "block" : "none" }}>You have already taken this assessment</p>
+                    <p style={{ display: userDetail.created_at && userDetail.status === "Pending" ? "block" : "none" }}>Start your assessment now</p>
+                    <p style={{ display: !userDetail.created_at ? "block" : "none" }}>Fill the application form in order to take assessment</p>
+                    <button style={{ display: userDetail.status === "Taken" ? "none" : "block" }} onClick={handleNextPage} disabled={!userDetail.created_at}>Take Assessment</button>
                 </div>
             </div>
             <div style={{ display: show === 2 ? "block" : "none" }}>

@@ -4,6 +4,7 @@ import './DashBoardHome.css'
 import { ClientButton } from '../../Button/Button';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const DashBoardHome = (props) => {
     const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
@@ -54,12 +55,16 @@ const DashBoardHome = (props) => {
                 <div className='dashboard_assessment'>
                     <h4>Take Assessment</h4>
                     <div>
-                        <p>We have 4 days left until the next assessment <br />Watch this space</p>
-                        <ClientButton status={userDetail.status} disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
+                        <p style={{ display: userDetail.status === "Taken" ? "block" : "none" }}>Congrats! You have completed the assessment successfully</p>
+                        <p style={{ display: userDetail.created_at && userDetail.status === "Pending" ? "block" : "none" }}>Start your assessment now</p>
+                        <p style={{ display: !userDetail.created_at ? "block" : "none" }}>Fill the application form in order to take assessment</p>
+                        <div style={{ display: props.status === "Taken" ? "none" : "block", margin: 0 }}>
+                            <ClientButton status={userDetail.status} disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
