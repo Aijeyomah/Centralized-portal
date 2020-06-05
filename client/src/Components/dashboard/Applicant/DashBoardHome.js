@@ -47,7 +47,7 @@ const DashBoardHome = (props) => {
                     className='info_one' />
                 <Info text="Application Status"
                     total_number={userDetail.status}
-                    text2={userDetail.status === "Taken" ? "We will get back to you" : "Take the test now"}
+                    text2={userDetail.status === "Taken" ? "We will get back to you" : "Fill the application form and then take the test"}
                     className='info_three' />
             </div>
             <div className='dashboard_section2'>
@@ -65,7 +65,7 @@ const DashBoardHome = (props) => {
                         <p style={{ display: userDetail.created_at && userDetail.status === "Pending" ? "block" : "none" }}>Start your assessment now</p>
                         <p style={{ display: !userDetail.created_at ? "block" : "none" }}>Fill the application form in order to take assessment</p>
                         <div style={{ display: props.status === "Taken" ? "none" : "block", margin: 0 }}>
-                            <ClientButton status={userDetail.status} create={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
+                            <ClientButton status={userDetail.status} created_at={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
                         </div>
                     </div>
                 </div>
