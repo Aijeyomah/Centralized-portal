@@ -55,7 +55,7 @@ const AdminDashboard = (props) => {
             })
     }, [])
     return (
-        <motion.div initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
+        <motion.div initial={{ y: -1650 }} animate={{ y: 0 }} className="_container ">
             <AdminSideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
             <Switch>
                 <Route exact path="/admindashboard" component={AdminDashBoardHome} />
@@ -67,7 +67,7 @@ const AdminDashboard = (props) => {
                 <Route exact path="/admindashboard/logout" component={AdminLogout} />
             </Switch>
             {spinner}
-        </motion.div >
+        </motion.div>
     )
 }
 

@@ -38,11 +38,17 @@ const DashBoardHome = (props) => {
         <div className='dashboard_wrapper'>
             <div>
                 <h2>Dashboard</h2>
-                <p className='dashboard_italic_text'>Your Application is currently being reviewed, you wil be notified if successful</p>
+                <p className='dashboard_italic_text'>Your Application is currently being reviewed, you will be notified if successful</p>
             </div>
             <div className='info_wrapper'>
-                <Info text="Date of Application" total_number={userDetail.created_at} text2="4 days since applied" className='info_one' />
-                <Info text="Application Status" total_number={userDetail.status} text2="We will get back to you" className='info_three' />
+                <Info text="Date of Application"
+                    total_number={userDetail.created_at}
+                    text2={userDetail.created_at ? "Application created successfully" : "Application not created yet"}
+                    className='info_one' />
+                <Info text="Application Status"
+                    total_number={userDetail.status}
+                    text2={userDetail.status === "Taken" ? "We will get back to you" : "Take the test now"}
+                    className='info_three' />
             </div>
             <div className='dashboard_section2'>
                 <div className='updates'>
@@ -59,7 +65,7 @@ const DashBoardHome = (props) => {
                         <p style={{ display: userDetail.created_at && userDetail.status === "Pending" ? "block" : "none" }}>Start your assessment now</p>
                         <p style={{ display: !userDetail.created_at ? "block" : "none" }}>Fill the application form in order to take assessment</p>
                         <div style={{ display: props.status === "Taken" ? "none" : "block", margin: 0 }}>
-                            <ClientButton status={userDetail.status} disabled={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
+                            <ClientButton status={userDetail.status} create={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
                         </div>
                     </div>
                 </div>

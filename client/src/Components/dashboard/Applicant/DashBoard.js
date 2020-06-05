@@ -44,9 +44,7 @@ const Dashboard = (props) => {
                 })
             }).catch(err => {
                 console.log(err.message)
-                if (userDetail.is_admin === "true") {
-                    props.history.push('/admindashboard')
-                }
+                props.history.push('/admindashboard')
             })
         if (!token) {
             props.history.push('/login')
@@ -55,7 +53,7 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            <motion.div initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+            <motion.div initial={{ y: -350 }} animate={{ y: 0 }}
                 className="_container">
                 <SideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
                 <Switch>
