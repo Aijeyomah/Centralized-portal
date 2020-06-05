@@ -67,8 +67,9 @@ const queries = {
         batch_id,
         instructions,
         created_at,
-        total
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+        total,
+        updated_at
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
     getAllApplicationSubmitted:`SELECT * FROM application`,
     findSignInTokenQuery:`
    SELECT * FROM users WHERE email_address=($1)`,
@@ -104,7 +105,8 @@ const queries = {
     ) VALUES ($1, $2) RETURNING *
    `,
    testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` ,
-   updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`
+   updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`,
+   getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`
 
 }
 module.exports = queries
