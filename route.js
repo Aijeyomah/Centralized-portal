@@ -33,7 +33,8 @@ const {
     getAllAssessmentUser,
     uploadfileSetTime,
     getAllFromApplication,
-    getLastRowFromApplication
+    getLastRowFromApplication,
+    getAllAssessmentByAdmin
 } = require('./Controllers/AdminController')
 
 
@@ -62,6 +63,8 @@ router.get('/getApplication', verifyAdminToken, findSignInCode, getSubmittedAllA
 router.get('/getApplicationByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationByBatchID)
 router.get('/getApplicationEntriesByBatch/:batch', verifyAdminToken, findSignInCode, getSubmittedApplicationEntriesByBatchID)
 router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
+router.get('/getassessmentbyadmin', verifyAdminToken, findSignInCode, getAllAssessmentUser)
+
 router.get('/getApplicationAdmin/:batch', verifyAdminToken, getApplicationByAdmin)
 router.get('/getcomposedadminapplication/:batch_id', verifyAdminToken, findSignInCode, getAllComposedApplicationByBatch)
 router.get('/getuserDetail', verifyUserToken, userDetail)
@@ -70,5 +73,6 @@ router.get('/getadmindetail', verifyAdminToken, userDetail)
 router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationTable', verifyAdminToken, findSignInCode, getAllFromApplication)
 router.get('/getlastapplicationupdate', verifyAdminToken, findSignInCode, getLastRowFromApplication)
+router.get('/Admingetassessmentbybatch', verifyAdminToken, findSignInCode, getAllAssessmentByAdmin)
 
 module.exports = router
