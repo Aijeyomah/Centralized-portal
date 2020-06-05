@@ -283,3 +283,36 @@ exports.getLastRowFromApplication = async (req, res) => {
     })
   }
 }
+
+exports.getAllAssessmentByAdmin = async (req, res) => {
+  const batch_id = req.body
+  const queryObject = {
+    text: queries.getAllAssessmentByBatch,
+    values:[batch_id]
+  }
+  try {
+    const { rows, rowCount } = await db.query(queryObject)
+    if (rowCount > 0) {
+      return res.status(200).json({
+        status: "success",
+        code: 200,
+        data: rows
+      })
+    }
+    if (rowCount === 0) {
+      return res.status(400).json({
+        status: "failure",
+        code: 400,
+        message: "Assessment"
+      })
+    }
+  }
+  catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+    })
+  }
+}

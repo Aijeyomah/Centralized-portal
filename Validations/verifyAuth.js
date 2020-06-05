@@ -34,7 +34,7 @@ const generateCode = (id, email_address, is_admin) => {
       return res.status(401).json({
         status: 'failure',
         code: 400,
-        message: "Authentication failed because token is expired already"
+        message: error.message
       })
     }
   }

@@ -67,6 +67,7 @@ const DashBoardHome = (props) => {
                         <div style={{ display: props.status === "Taken" ? "none" : "block", margin: 0 }}>
                             <ClientButton status={userDetail.status} created_at={userDetail.created_at} text='Take Assessment' className='grayBtn' link='/applicantdashboard/assessment' />
                         </div>
+
                     </div>
                 </div>
             </div>

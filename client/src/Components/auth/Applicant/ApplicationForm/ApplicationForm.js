@@ -19,8 +19,10 @@ const ApplicationForm = (props) => {
         course_of_study: "",
         cgpa: "",
         cv_file: "",
-        message: "",
-        emailVal: ""
+    })
+
+    const [errorMessage, setErrorMessage] = useState({
+        error: ''
     })
 
     const handleChange = e => {
@@ -71,17 +73,13 @@ const ApplicationForm = (props) => {
             axios.post("/api/v1/auth/Applicationform", formData, config)
 
                 .then(res => {
-                    setUser({
-                        message: res.data.message
-                    })
                     console.log(res)
                     hideSpinner()
                     props.history.push('/applicantdashboard')
                 }
                 ).catch(err => {
-                    setUser({
-                        emailVal: "Email must match your sign up email"
-                    })
+                    console.log(err.response.data)
+                    setErrorMessage({error: err.response.data.message})
                     hideSpinner()
                 })
         } else { alert("Upload your CV") }
@@ -171,8 +169,7 @@ const ApplicationForm = (props) => {
                         <input value={user.cgpa} id="cgpa" type="number" onChange={handleChange} required /><br />
                     </div>
                 </div>
-                <p className="message" style={{ color: "green" }}>{user.message}</p>
-                <p className="message" style={{ color: "red" }}>{user.emailVal}</p>
+                <p className="message" style={{ display: !errorMessage.error ? "none" : "block", color: "red" }}>{errorMessage.error}</p>
                 <button onClick={handleSpinner} type="submit">Submit</button>
             </form>
             {spinner}

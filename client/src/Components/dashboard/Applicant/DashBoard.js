@@ -53,7 +53,7 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            <motion.div initial={{ y: -350 }} animate={{ y: 0 }}
+            <motion.div initial={{ y: -350 }} animate={{ y: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
                 className="_container">
                 <SideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
                 <Switch>
@@ -61,7 +61,6 @@ const Dashboard = (props) => {
                     <Route exact path="/applicantdashboard" component={DashBoardHome} />
                     <Route exact path="/applicantdashboard/logout" component={Logout} />
                 </Switch>
-
                 <motion.div className="welcome" initial={{ y: 0, opacity: 1 }} animate={{ y: -10, opacity: 0 }} transition={{ duration: 1, delay: 7 }} >
                     Welcome to the Dashboard, {userDetail.first_name}
                 </motion.div>

@@ -73,7 +73,10 @@ const ComposeAssessment = () => {
         let questionData = { question, option_a, option_b, option_c, option_d, correct_answer, batch_id }
         const { questionStore } = questions
         console.log(questions.cv_file)
-        if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id) {
+        if (option_a !== correct_answer && option_b !== correct_answer && option_c !== correct_answer && option_d !== correct_answer) {
+            alert("One of the options must match the answer.")
+        }
+        else if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id) {
             alert("Please fill up all the necessary fields")
         } else if (questionStore.length === questionLength) {
             setQuestionNo(questionNo + 1)

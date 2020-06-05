@@ -183,6 +183,7 @@ const Assessment = (props) => {
                     <p style={{ display: show === 2 ? "block" : "none" }} className="bottom-text">Click the finish button below to submit
                     assessment, you can go back at any time to edit your answers.
                     </p>
+                    <p style={{ display: show === 1 ? "block" : "none" }} className="time-allocated"><strong>Time allocated: 30mins</strong></p>
                     <p className="thank-you" style={{ display: show === 3 ? "block" : "none" }} >Thank you!</p>
                 </div>
                 <Timer updatedM={updatedM} updatedS={updatedS} />

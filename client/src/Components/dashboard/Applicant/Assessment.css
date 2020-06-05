@@ -281,3 +281,10 @@
     color: #2B3C4E;
 }
 
+.time-allocated {
+    font-family: Lato;
+    font-style: italic;
+    font-weight: 500;
+    color: #2b3c4e;
+    font-size: 20px;
+}
