@@ -7,6 +7,9 @@ import axios from 'axios'
 const DashBoardHome = (props) => {
     const [application, getApplications] = useState('')
     const [applications, getApplicationBatches] = useState('')
+    const [applicationTable, setApplicationTable] = useState({
+        appTable: []
+    })
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (!token) {
@@ -30,17 +33,26 @@ const DashBoardHome = (props) => {
             }).catch(err => {
                 console.log(err)
             })
-           
-    axios.get('/api/v1/getApplicationTable', config)
-        .then(res => {
-            
-            console.log(res)
-          }).catch(error => {
-            console.log(error)
-            
-        })
 
+        axios.get('/api/v1/getApplicationTable', config)
+            .then(res => {
+                console.log(res)
+                setApplicationTable({
+                    appTable: res.data.data
+                })
+            }).catch(error => {
+                console.log(error)
+
+            })
+        axios.get('/api/v1/getlastapplicationupdate', config)
+            .then(res => {
+                console.log(res)
+            }).catch(error => {
+                console.log(error)
+            })
     }, [])
+
+    const { appTable } = applicationTable
 
     return (
         <div className='admin_dashboard_wrapper'>
@@ -57,21 +69,15 @@ const DashBoardHome = (props) => {
                     <h4>History</h4>
                     <p className='history_text'> Last Update 18:24, 22/02/19</p>
                     <table className='history_table'>
-                        <tr>
-                            <td className='history_batch'>Academy Batch 1</td>
-                            <td className='history_students'>15 students</td>
-                            <td>started 11/09/15</td>
-                        </tr>
-                        <tr>
-                            <td className='history_batch'>Academy Batch 2</td>
-                            <td className='history_students'>15 students</td>
-                            <td>started 11/09/15</td>
-                        </tr>
-                        <tr>
-                            <td className='history_batch'>Academy Batch 3</td>
-                            <td className='history_students'>15 students</td>
-                            <td>started 11/09/15</td>
-                        </tr>
+                        {
+                            appTable.map((app, index) => (
+                                <tr key={index}>
+                                    <td className='history_batch'>Academy Batch {app.batch_id}</td>
+                                    <td>{app.total} students</td>
+                                    <td>Started {app.created_at}</td>
+                                </tr>
+                            ))
+                        }
                     </table>
                 </div>
                 <div className='admin_dashboard_assessment'>

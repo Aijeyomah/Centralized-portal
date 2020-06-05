@@ -54,6 +54,10 @@ const AdminDashboard = (props) => {
                 props.history.push('/applicantdashboard')
             })
     }, [])
+
+    const date = new Date()
+    const lastUpdate = `${date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}, ${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}/${date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)}/${date.getFullYear()}`
+
     return (
         <div>
             <motion.div initial={{ y: -1650 }} animate={{ y: 0 }} className="_container ">
