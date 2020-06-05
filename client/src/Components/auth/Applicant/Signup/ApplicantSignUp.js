@@ -85,7 +85,7 @@ const ApplicantSignUp = (props) => {
 
     return (
         <div>
-            <motion.form initial={{ x: -350 }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
+            <motion.form initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
                 className="signup_wrapper" onSubmit={handleSubmit}>
                 <div className="enyata-logo">
                     <img src={enyataLogo} alt="Enyata logo" />

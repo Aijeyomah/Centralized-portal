@@ -61,7 +61,7 @@ const Dashboard = (props) => {
                     <Route exact path="/applicantdashboard" component={DashBoardHome} />
                     <Route exact path="/applicantdashboard/logout" component={Logout} />
                 </Switch>
-                <motion.div className="welcome" initial={{ y: 0, opacity: 1 }} animate={{ y: -10, opacity: 0 }} transition={{ duration: 1, delay: 7 }} >
+                <motion.div className="welcome" initial={{ y: 0, opacity: 1 }} animate={{ x: 1000 }} transition={{ duration: 2, delay: 7 }} >
                     Welcome to the Dashboard, {userDetail.first_name}
                 </motion.div>
             </motion.div>

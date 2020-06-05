@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SideBar.css'
 import dashIcon from '../../../Images/dashboard-icon.svg'
 import assessIcon from '../../../Images/assessment-icon.svg'
@@ -8,10 +8,12 @@ import avatar from '../../../Images/avatar.svg'
 import Modal from './modal'
 import { withRouter } from 'react-router-dom'
 import useSpinner from './../../../Spinner/useSpinner';
+import axios from 'axios'
 
 const SideBar = (props) => {
     const [spinner, showSpinner] = useSpinner()
     const [state, setState] = useState({ show: false })
+    const [userPic, getUserPic] = useState()
     const showModal = () => {
         setState({ show: true });
     };
@@ -30,11 +32,30 @@ const SideBar = (props) => {
         showSpinner()
     }
 
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        }
+        axios.get("/api/v1/getuserDetail", config)
+            .then((res) => {
+                console.log(res.data.data.pictures)
+                getUserPic(res.data.data.pictures)
+            }).catch((err) => {
+                console.log(err.response.data.message)
+            })
+    }, [])
+
+        let userImage = `https://agile-cove-05072.herokuapp.com/upload_profile/${userPic}`
+
     return (
         <div className="sidebar">
             <div className="sidebar_head">
                 <div className="sidebar_wrapper">
-                    <img src={avatar} onClick={showModal} alt="avatar" />
+                    <img src={!userPic ? avatar : userImage} onClick={showModal} alt="avatar" />
                 </div>
 
                 <p className="applicant_name">{props.first_name} {props.last_name}</p>
