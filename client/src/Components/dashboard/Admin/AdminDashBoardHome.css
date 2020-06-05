@@ -128,10 +128,17 @@
     padding-right: 55px;
 }
 
-tr:hover>.history_batch {
-    border-left: 7px solid #5ABEFD;
-    border-radius: 8px;
-}
+tr>.history_batch {
+    border-bottom: 3px solid #5ABEFD;
+    font-weight: bold;
+    
+} 
+tr>.history_total {
+    border-bottom: 3px solid #5ABEFD;
+} 
+tr>.history_created_at {
+    border-bottom: 3px solid #5ABEFD;
+} 
 
 .history_students {
     padding-right: 39px;
@@ -144,7 +151,7 @@ tr:hover>.history_batch {
 }
 
 .history_table tr:hover {
-    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);
+    border-bottom: 5px solid #5ABEFD;
 }
 
 .history_table {

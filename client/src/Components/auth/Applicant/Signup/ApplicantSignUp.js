@@ -75,12 +75,17 @@ const ApplicantSignUp = (props) => {
                 hideSpinner()
                 props.history.push('/login')
                 console.log(res.status.message)
+            }).catch(err => {
+                setUser({
+                    errorMessage: err.response.data.message
+                })
+                hideSpinner()
             })
     }
 
     return (
         <div>
-            <motion.form initial={{ x: -350 }} animate={{ x: 0 }} 
+            <motion.form initial={{ x: -350 }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
                 className="signup_wrapper" onSubmit={handleSubmit}>
                 <div className="enyata-logo">
                     <img src={enyataLogo} alt="Enyata logo" />

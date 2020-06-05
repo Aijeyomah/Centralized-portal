@@ -23,6 +23,7 @@ const AdminLogin = (props) => {
     };
 
     const [state, setState] = useState(initialstate);
+    const [errorMessage, setErrorMessage] = useState({ error: '' })
     const handleChange = (e) => {
         setState({
             ...state,
@@ -95,7 +96,10 @@ const AdminLogin = (props) => {
                     props.history.push('/admindashboard')
                     hideSpinner()
                 }).catch(err => {
-                    console.log(err)
+                    console.log(err.response.data)
+                    setErrorMessage({
+                        error: err.response.data.message
+                    })
                     hideSpinner()
                 })
         }
@@ -107,7 +111,7 @@ const AdminLogin = (props) => {
     return (
         <div>
             <div className='body'>
-                <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }}
+                <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
                     className='admin_container'>
                     <div className='logoDiv'>
                         <img src={logo} className="logo" alt="logo" />
@@ -126,6 +130,7 @@ const AdminLogin = (props) => {
                             <img className='eye' onClick={togglePasswordVisiblity} src={passwordShown ? eye4 : eye3} alt='visibility_Icon' />
                             <p className='adminErrorMsg'>{state.passwordError}</p>
                         </div>
+                        <p className="message" style={{ display: !errorMessage.error ? "none" : "block", color: "red" }}>{errorMessage.error}</p>
                         <button onClick={handleSpinner} disabled={!isEnabled} className={!isEnabled ? 'disabled' : 'submitBtn'} type='Submit'>Sign In</button>
                         <div className='adminLoginText'>
                             <p className='adminFormText'><Link to='/forgotPassword' >Forgot Password?</Link></p>

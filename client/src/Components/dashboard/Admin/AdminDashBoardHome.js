@@ -10,6 +10,7 @@ const DashBoardHome = (props) => {
     const [applicationTable, setApplicationTable] = useState({
         appTable: []
     })
+    const [lastUpdate, getLastUpdate] = useState()
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (!token) {
@@ -46,7 +47,7 @@ const DashBoardHome = (props) => {
             })
         axios.get('/api/v1/getlastapplicationupdate', config)
             .then(res => {
-                console.log(res)
+                getLastUpdate(res.data.data.updated_at)
             }).catch(error => {
                 console.log(error)
             })
@@ -67,14 +68,14 @@ const DashBoardHome = (props) => {
             <div className='admin_dashboard_section2'>
                 <div className='history'>
                     <h4>History</h4>
-                    <p className='history_text'> Last Update 18:24, 22/02/19</p>
+                    <p className='history_text'> <strong>Last Update:</strong> {lastUpdate}</p>
                     <table className='history_table'>
                         {
                             appTable.map((app, index) => (
                                 <tr key={index}>
                                     <td className='history_batch'>Academy Batch {app.batch_id}</td>
-                                    <td>{app.total} students</td>
-                                    <td>Started {app.created_at}</td>
+                                    <td className='history_total'>{app.total} students</td>
+                                    <td className='history_created_at'>Started {app.created_at}</td>
                                 </tr>
                             ))
                         }
@@ -88,7 +89,7 @@ const DashBoardHome = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
