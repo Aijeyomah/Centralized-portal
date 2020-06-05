@@ -12,6 +12,7 @@ const fs = require('fs')
 exports.createApplicationAdmin = async (req, res) => {
   const date = new Date();
   const created_at = moment(date).format('YYYY-MM-DD');
+  const updated_at= moment(date).format('mm:ss, YYYY/MM/DD')
   const { link, application_closure_date, batch_id, instructions } = req.body
   const files = req.files.file_upload
   console.log(req.files)
@@ -40,7 +41,7 @@ exports.createApplicationAdmin = async (req, res) => {
 
   const queryObject = {
     text: queries.createApplicationAdminQuery,
-    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, total]
+    values: [fileName, link, application_closure_date, batch_id, instructions, created_at, total,updated_at]
   };
   try {
     const { rowCount, rows } = await db.query(queryObject)
@@ -233,6 +234,37 @@ exports.getAllFromApplication = async (req, res) => {
         status: "success",
         code: 200,
         data: rows
+      })
+    }
+    if (rowCount === 0) {
+      return res.status(400).json({
+        status: "failure",
+        code: 400,
+        message: "Assessment"
+      })
+    }
+  }
+  catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 99,
+      message: "Request Processing Error",
+      error: error.message
+    })
+  }
+}
+
+exports.getLastRowFromApplication = async (req, res) => {
+  const queryObject = {
+    text: queries.getLastCreateApplicationQuery
+  }
+  try {
+    const { rows, rowCount } = await db.query(queryObject)
+    if (rowCount > 0) {
+      return res.status(200).json({
+        status: "success",
+        code: 200,
+        data: row[0]
       })
     }
     if (rowCount === 0) {

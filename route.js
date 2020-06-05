@@ -32,7 +32,8 @@ const {
     composeAssessmentAdmin,
     getAllAssessmentUser,
     uploadfileSetTime,
-    getAllFromApplication
+    getAllFromApplication,
+    getLastRowFromApplication
 } = require('./Controllers/AdminController')
 
 
@@ -68,5 +69,6 @@ router.get('/getapplicantdetail', verifyUserToken, applicantDetails)
 router.get('/getadmindetail', verifyAdminToken, userDetail)
 router.get('/getassessment', verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationTable', verifyAdminToken, findSignInCode, getAllFromApplication)
+router.get('/getLastApplication', verifyAdminToken, findSignInCode, getLastRowFromApplication)
 
 module.exports = router
