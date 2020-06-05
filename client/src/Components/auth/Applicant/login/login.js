@@ -10,6 +10,7 @@ import useSpinner from './../../../../Spinner/useSpinner';
 
 const Login = (props) => {
     const [spinner, showSpinner, hideSpinner] = useSpinner()
+    const [errorMessage, setErrorMessage] = useState({ error: '' })
 
     const initialstate = {
         email: "",
@@ -93,7 +94,7 @@ const Login = (props) => {
                     hideSpinner()
                     props.history.push('/applicantdashboard')
                 }).catch(err => {
-                    console.log(err)
+                    setErrorMessage({ error: err.response.data.message })
                     hideSpinner()
                 })
         }
@@ -101,11 +102,9 @@ const Login = (props) => {
 
     const isEnabled = canBeSubmitted();
 
-
-
     return (
         <div>
-            <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }}
+            <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
                 className='container'>
                 <div className='logoDiv'>
                     <img src={logo} className="logo" alt="logo" />
@@ -117,6 +116,7 @@ const Login = (props) => {
                 <form className='loginForm' onSubmit={handleSubmit} noValidate>
                     <Input type='email' name='email' value={state.email} handleChange={handleChange} errorMsg={state.emailError} />
                     <PasswordInput name='password' value={state.password} handleChange={handleChange} errorMsg={state.passwordError} />
+                    <p style={{ display: !errorMessage.error ? "none" : "block", color: "red", textAlign: "center", margin: 0 }} >{errorMessage.error}</p>
                     <FormButton onclick={handleSpinner} disabled={!isEnabled} text='Sign In' />
                     <div className='loginText'>
                         <p className='formText'>Don’t have an account yet? <Link to='/signup'>Sign Up</Link></p>

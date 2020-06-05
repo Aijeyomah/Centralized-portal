@@ -137,7 +137,7 @@ const ApplicationEntries = () => {
                             <th>Address</th>
                             <th>University</th>
                             <th>CGPA
-<button onClick={() => { setSortedField('cgpa'); onSortChange() }}>
+                                    <button onClick={() => { setSortedField('cgpa'); onSortChange() }}>
                                     <i className={`fas fa-${sortTypes[currentSort].class}`} />
                                 </button>
                             </th>

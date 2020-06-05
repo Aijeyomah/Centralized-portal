@@ -1,78 +1,67 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import logo from '../../../../Images/logo.png';
 import './ForgotPassword.css';
-import {PasswordInput} from '../../../../Components/Input/Input';
-import { FormButton } from '../../../../Components/Button/Button';
+import axios from 'axios'
+import { motion } from 'framer-motion'
+import useSpinner from './../../../../Spinner/useSpinner';
 
-const initialstate = { 
-    password: "",
-    passwordError: "",
-};
-export default ()=> {
-    const [state, setState] = useState(initialstate);
+export default (props) => {
+    const [spinner, showSpinner, hideSpinner] = useSpinner()
+    const [state, setState] = useState({
+        password: "",
+        confirm_password: "",
+        token: "",
+        errorMessage: ""
+    });
+
     const handleChange = (e) => {
-        setState({ 
-            ...state,
-            [e.target.name]: e.target.value
-        });  
-    };
-    const canBeSubmitted =() => {
-        return (state.password);
-    }
-    const handleSubmit = (e) => {
-        if (!canBeSubmitted()) {
-            e.preventDefault();
-            return;
-        }
-        e.preventDefault();        
         setState({
             ...state,
-            password: "",
-            passwordError: "",
-        })
-        const validate = () => {
-            let passwordError= "";
-  if(!state.password) {
-    passwordError = 'Password field cannot be empty';
-} else if (state.password.length < 8) {
-    passwordError= 'Password must be a minimum of 8 digits';
-}
+            [e.target.id]: e.target.value
+        });
+    };
 
-            if (passwordError) {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const { password, confirm_password, token } = state
+        const resetDetails = { password, confirm_password, token }
+        axios.post('/api/v1/auth/setnewpassword', resetDetails)
+            .then((res) => {
+                console.log(res)
+                hideSpinner()
+                props.history.push('/login')
+            }).catch((err) => {
+                console.log(err.response.data.message)
                 setState({
-                    ...state,
-                    passwordError
+                    errorMessage: err.response.data.message
                 })
-                return false
-            }
-            return true
-        }
-        const isValid = validate();
-        if (isValid) {
-            setState(initialstate)
-            const logindetails = {
-                password: state.password
-                }
-                console.log(logindetails) 
-        }
-        // console.log(state)
+                hideSpinner()
+            })
     }
-    const isEnabled = canBeSubmitted();
 
-    return(
-        <div className= 'container'>
-            <div className= 'logoDiv'>
-                <img src={logo} className="logo" alt="logo" />
-            </div>
-            <div className='tagline'>
-                <h2 className= 'brandName'>enyata</h2>
-                <p className= 'brandText'>Reset Password</p>
-            </div>
-            <p className='passwordResetText'> Input a new password</p>
-            <form className= 'forgotPasswordForm' onSubmit={handleSubmit} noValidate>
-            <PasswordInput name='password' value={state.password} handleChange={handleChange} errorMsg={state.passwordError} />
-                <FormButton disabled={!isEnabled} text='Reset Password' />
-            </form> 
+    return (
+        <div>
+            <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }} className='container'>
+                <div className='logoDiv'>
+                    <img src={logo} className="logo" alt="logo" />
+                </div>
+                <div className='tagline'>
+                    <h2 className='brandName'>enyata</h2>
+                    <p className='brandText'>Reset Password</p>
+                </div>
+                <p className='passwordResetText'> Input a new password</p>
+                <form className='forgotPasswordForm' onSubmit={handleSubmit} noValidate>
+                    <label><strong>Password</strong></label>
+                    <input type="password" id="password" onChange={handleChange} required />
+                    <label><strong>Confirm Password</strong></label>
+                    <input type="password" id="confirm_password" onChange={handleChange} required />
+                    <label><strong>Token</strong></label>
+                    <input type="text" id="token" onChange={handleChange} required />
+                    <p className="reset_err_msg" style={{ display: state.errorMessage ? "block" : "none", color: "red", margin: "0 auto" }} >{state.errorMessage}</p>
+                    <button onClick={() => showSpinner()} className="reset_btn">Submit</button>
+                </form>
+            </motion.div>
+            {spinner}
         </div>
     );
 } 
