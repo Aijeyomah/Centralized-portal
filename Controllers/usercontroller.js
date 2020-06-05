@@ -123,7 +123,7 @@ exports.signInUser = async (req, res, next) => {
         })
     }
     if (!validatePassword(password)) {
-        return res.status(400).json({
+         res.status(400).json({
             status: "failure",
             code: 400,
             message: "Invalid Password"
@@ -141,14 +141,14 @@ exports.signInUser = async (req, res, next) => {
         } = await db.query(queryObject);
         dbresponse = rows[0]
         if (!dbresponse) {
-            return res.status(400).json({
+             res.status(400).json({
                 status: 'failure',
                 code: 400,
                 message: "invalid email"
             })
         }
         if (!comparePassword(dbresponse.password, password)) {
-            return res.status(400).json({
+             res.status(400).json({
                 status: 'failure',
                 code: 400,
                 message: "invalid password"
