@@ -356,7 +356,7 @@ console.log(req.user.user_id)
     const pics = req.files.pictures
     const picture_name = pics.name
 console.log(pics)
-    pics.mv('picturelolo/' + picture_name ), (err) => {
+    pics.mv('upload-profile/'+ picture_name), (err) => {
         if (err) {
             res.status(500).json({
                 status: 'error',

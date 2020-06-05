@@ -2,20 +2,24 @@ import React, { useState } from 'react';
 import './modal.css'
 import closeBtn from '../../../Images/closeBtn.svg'
 import axios from 'axios'
+import useSpinner from './../../../Spinner/useSpinner';
+
 const Modal = ({ handleClose, show }) => {
+    const [spinner, showSpinner, hideSpinner] = useSpinner()
     const [displaypicture, setDisplaypicture] = useState({ pictures: '' });
     const handleFile = (e) => {
         let files = e.target.files[0]
         setDisplaypicture({
             ...displaypicture,
             pictures: files,
-
         })
     }
+
     const { pictures } = displaypicture;
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        showSpinner()
         const userDetails = { pictures };
         let pics = pictures
         if (pictures) {
@@ -35,6 +39,7 @@ const Modal = ({ handleClose, show }) => {
             axios.put('/api/v1/uploadImage', formData, config)
                 .then(res => {
                     console.log(res)
+                    hideSpinner()
                 }).catch(err => {
                     console.log(err)
                 })
@@ -55,6 +60,10 @@ const Modal = ({ handleClose, show }) => {
         textAlign: "center"
     }
 
+    const handleImage = () => {
+
+    }
+
     const showHideClassName = show ? "modal display-block" : "modal display-none";
 
     return (
@@ -66,6 +75,7 @@ const Modal = ({ handleClose, show }) => {
                 <img className='close_icon' src={closeBtn} onClick={handleClose} />
                 <button disabled={!pictures} className='modal_button' onClick={handleSubmit}>Submit</button>
             </section>
+            {spinner}
         </div>
     );
 }
