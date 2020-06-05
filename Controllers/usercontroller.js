@@ -123,10 +123,10 @@ exports.signInUser = async (req, res, next) => {
         })
     }
     if (!validatePassword(password)) {
-         res.status(200).json({
-            status: "failure",
-            code: 400,
-            message: "Invalid Password"
+        return Promise.reject({
+            status: "error",
+            code: 409,
+            message: "Application total error",
         })
     }
     const queryObject = {
