@@ -65,8 +65,8 @@ const Dashboard = (props) => {
                 <motion.div className="welcome" initial={{ y: 0, opacity: 1 }} animate={{ y: -10, opacity: 0 }} transition={{ duration: 1, delay: 7 }} >
                     Welcome to the Dashboard, {userDetail.first_name}
                 </motion.div>
-                {spinner}
             </motion.div>
+            {spinner}
         </div>
     )
 }

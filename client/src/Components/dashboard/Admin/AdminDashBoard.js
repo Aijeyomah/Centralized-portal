@@ -55,19 +55,21 @@ const AdminDashboard = (props) => {
             })
     }, [])
     return (
-        <motion.div initial={{ y: -1650 }} animate={{ y: 0 }} className="_container ">
-            <AdminSideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
-            <Switch>
-                <Route exact path="/admindashboard" component={AdminDashBoardHome} />
-                <Route exact path="/admindashboard/createapplication" component={CreateApplication} />
-                <Route exact path="/admindashboard/entries" component={ApplicationEntries} />
-                <Route exact path="/admindashboard/assessment" component={ComposeAssessment} />
-                <Route exact path="/admindashboard/history" component={AssessmentHistory} />
-                <Route exact path="/admindashboard/results" component={Results} />
-                <Route exact path="/admindashboard/logout" component={AdminLogout} />
-            </Switch>
+        <div>
+            <motion.div initial={{ y: -1650 }} animate={{ y: 0 }} className="_container ">
+                <AdminSideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
+                <Switch>
+                    <Route exact path="/admindashboard" component={AdminDashBoardHome} />
+                    <Route exact path="/admindashboard/createapplication" component={CreateApplication} />
+                    <Route exact path="/admindashboard/entries" component={ApplicationEntries} />
+                    <Route exact path="/admindashboard/assessment" component={ComposeAssessment} />
+                    <Route exact path="/admindashboard/history" component={AssessmentHistory} />
+                    <Route exact path="/admindashboard/results" component={Results} />
+                    <Route exact path="/admindashboard/logout" component={AdminLogout} />
+                </Switch>
+            </motion.div>
             {spinner}
-        </motion.div>
+        </div>
     )
 }
 
