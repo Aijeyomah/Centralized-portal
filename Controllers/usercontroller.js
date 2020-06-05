@@ -123,7 +123,7 @@ exports.signInUser = async (req, res, next) => {
         })
     }
     if (!validatePassword(password)) {
-         res.status(400).json({
+         res.status(200).json({
             status: "failure",
             code: 400,
             message: "Invalid Password"
