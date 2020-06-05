@@ -237,14 +237,6 @@ exports.getAllFromApplication = async (req, res) => {
 
       })
       }
-    // if (rowCount === 0) {
-    //   return res.status(400).json({
-    //     status: "failure",
-    //     code: 400,
-    //     message: "Assessment"
-    //   })
-    // }
-  
       }
 
   catch (error) {
