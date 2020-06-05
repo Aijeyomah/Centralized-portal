@@ -356,7 +356,7 @@ console.log(req.user.user_id)
     const pics = req.files.pictures
     const picture_name = pics.name
 console.log(pics)
-    pics.mv('upload-profile/'+ picture_name, (error) => {
+    pics.mv('upload-profile/'+ picture_name), (err) => {
         if (err) {
             res.status(500).json({
                 status: 'error',
@@ -365,7 +365,7 @@ console.log(pics)
                 error: error.message
             })
         }
-    })
+    }
     const queryObject1 = {
         text: queries.updateProfilePicture,
         values: [picture_name, id]
