@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SideBar.css'
 import dashIcon from '../../../Images/dashboard-icon.svg'
 import assessIcon from '../../../Images/assessment-icon.svg'
@@ -8,6 +8,7 @@ import avatar from '../../../Images/avatar.svg'
 import Modal from './modal'
 import { withRouter } from 'react-router-dom'
 import useSpinner from './../../../Spinner/useSpinner';
+import axios from 'axios'
 
 const SideBar = (props) => {
     const [spinner, showSpinner] = useSpinner()
@@ -20,8 +21,28 @@ const SideBar = (props) => {
         setState({ show: false });
     };
 
-    const handleLogOut = (e) => {
+     
+
+    const removeToken = async () => {
+        const token = localStorage.getItem('token')
+        console.log(token)
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.put("/api/v1/auth/logOut", config)
+            .then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err.response)
+            })
+    }
+
+    const handleLogOut = async (e) => {
         e.preventDefault()
+        await removeToken()
         localStorage.removeItem('token')
         props.history.push('/login')
     }
@@ -46,7 +67,7 @@ const SideBar = (props) => {
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />
                 <Navigation url="/applicantdashboard/assessment" src={assessIcon} text="Assessment" className="assess-inactive" activeClassName="assess-active" />
             </div>
-            <Navigation clicked={handleLogOut} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Navigation clicked={removeToken} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
             {spinner}
         </div>
     )
