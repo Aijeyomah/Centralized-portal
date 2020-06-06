@@ -21,6 +21,32 @@ const ApplicationForm = (props) => {
         cv_file: "",
     })
 
+    const [userDetail, setUserDetail] = useState({
+        created_at: ""
+    })
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.get("/api/v1/getapplicantdetail", config)
+            .then(res => {
+                setUserDetail({
+                    created_at: res.data.data.created_at,
+                })
+            }).catch(err => {
+                console.log(err.message)
+            })
+    }, [])
+
+    if (userDetail.created_at) {
+        props.history.push('/applicantdashboard')
+    }
+
     const [errorMessage, setErrorMessage] = useState({
         error: ''
     })
@@ -79,7 +105,7 @@ const ApplicationForm = (props) => {
                 }
                 ).catch(err => {
                     console.log(err.response.data)
-                    setErrorMessage({error: err.response.data.message})
+                    setErrorMessage({ error: err.response.data.message })
                     hideSpinner()
                 })
         } else { alert("Upload your CV") }
@@ -104,7 +130,7 @@ const ApplicationForm = (props) => {
     }
 
     return (
-        <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} >
+        <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 170 }} >
             <div className="enyata-logo">
                 <img src={enyataLogo} alt="Enyata logo" />
             </div>
@@ -170,7 +196,7 @@ const ApplicationForm = (props) => {
                     </div>
                 </div>
                 <p className="message" style={{ display: !errorMessage.error ? "none" : "block", color: "red" }}>{errorMessage.error}</p>
-                <button onClick={handleSpinner} type="submit">Submit</button>
+                <motion.button whileHover={{ scale: 1.1 }} onClick={handleSpinner} type="submit">Submit</motion.button>
             </form>
             {spinner}
         </motion.div>

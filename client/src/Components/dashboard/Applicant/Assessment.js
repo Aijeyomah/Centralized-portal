@@ -196,7 +196,7 @@ const Assessment = (props) => {
                     <p style={{ display: userDetail.status === "Taken" ? "block" : "none" }}>You have already taken this assessment</p>
                     <p style={{ display: userDetail.created_at && userDetail.status === "Pending" ? "block" : "none" }}>Start your assessment now</p>
                     <p style={{ display: !userDetail.created_at ? "block" : "none" }}>Fill the application form in order to take assessment</p>
-                    <button style={{ display: userDetail.status === "Taken" ? "none" : "block" }} onClick={handleNextPage} disabled={!userDetail.created_at}>Take Assessment</button>
+                    <motion.button whileHover={{ scale: 1.1 }} style={{ display: userDetail.status === "Taken" ? "none" : "block" }} onClick={handleNextPage} disabled={!userDetail.created_at}>Take Assessment</motion.button>
                 </div>
             </div>
             <div style={{ display: show === 2 ? "block" : "none" }}>

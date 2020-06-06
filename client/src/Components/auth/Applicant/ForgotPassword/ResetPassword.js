@@ -41,7 +41,8 @@ export default (props) => {
 
     return (
         <div>
-            <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }} className='container'>
+            <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 170 }}
+                className='container'>
                 <div className='logoDiv'>
                     <img src={logo} className="logo" alt="logo" />
                 </div>
@@ -58,7 +59,7 @@ export default (props) => {
                     <label><strong>Token</strong></label>
                     <input type="text" id="token" onChange={handleChange} required />
                     <p className="reset_err_msg" style={{ display: state.errorMessage ? "block" : "none", color: "red", margin: "0 auto" }} >{state.errorMessage}</p>
-                    <button onClick={() => showSpinner()} className="reset_btn">Submit</button>
+                    <motion.button whileHover={{ scale: 1.1 }} onClick={() => showSpinner()} className="reset_btn">Submit</motion.button>
                 </form>
             </motion.div>
             {spinner}

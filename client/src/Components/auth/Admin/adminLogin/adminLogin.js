@@ -111,7 +111,7 @@ const AdminLogin = (props) => {
     return (
         <div>
             <div className='body'>
-                <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
+                <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 170 }}
                     className='admin_container'>
                     <div className='logoDiv'>
                         <img src={logo} className="logo" alt="logo" />

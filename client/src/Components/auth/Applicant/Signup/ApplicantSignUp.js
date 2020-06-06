@@ -85,7 +85,7 @@ const ApplicantSignUp = (props) => {
 
     return (
         <div>
-            <motion.form initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
+            <motion.form initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 170 }}
                 className="signup_wrapper" onSubmit={handleSubmit}>
                 <div className="enyata-logo">
                     <img src={enyataLogo} alt="Enyata logo" />
@@ -136,7 +136,7 @@ const ApplicantSignUp = (props) => {
                     </div>
                 </div>
                 <p className="red" style={{ color: "red" }} >{user.errorMessage}</p>
-                <button onClick={handleSpinner} type="submit">Sign Up</button>
+                <motion.button whileHover={{ scale: 1.1 }} onClick={handleSpinner} type="submit">Sign Up</motion.button>
                 <p className="sign-in-link">Already have an account? <span ><Link to="/login">Sign in</Link></span></p>
             </motion.form>
             {spinner}
