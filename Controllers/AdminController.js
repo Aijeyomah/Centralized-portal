@@ -18,7 +18,7 @@ exports.createApplicationAdmin = async (req, res) => {
   console.log(req.files)
   fileName = files.name
   console.log()
-  files.mv('uploadingfile/' + fileName, (error) => {
+  files.mv('uploadingfile/' + fileName), (error) => {
     if (error) {
       res.status(500).json({
         status: 'error',
@@ -27,7 +27,8 @@ exports.createApplicationAdmin = async (req, res) => {
         error: error.message
       })
     }
-  })
+  }
+ 
     const total = 0;
 
   if (!link || !application_closure_date || !batch_id || !instructions) {
@@ -72,16 +73,15 @@ exports.createApplicationAdmin = async (req, res) => {
 
 
 exports.composeAssessmentAdmin = async (req, res) => {
-  const { batch_id } = req.body
-  const date = new Date();
-  const created_at = moment(date).format('YYYY-MM-DD');
+ 
+  const {batch_id} = req.body
   const y = req.body.questionStore;
   const ray = JSON.parse(y);
 
   for (let prop in ray) {
     queryObject = {
       text: queries.composeAssessmentQuery,
-      values: [ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer, created_at, batch_id]
+      values: [ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer, batch_id]
     };
     try {
       const { rows } = await db.query(queryObject)
@@ -135,8 +135,12 @@ exports.getAllAssessmentUser = async (req, res) => {
 }
 
 exports.uploadfileSetTime = async (req, res) => {
-  const { set_time } = req.body
+  const { set_time,no_of_question, batch_id } = req.body
+
+  const date = new Date();
+  const created_at = moment(date).format('YYYY/MM/DD ');
   const files = req.files.file_upload
+  const status = 'Not Taken'
   console.log(req.body)
   fileName = files.name
   console.log(files)
@@ -155,7 +159,11 @@ exports.uploadfileSetTime = async (req, res) => {
     text: queries.uploadtime,
     values: [
       fileName,
-      set_time
+      set_time,
+      created_at,
+      no_of_question, 
+       batch_id, 
+       status
     ]
   }
   console.log(queryObject)
