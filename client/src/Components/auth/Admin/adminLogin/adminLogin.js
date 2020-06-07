@@ -131,7 +131,7 @@ const AdminLogin = (props) => {
                             <p className='adminErrorMsg'>{state.passwordError}</p>
                         </div>
                         <p className="message" style={{ display: !errorMessage.error ? "none" : "block", color: "red" }}>{errorMessage.error}</p>
-                        <button onClick={handleSpinner} disabled={!isEnabled} className={!isEnabled ? 'disabled' : 'submitBtn'} type='Submit'>Sign In</button>
+                        <motion.button whileHover={{ scale: 1.1 }} onClick={handleSpinner} disabled={!isEnabled} className={!isEnabled ? 'disabled' : 'submitBtn'} type='Submit'>Sign In</motion.button>
                         <div className='adminLoginText'>
                             <p className='adminFormText'><Link to='/forgotPassword' >Forgot Password?</Link></p>
                         </div>
