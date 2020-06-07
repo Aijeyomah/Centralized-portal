@@ -108,7 +108,7 @@ exports.getAllAssessmentUser = async (req, res) => {
   
   const queryObject = {
     text: queries.getAllAssessment,
-    values: [batch_id]
+    // values: [batch_id]
   }
   try {
     const { rows, rowCount } = await db.query(queryObject)
