@@ -107,10 +107,10 @@ const queries = {
     created_at,
     no_of_question, 
     batch_id,
-    status
+    assessment_status
     ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
    `,
-   AdminUpdateAssessmentQuery:`UPDATE filetime SET status=($1) WHERE batch_id=($2) RETURNING *`,
+   AdminUpdateAssessmentQuery:`UPDATE filetime SET assessment_status=($1) WHERE batch_id=($2) RETURNING *`,
    testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` ,
    updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`,
    getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`
