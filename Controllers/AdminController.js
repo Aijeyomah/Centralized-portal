@@ -112,6 +112,8 @@ exports.getAllAssessmentUser = async (req, res) => {
   }
   try {
     const { rows, rowCount } = await db.query(queryObject)
+    console.log(rows)
+    console.log(rowCount)
     console.log(queryObject)
     if (rowCount > 0) {
       return res.status(200).json({
