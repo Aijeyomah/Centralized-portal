@@ -310,6 +310,7 @@ exports.updateTestScores = async (req, res) => {
   const  status = 'Taken'
   const assessment_status= 'Taken'
     const { test_scores } = req.body
+    const{batch_id} =req.params
     const email_address = res.locals.user.email
     const queryObject = {
         text: queries.findByEmail,
@@ -326,7 +327,7 @@ exports.updateTestScores = async (req, res) => {
     };
     const queryObject3 = {
         text: queries.AdminUpdateAssessmentQuery,
-        values: [assessment_status, batch_id.batch_id]
+        values: [assessment_status, batch_id]
     
     };
     
