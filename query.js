@@ -113,8 +113,8 @@ const queries = {
    AdminUpdateAssessmentQuery:`UPDATE filetime SET assessment_status=($1) WHERE batch_id=($2) RETURNING *`,
    testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` ,
    updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`,
-   getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`
-   
+   getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`,
+   getfiletimeQuery:`SELECT * FROM filetime `
 }
 module.exports = queries
 
