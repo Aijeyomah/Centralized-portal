@@ -34,7 +34,8 @@ const {
     uploadfileSetTime,
     getAllFromApplication,
     getLastRowFromApplication,
-    getAllAssessmentByAdmin
+    getAllAssessmentByAdmin,
+ 
 } = require('./Controllers/AdminController')
 
 

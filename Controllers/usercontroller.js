@@ -216,10 +216,10 @@ exports.forgotPassword = async (req, res) => {
             const date = new Date();
             const created_at = moment(date).format('YYYY-MM-DD HH:mm:ss');
             const code = generateCode(dbresponse.id, dbresponse.email_address, dbresponse.is_admin)
-            const hostUrl2 = "http://boring-snyder-80af72.netlify.app/#"
+           
             const email = req.body.email_address
             const subject = 'Forgot password '
-            const text = `Follow this link to set your new password1 ${hostUrl2}/setnewpassword? please copy this code and insert it into the code input tag &code=${code}`;
+            const text = ` please copy this code and insert it into the input tag &code=${code}`;
             await sendMail(email, subject, text)
             const queryObject1 = {
                 text: queries.saveForgetPasswordCodeQuery,
