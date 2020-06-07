@@ -307,7 +307,8 @@ exports.getApplicationByAdmin = async (req, res) => {
     }
 }
 exports.updateTestScores = async (req, res) => {
-    status = 'Taken'
+  const  status = 'Taken'
+  const assessment_status= 'Taken'
     const { test_scores } = req.body
     const email_address = res.locals.user.email
     const queryObject = {
@@ -323,10 +324,11 @@ exports.updateTestScores = async (req, res) => {
         text: queries.updateAssessmentStatusQuery,
         values: [status, email_address]
     };
-    // const queryObject3 = {
-    //     text: queries.AdminUpdateAssessmentQuery,
-    //     values: [status, batch_id]
-    // };
+    const queryObject3 = {
+        text: queries.AdminUpdateAssessmentQuery,
+        values: [assessment_status, batch_id]
+    };
+    
     console.log(queryObject1)
     try {
         const { rowCount, rows } = await db.query(queryObject)

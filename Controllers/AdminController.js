@@ -146,7 +146,7 @@ exports.uploadfileSetTime = async (req, res) => {
   const date = new Date();
   const created_at = moment(date).format('YYYY/MM/DD ');
   const files = req.files.file_upload
-  const status = 'Not Taken'
+  const assessment_status = 'Not Taken'
   console.log(req.body)
   fileName = files.name
   console.log(files)
@@ -169,7 +169,7 @@ exports.uploadfileSetTime = async (req, res) => {
       created_at,
       no_of_question, 
        batch_id, 
-       status
+       assessment_status
     ]
   }
   console.log(queryObject)
