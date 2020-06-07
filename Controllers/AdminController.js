@@ -105,11 +105,7 @@ exports.composeAssessmentAdmin = async (req, res) => {
 
 exports.getAllAssessmentUser = async (req, res) => {
   const batch_id = req.params
-  if (!parseInt(batch_id)) {
-    return res.status(400).json({
-        message: "Id must be an integer",
-    });
-}
+  
   const queryObject = {
     text: queries.getAllAssessmentByBatch,
     values: [batch_id]
