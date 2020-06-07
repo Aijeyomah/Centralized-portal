@@ -29,6 +29,10 @@ export const ClientButton = (props) => {
 
 export const AdminClientButton = (props) => {
     return (
-        <Link to={props.link}> <button className={props.className} type='button'>{props.text}</button></Link>
+        <Link to={props.link}> <motion.button whileHover={{ scale: 1.1 }}
+            className={props.className}
+            type='button'>{props.text}
+        </motion.button>
+        </Link>
     );
 }
