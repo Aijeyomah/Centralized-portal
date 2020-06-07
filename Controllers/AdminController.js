@@ -104,8 +104,10 @@ exports.composeAssessmentAdmin = async (req, res) => {
 }
 
 exports.getAllAssessmentUser = async (req, res) => {
+  const batch_id = req.params
   const queryObject = {
-    text: queries.getAllAssessment
+    text: queries.getAllAssessmentByBatch,
+    values: [batch_id]
   }
   try {
     const { rows, rowCount } = await db.query(queryObject)
