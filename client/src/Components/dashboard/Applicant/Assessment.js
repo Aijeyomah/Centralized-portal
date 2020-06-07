@@ -136,6 +136,8 @@ const Assessment = (props) => {
     }
 
     const handleSubmit = () => {
+        const { batch } = userDetail
+        const batch_id = { batch }
         const { currentIndex, userOptions, nextQuestion, userAnswer, correct_answer } = questions
         correct_answer.push(QuizData[currentIndex].correct_answer)
         console.log(userOptions)
@@ -154,7 +156,7 @@ const Assessment = (props) => {
                 'token': token
             }
         }
-        axios.put("/api/v1/auth/updatetestscores", userScores, config)
+        axios.put(`/api/v1/auth/updatetestscores/${batch_id}`, userScores, config)
             .then(res => {
                 console.log(res)
                 console.log(test_scores)
