@@ -55,7 +55,7 @@ router.post('/auth/uploadsetime', verifyAdminToken, uploadfileSetTime)
 
 //put
 router.put('/auth/logOut', verifyUserToken, logOut)
-router.put('/auth/updatetestscores', verifyUserToken, findSignInCode, updateTestScores)
+router.put('/auth/updatetestscores/:batch_id', verifyUserToken, findSignInCode, updateTestScores)
 
 
 //get
