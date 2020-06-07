@@ -46,7 +46,8 @@ const AdminSideBar = (props) => {
                 {/* <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" /> */}
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
-            <Navigation clicked={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+            <Navigation whileHover={{ scale: 1.1, color: '#006df0', originX: 0, type: "spring" }}
+                clicked={handleLogOut} url="/admindashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
             <Modal show={state.show} handleClose={hideModal} />
         </div>
     )

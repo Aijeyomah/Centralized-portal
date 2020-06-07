@@ -9,6 +9,7 @@ import Modal from './modal'
 import { withRouter } from 'react-router-dom'
 import useSpinner from './../../../Spinner/useSpinner';
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const SideBar = (props) => {
     const [spinner, showSpinner] = useSpinner()
@@ -69,13 +70,16 @@ const SideBar = (props) => {
             })
     }, [])
 
-        let userImage = `https://agile-cove-05072.herokuapp.com/upload_profile/${userPic}`
+    let userImage = `https://agile-cove-05072.herokuapp.com/upload_profile/${userPic}`
 
     return (
         <div className="sidebar">
             <div className="sidebar_head">
                 <div className="sidebar_wrapper">
-                    <img src={!userPic ? avatar : userImage} onClick={showModal} alt="avatar" />
+                    <motion.img
+                        transition={{ type: "spring" }}
+                        whileHover={{ scale: 1.1, boxShadow: "0px 0px 8px rgb(181, 210, 49)" }}
+                        src={!userPic ? avatar : userImage} onClick={showModal} alt="avatar" />
                 </div>
 
                 <p className="applicant_name">{props.first_name} {props.last_name}</p>
@@ -87,7 +91,14 @@ const SideBar = (props) => {
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />
                 <Navigation url="/applicantdashboard/assessment" src={assessIcon} text="Assessment" className="assess-inactive" activeClassName="assess-active" />
             </div>
+<<<<<<< HEAD
             <Navigation clicked={removeToken} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+=======
+            <Navigation whileHover={{
+                scale: 1.1, color: '#1e3f61', originX: 0, type: "spring"
+            }}
+                clicked={handleLogOut} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
+>>>>>>> 6485676356dba0c32d0519cff09409e56f5b0100
             {spinner}
         </div>
     )

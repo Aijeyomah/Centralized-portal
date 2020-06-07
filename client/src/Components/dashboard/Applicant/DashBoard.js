@@ -43,7 +43,7 @@ const Dashboard = (props) => {
                     is_admin: res.data.data.is_admin
                 })
             }).catch(err => {
-                console.log(err.message)
+                console.log(err.response.data.message)
                 props.history.push('/admindashboard')
             })
         if (!token) {
@@ -53,7 +53,7 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            <motion.div initial={{ y: -350 }} animate={{ y: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
+            <motion.div initial={{ y: -350 }} animate={{ y: 0 }} transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 170 }}
                 className="_container">
                 <SideBar first_name={userDetail.first_name} last_name={userDetail.last_name} email_address={userDetail.email_address} />
                 <Switch>

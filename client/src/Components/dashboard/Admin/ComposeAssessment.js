@@ -3,6 +3,7 @@ import './ComposeAssessment.css'
 import uploadIcon from '../../../Images/upload-icon.svg'
 import AssessmentSuccessful from './AssessmentSuccessful';
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const ComposeAssessment = () => {
     const [questions, setQuestions] = useState({
@@ -259,7 +260,7 @@ const ComposeAssessment = () => {
                     </div>
                     <p className="click_to_submit" style={{ display: nextQuestion === 31 ? "block" : "none" }}>Click finish to submit</p>
                     <div className="finish_btn">
-                        <button style={{ backgroundColor: nextQuestion === 31 ? "#31d283" : "#CECECE" }} disabled={nextQuestion < 31} type="submit">Finish</button>
+                        <motion.button whileHover={{ scale: 1.1 }} style={{ backgroundColor: nextQuestion === 31 ? "#31d283" : "#CECECE" }} disabled={nextQuestion < 31} type="submit">Finish</motion.button>
                     </div>
                 </div>
             </form>

@@ -68,7 +68,8 @@ const queries = {
         instructions,
         created_at,
         total,
-        updated_at
+        updated_at,
+      
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
     getAllApplicationSubmitted:`SELECT * FROM application`,
     findSignInTokenQuery:`
@@ -93,23 +94,27 @@ const queries = {
         option_c,
         option_d,
         correct_answer,
-        created_at,
         batch_id
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
    getAllApplicationEntries:` SELECT  * FROM applicants WHERE batch=($1)`,
    getAllAssessment:` SELECT  * FROM assessment ORDER BY random()`,
-   getAllAssessmentByBatch:` SELECT  * FROM assessment  WHERE batch_id=($1) `,
+   getAllAssessmentByBatch:`  SELECT * FROM assessment WHERE batch_id=($1) `,
 
    uploadtime:`
-   INSERT INTO assessment(
+   INSERT INTO filetime(
     file_upload,
-    set_time
-    ) VALUES ($1, $2) RETURNING *
+    set_time,
+    created_at,
+    no_of_question, 
+    batch_id,
+    assessment_status
+    ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
    `,
+   AdminUpdateAssessmentQuery:`UPDATE filetime SET assessment_status=($1) WHERE batch_id=($2) RETURNING *`,
    testScoresQuery:`UPDATE applicants SET test_scores=($1) WHERE email_address=($2) RETURNING *` ,
    updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`,
-   getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`
-
+   getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`,
+   getfiletimeQuery:`SELECT * FROM filetime `
 }
 module.exports = queries
 
