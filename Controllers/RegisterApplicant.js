@@ -327,7 +327,10 @@ exports.updateTestScores = async (req, res) => {
     const queryObject3 = {
         text: queries.AdminUpdateAssessmentQuery,
         values: [assessment_status, batch_id]
+    
     };
+    
+    console.log(queryObject3)
     
     console.log(queryObject1)
     try {
