@@ -344,7 +344,7 @@ exports.updateTestScores = async (req, res) => {
                 console.log(queryObject2)
                 if (rowCount > 0) {
                     const { rowCount } = await db.query(queryObject3)
-                    
+                    console.log(queryObject3)
                     if (rowCount > 0) {
                     return res.status(200).json({
                         status: "success",
