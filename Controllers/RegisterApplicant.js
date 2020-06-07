@@ -343,15 +343,16 @@ exports.updateTestScores = async (req, res) => {
             const { rows } = await db.query(queryObject1)
             if (rows[0].test_scores !== null ) {
                 const { rowCount } = await db.query(queryObject2)
-                console.log(queryObject2)
                 if (rowCount > 0) {
-                   
+                    const { rowCount } = await db.query(queryObject3)
+                    if (rowCount > 0) {
+
                     return res.status(200).json({
                         status: "success",
                         code: 200,
                         message: "your  scores has  been updated"
                     })
-                } 
+                } }
             }}
         
     }
