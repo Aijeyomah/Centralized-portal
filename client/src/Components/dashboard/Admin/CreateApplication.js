@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import uploadIcon from '../../../Images/upload-icon.svg';
 import './CreateApplication.css'
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const CreateApplication = () => {
     const [state, setState] = useState({
@@ -116,7 +117,7 @@ const CreateApplication = () => {
                         <textarea value={state.instructions} id="instructions" type="text" onChange={handleChange} required /><br />
                     </div>
                 </div>
-                <button className='applicationBtn' type="submit">Submit</button>
+                <motion.button whileHover={{ scale: 1.1 }} className='applicationBtn' type="submit">Submit</motion.button>
             </form>
         </div>
     )

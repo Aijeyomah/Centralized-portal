@@ -17,16 +17,21 @@
 }
 
 .sidebar_head div {
-    height: 90px;
+    position: relative;
+    height: 100px;
+    width: 100px;
     text-align: center;
-
+    margin-left: 50%;
+    right: 50px;
+    box-sizing: border-box
 }
 
 .sidebar_head img {
     height: 100%;
+    width: 100%;
     border-radius: 90px;
     margin: 20px auto;
-    padding: 10px
+    text-align: center;
 }
 
 .applicant_name {

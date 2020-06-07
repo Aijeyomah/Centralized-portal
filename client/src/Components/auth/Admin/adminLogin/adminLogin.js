@@ -111,7 +111,7 @@ const AdminLogin = (props) => {
     return (
         <div>
             <div className='body'>
-                <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5 }}
+                <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 170 }}
                     className='admin_container'>
                     <div className='logoDiv'>
                         <img src={logo} className="logo" alt="logo" />
@@ -131,7 +131,7 @@ const AdminLogin = (props) => {
                             <p className='adminErrorMsg'>{state.passwordError}</p>
                         </div>
                         <p className="message" style={{ display: !errorMessage.error ? "none" : "block", color: "red" }}>{errorMessage.error}</p>
-                        <button onClick={handleSpinner} disabled={!isEnabled} className={!isEnabled ? 'disabled' : 'submitBtn'} type='Submit'>Sign In</button>
+                        <motion.button whileHover={{ scale: 1.1 }} onClick={handleSpinner} disabled={!isEnabled} className={!isEnabled ? 'disabled' : 'submitBtn'} type='Submit'>Sign In</motion.button>
                         <div className='adminLoginText'>
                             <p className='adminFormText'><Link to='/forgotPassword' >Forgot Password?</Link></p>
                         </div>
