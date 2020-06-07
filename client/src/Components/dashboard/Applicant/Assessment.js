@@ -5,7 +5,6 @@ import Timer from './Timer'
 import congratsIcon from '../../../Images/congrats.svg'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import QuizData from './AssessmentQuestions';
 import { motion } from 'framer-motion'
 import useSpinner from './../../../Spinner/useSpinner';
 
@@ -34,7 +33,7 @@ const Assessment = (props) => {
         }]
     })
 
-    const [userDetail, setUserDetail] = useState({ created_at: '', status: '', update: '' })
+    const [userDetail, setUserDetail] = useState({ created_at: '', status: '', batch: '', update: '' })
     useEffect(() => {
         const token = localStorage.getItem('token')
         let config = {
@@ -47,14 +46,28 @@ const Assessment = (props) => {
             .then(res => {
                 setUserDetail({
                     created_at: res.data.data.created_at,
-                    status: res.data.data.status
+                    status: res.data.data.status,
+                    batch: res.data.data.batch
                 })
+                console.log(res)
             }).catch(err => {
                 console.log(err.message)
             })
-        axios.get("/api/v1/getassessment", config)
+    }, [])
+
+    const batch_id = userDetail.batch
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                "token": token
+            }
+        }
+        axios.get(`/api/v1/getassessment/${userDetail.batch}`, config)
             .then((res) => {
-                console.log(res.data.data)
+                console.log(res)
                 setQuestions({
                     ...questions, QuizData: res.data.data
                 })
@@ -62,7 +75,7 @@ const Assessment = (props) => {
             }).catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [userDetail.batch])
 
     const [show, setShow] = useState(1)
     const [interv, setInterv] = useState("")
@@ -171,7 +184,7 @@ const Assessment = (props) => {
         })
     }
 
-    const { currentIndex, userAnswer, questionNo, } = questions
+    const { currentIndex, userAnswer, questionNo, QuizData } = questions
 
     return (
         <div>
@@ -213,15 +226,16 @@ const Assessment = (props) => {
                     <button disabled={questionNo === 30} type="button" onClick={handleNextQuestion}>Next</button>
                 </div>
                 <div className="finish-button">
-                    <button style={{ backgroundColor: questionNo < 30 ? "#CECECE" : "#31D283" }} disabled={!questionNo === 30} type="submit" onClick={handleSubmit}>Finish</button>
+                    <motion.button whileHover={{ scale: 1.1 }} style={{ backgroundColor: questionNo < 30 ? "#CECECE" : "#31D283" }} disabled={!questionNo === 30} type="submit" onClick={handleSubmit}>Finish</motion.button>
                 </div>
             </div>
             <div className="congrats" style={{ display: show === 3 ? "block" : "none" }}>
                 <div >
-                    <img src={congratsIcon} alt="congrats" />
+                    <motion.img intiial={{ x: -10 }} animate={{ rotateZ: 10 }} transition={{ yoyo: Infinity }}
+                        src={congratsIcon} alt="congrats" />
                 </div>
                 <p>We have received your assessment test, we will get back to you soon. Best of luck</p>
-                <Link to="/applicantdashboard"><button>Home</button></Link>
+                <Link to="/applicantdashboard"><motion.button whileHover={{ scale: 1.1 }}>Home</motion.button></Link>
             </div>
         </div>
     )

@@ -43,7 +43,7 @@ const Dashboard = (props) => {
                     is_admin: res.data.data.is_admin
                 })
             }).catch(err => {
-                console.log(err.message)
+                console.log(err.response.data.message)
                 props.history.push('/admindashboard')
             })
         if (!token) {
