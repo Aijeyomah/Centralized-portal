@@ -323,10 +323,10 @@ exports.updateTestScores = async (req, res) => {
         text: queries.updateAssessmentStatusQuery,
         values: [status, email_address]
     };
-    const queryObject3 = {
-        text: queries.AdminUpdateAssessmentQuery,
-        values: [status, batch_id]
-    };
+    // const queryObject3 = {
+    //     text: queries.AdminUpdateAssessmentQuery,
+    //     values: [status, batch_id]
+    // };
     console.log(queryObject1)
     try {
         const { rowCount, rows } = await db.query(queryObject)
@@ -342,15 +342,14 @@ exports.updateTestScores = async (req, res) => {
             if (rows[0].test_scores !== Null ) {
                 const { rowCount } = await db.query(queryObject2)
                 if (rowCount > 0) {
-                    const { rowCount } = await db.query(queryObject3)
-                    if (rowCount > 0) {
+                   
                     return res.status(200).json({
                         status: "success",
                         code: 200,
                         message: "your  scores has  been updated"
                     })
                 } 
-            }}
+            }
         }
     }
     catch (error) {
