@@ -156,7 +156,7 @@ const Assessment = (props) => {
                 'token': token
             }
         }
-        axios.put(`/api/v1/auth/updatetestscores/${batch_id}`, userScores, config)
+        axios.put(`/api/v1/auth/updatetestscores/${userDetail.batch}`, userScores, config)
             .then(res => {
                 console.log(res)
                 console.log(test_scores)
