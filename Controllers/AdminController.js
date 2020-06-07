@@ -74,23 +74,23 @@ exports.createApplicationAdmin = async (req, res) => {
 
 exports.composeAssessmentAdmin = async (req, res) => {
  
-  const {batch_id} = req.body
+   const {batch_id} = req.body
   const y = req.body.questionStore;
   const ray = JSON.parse(y);
 
   for (let prop in ray) {
     queryObject = {
       text: queries.composeAssessmentQuery,
-      values: [ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer, batch_id]
+      values: [ray[prop].question, ray[prop].option_a, ray[prop].option_b, ray[prop].option_c, ray[prop].option_d, ray[prop].correct_answer,batch_id]
     };
     try {
       const { rows } = await db.query(queryObject)
-      result = rows[0]
+   
       res.status(201).json({
         status: 'success',
         code: 201,
         message: "assessment Created Successfully",
-        result
+        rows
       })
     } catch (error) {
       res.status(500).json({
@@ -104,17 +104,23 @@ exports.composeAssessmentAdmin = async (req, res) => {
 }
 
 exports.getAllAssessmentUser = async (req, res) => {
+  const batch_id = req.params
+  
   const queryObject = {
-    text: queries.getAllAssessment
+    text: queries.getAllAssessmentByBatch,
+   values: [batch_id.batch_id]
   }
   try {
     const { rows, rowCount } = await db.query(queryObject)
+    console.log(queryObject)
+    console.log(rows)
     if (rowCount > 0) {
       return res.status(200).json({
         status: "success",
         code: 200,
         data: rows
       })
+      
     }
     if (rowCount === 0) {
       return res.status(400).json({
