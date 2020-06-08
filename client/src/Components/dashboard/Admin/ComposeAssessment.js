@@ -15,7 +15,7 @@ const ComposeAssessment = () => {
         correct_answer: "",
         batch_id: "",
         set_time: "",
-        cv_file: "",
+        file_upload: "",
         questionStore: []
     }
     )
@@ -28,7 +28,7 @@ const ComposeAssessment = () => {
     const handleFile = e => {
         let files = e.target.files[0]
         setQuestions({
-            ...questions, cv_file: files
+            ...questions, file_upload: files
         })
     }
 
@@ -55,7 +55,7 @@ const ComposeAssessment = () => {
         setQuestionNo(questionNo - 1)
         setprevQuestion(prevQuestion - 1)
         setNextQuestion(nextQuestion - 1)
-        console.log(questions.cv_file)
+        console.log(questions.file_upload)
         let one = questionStore[prevQuestion].question
         let two = questionStore[prevQuestion].option_a
         let three = questionStore[prevQuestion].option_b
@@ -73,7 +73,7 @@ const ComposeAssessment = () => {
         const { question, option_a, option_b, option_c, option_d, correct_answer, batch_id } = questions
         let questionData = { question, option_a, option_b, option_c, option_d, correct_answer, batch_id }
         const { questionStore } = questions
-        console.log(questions.cv_file)
+        console.log(questions.file_upload)
         if (option_a !== correct_answer && option_b !== correct_answer && option_c !== correct_answer && option_d !== correct_answer) {
             alert("One of the options must match the answer.")
         }
@@ -139,9 +139,9 @@ const ComposeAssessment = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        const { questionStore, set_time, cv_file } = questions
+        const { questionStore, set_time, file_upload } = questions
         const Questions = { questionStore }
-        let attachment = { set_time, cv_file }
+        let attachment = { set_time, file_upload }
         if (set_time) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -176,7 +176,7 @@ const ComposeAssessment = () => {
     }
 
     const style = {
-        display: questions.cv_file ? "block" : "none",
+        display: questions.file_upload ? "block" : "none",
         fontFamily: "Lato",
         fontWeight: 500,
         fontSize: "16px",

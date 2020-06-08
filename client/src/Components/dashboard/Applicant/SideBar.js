@@ -91,14 +91,10 @@ const SideBar = (props) => {
                 <Navigation url="/applicantdashboard" src={dashIcon} text="Dashboard" className="dash-inactive" activeClassName="dash-active" />
                 <Navigation url="/applicantdashboard/assessment" src={assessIcon} text="Assessment" className="assess-inactive" activeClassName="assess-active" />
             </div>
-<<<<<<< HEAD
-            <Navigation clicked={removeToken} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
-=======
             <Navigation whileHover={{
                 scale: 1.1, color: '#1e3f61', originX: 0, type: "spring"
             }}
                 clicked={handleLogOut} url="/applicantdashboard/logout" src={logoutIcon} text="Logout" className="logout-inactive" activeClassName="logout-active" />
->>>>>>> 6485676356dba0c32d0519cff09409e56f5b0100
             {spinner}
         </div>
     )

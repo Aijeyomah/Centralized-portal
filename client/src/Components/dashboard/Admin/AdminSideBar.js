@@ -43,7 +43,7 @@ const AdminSideBar = (props) => {
                 <Navigation url="/admindashboard/createapplication" src={createAppIcon} text="Create Application" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/entries" src={appEntriesIcon} text="Application Entries" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/assessment" src={composeAssessIcon} text="Compose Assessment" className="link-inactive" activeClassName="link-active" />
-                {/* <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" /> */}
+                 <Navigation url="/admindashboard/history" src={assessHistoryIcon} text="Assessment History" className="link-inactive" activeClassName="link-active" />
                 <Navigation url="/admindashboard/results" src={results} text="Results" className="link-inactive" activeClassName="link-active" />
             </div>
             <Navigation whileHover={{ scale: 1.1, color: '#006df0', originX: 0, type: "spring" }}

@@ -299,10 +299,9 @@ exports.getLastRowFromApplication = async (req, res) => {
 }
 
 exports.getAllAssessmentByAdmin = async (req, res) => {
-  const batch_id = req.body
+
   const queryObject = {
-    text: queries.getAllAssessmentByBatch,
-    values:[batch_id]
+    text: queries.getAllAssessmentByAdmin
   }
   try {
     const { rows, rowCount } = await db.query(queryObject)
