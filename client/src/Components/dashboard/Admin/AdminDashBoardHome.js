@@ -57,17 +57,19 @@ const DashBoardHome = (props) => {
     const currentApp = appTable[appTable.length - 1].total
     const academy = appTable[appTable.length - 1].batch_id
 
-    useEffect(() => {
-        console.log(appTable)
-    })
-
     return (
         <div className='admin_dashboard_wrapper'>
             <div>
                 <h2>Dashboard</h2>
             </div>
             <div className='admin_info_wrapper'>
-                <Info text="Current Applications" total_number={currentApp} text2="Academy 2.0" className='admin_info_one' />
+                <div className='admin_info_container'>
+                    <div>
+                        <p className='normal'>Current Application</p>
+                        <p className='large'>{currentApp}</p>
+                    </div>
+                    <p className="admin_info_one">Academy {academy}.0</p>
+                </div>
                 <Info text="Total Applications" total_number={application} text2="All entries so far" className='admin_info_two' />
                 <Info text="Academies" total_number={applications} text2="So far" className='admin_info_three' />
             </div>
