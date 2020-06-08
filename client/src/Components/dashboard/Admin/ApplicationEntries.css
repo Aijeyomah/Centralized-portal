@@ -54,7 +54,7 @@ tr:hover > .entries_batch {
 }
 
 .entries_table .entries_tr:hover {
-    box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);
+    box-shadow: 0px 3px 7px rgba(79, 79, 79, 0.7);
 }
 
 .fas { 
@@ -69,4 +69,15 @@ tr:hover > .entries_batch {
     font-size: 30px;
     color: #2e2e2e;
     border-radius: 5px;
+}
+
+th {
+    width: 90px;
+    padding: 5px
+}
+
+td {
+    border-bottom: 1px solid #2b3c4e;
+    border-right: 1px solid #2b3c4e;
+    border-left: 1px solid #2b3c4e
 }
