@@ -33,7 +33,7 @@
 }
 
 tr:hover>.assessmentHistory_batch {
-    border-left: 7px solid #31D283;
+    border-left: 7px solid #5ABEFD;
     border-radius: 8px;
 }
 
@@ -42,8 +42,14 @@ tr:hover>.assessmentHistory_batch {
     box-shadow: 4px 9px 10px rgba(79, 79, 79, 0.1);
 }
 
-.assessmentHistory_table tr:active>.assessmentHistory_batch {
+.batchActive {
     border-left: 7px solid #31D283;
+    border-radius: 8px;
+    box-shadow: 4px 9px 10px rgba(79, 79, 79, 0.1);
+}
+
+.batchActive > .assessmentHistory_batch {
+    border-left: 7px solid  #31D283;
     border-radius: 8px;
 }
 
@@ -51,19 +57,19 @@ tr:hover>.assessmentHistory_batch {
     height: 45px;
 }
 
-.assessmentHistoryBox {
+.assessmentHistoryBox{
     margin-top: 40px;
 }
 
-.assessmentHistoryIndex {
+.assessmentHistoryIndex{
     font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 19px;
-    color: #2B3C4E;
+font-weight: bold;
+font-size: 16px;
+line-height: 19px;
+color: #2B3C4E;
 }
 
-.assessmentData {
+.assessmentData{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,66 +80,66 @@ tr:hover>.assessmentHistory_batch {
     height: 108px;
     margin-left: 0;
     border-radius: 6.2069px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px dashed #2B3C4E;
-    box-sizing: border-box;
-    margin: 0 0 10px 0;
-    padding: 10px
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px dashed #2B3C4E;
+        box-sizing: border-box;
+        margin: 0 0 10px 0;
+        padding: 10px
 }
 
-.editBtn {
+.editBtn{
     background: #FF9900;
-    border-radius: 4px;
-    width: 125px;
-    height: 40px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #fff;
+border-radius: 4px;
+width: 125px;
+height: 40px;
+font-weight: bold;
+font-size: 16px;
+color: #fff;
 }
 
-.saveBtn {
+.saveBtn{
     background: darkgreen;
-    border-radius: 4px;
-    width: 125px;
-    height: 40px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #fff;
+border-radius: 4px;
+width: 125px;
+height: 40px;
+font-weight: bold;
+font-size: 16px;
+color: #fff;
 }
 
-.cancelBtn {
+.cancelBtn{
     background: darkred;
-    border-radius: 4px;
-    width: 125px;
-    height: 40px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #fff;
+border-radius: 4px;
+width: 125px;
+height: 40px;
+font-weight: bold;
+font-size: 16px;
+color: #fff;
 }
 
-.history_row {
+.history_row{
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
+    margin-top: 10px;
 }
-
-.history_input label {
+.history_input label{
     display: block
 }
 
-.history_input input {
+.history_input input{
     width: 450px;
     height: 40px;
     border-color: #2B3C4E;
 }
 
-.answer {
+.answer{
     text-align: center;
 }
 
-.assessmentHistoryBox textarea {
+.assessmentHistoryBox textarea{
     padding: 10px;
     height: 150px;
     width: 100%;
@@ -143,4 +149,10 @@ tr:hover>.assessmentHistory_batch {
     outline: none;
     resize: none;
     box-sizing: border-box
+}
+
+.conditionalMsg{
+    text-align: center;
+    font-weight: 300;
+    font-size: 20px;
 }
