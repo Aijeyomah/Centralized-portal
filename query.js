@@ -115,7 +115,7 @@ const queries = {
    updateAssessmentStatusQuery:`UPDATE applicants SET status=($1) WHERE email_address=($2) RETURNING *`,
    getLastCreateApplicationQuery:`SELECT * FROM application ORDER BY id DESC LIMIT 1`,
    getfiletimeQuery:`SELECT * FROM filetime `,
-   getAllAssessmentByAdmin:`SELECT * FROM assessment`
+   getAllAssessmentByAdmin:`SELECT * FROM assessment WHERE batch_id=($1)`
 }
 module.exports = queries
 
