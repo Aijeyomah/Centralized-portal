@@ -65,7 +65,7 @@ const DashBoardHome = (props) => {
             <div className='admin_info_wrapper'>
                 <div className='admin_info_container'>
                     <div>
-                        <p className='normal'>Current Application</p>
+                        <p className='normal'>Current Applications</p>
                         <p className='large'>{currentApp}</p>
                     </div>
                     <p className="admin_info_one">Academy {academy}.0</p>
