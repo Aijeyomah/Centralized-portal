@@ -53,10 +53,13 @@ const DashBoardHome = (props) => {
             })
     }, [])
 
-
-
     const { appTable } = applicationTable
     const currentApp = appTable[appTable.length - 1].total
+    const academy = appTable[appTable.length - 1].batch_id
+
+    useEffect(() => {
+        console.log(appTable)
+    })
 
     return (
         <div className='admin_dashboard_wrapper'>
