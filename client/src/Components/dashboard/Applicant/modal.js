@@ -41,6 +41,14 @@ const Modal = ({ handleClose, show }) => {
             }).catch(err => {
                 console.log(err)
             })
+        axios.put('/api/v1/uploadAdminImage', formData, config)
+            .then(res => {
+                console.log(res)
+                window.location.reload(false)
+                hideSpinner()
+            }).catch(err => {
+                console.log(err)
+            })
     }, [changeProfilePic])
 
     const { pictures } = displaypicture;
