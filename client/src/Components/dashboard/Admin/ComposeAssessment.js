@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import './ComposeAssessment.css'
 import uploadIcon from '../../../Images/upload-icon.svg'
 import AssessmentSuccessful from './AssessmentSuccessful';
@@ -88,11 +88,11 @@ const ComposeAssessment = () => {
             setQuestionLength(questionLength + 1)
             setNextQuestion(nextQuestion + 1)
             setQuestions({
-                ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "",
+                ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: ""
             })
         } else if (questionStore.length > questionLength && questionStore.length === nextQuestion) {
             setQuestions({
-                ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "",
+                ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: ""
             })
             setNextQuestion(nextQuestion + 1)
             setprevQuestion(prevQuestion + 1)
@@ -136,12 +136,13 @@ const ComposeAssessment = () => {
             setQuestionNo(30)
         }
     }
-
+  
     const handleSubmit = e => {
         e.preventDefault()
-        const { questionStore, set_time, file_upload } = questions
-        const Questions = { questionStore }
-        let attachment = { set_time, file_upload }
+        const no_of_question = questionNo
+        const { questionStore, set_time, file_upload, batch_id } = questions
+        const Questions =  questionStore 
+        let attachment = { set_time, file_upload, no_of_question, batch_id} 
         if (set_time) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -197,8 +198,8 @@ const ComposeAssessment = () => {
                             <div>
                                 <img className="upload-icon" src={uploadIcon} alt="Upload icon" />
                             </div>
-                            <input type="file" name="file" id="file" className="input_file" onChange={handleFile} />
-                            <label htmlFor="file">Choose File</label>
+                            <input type="file" name="file" id="file_upload" className="input_file" onChange={handleFile} />
+                            <label htmlFor="file_upload">Choose File</label>
                         </div>
                         <p style={style}>Upload succesful!</p>
                     </div>
