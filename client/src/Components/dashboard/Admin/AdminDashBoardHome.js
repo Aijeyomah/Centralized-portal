@@ -47,6 +47,7 @@ const DashBoardHome = (props) => {
             })
         axios.get('/api/v1/getlastapplicationupdate', config)
             .then(res => {
+                console.log(res)
                 getLastUpdate(res.data.data.updated_at)
             }).catch(error => {
                 console.log(error)
@@ -56,6 +57,10 @@ const DashBoardHome = (props) => {
     const { appTable } = applicationTable
     const currentApp = appTable[appTable.length - 1].total
     const academy = appTable[appTable.length - 1].batch_id
+
+    useEffect(() => {
+        console.log(lastUpdate)
+    })
 
     return (
         <div className='admin_dashboard_wrapper'>

@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './ComposeAssessment.css'
 import uploadIcon from '../../../Images/upload-icon.svg'
 import AssessmentSuccessful from './AssessmentSuccessful';
@@ -24,6 +24,8 @@ const ComposeAssessment = () => {
     const [questionNo, setQuestionNo] = useState(1)
     const [prevQuestion, setprevQuestion] = useState(-1)
     const [nextQuestion, setNextQuestion] = useState(1)
+    const [answerMatch, setAnswerMatch] = useState("")
+    const [areFieldsEmpty, setAreFieldsEmpty] = useState("")
 
     const handleFile = e => {
         let files = e.target.files[0]
@@ -38,15 +40,14 @@ const ComposeAssessment = () => {
         })
     }
 
+    const handleBatchNo = (e) => {
+        setQuestions({ ...questions, batch_id: e.target.value })
+    }
+
     const handleInputChange = e => {
-        if (questions.batch_id === "") {
-            alert("Please input your Batch ID before continuing. Thanks")
-            setQuestions({ ...questions, batch_id: e.target.value })
-        } else {
-            setQuestions({
-                ...questions, [e.target.id]: e.target.value
-            })
-        }
+        setQuestions({
+            ...questions, [e.target.id]: e.target.value
+        })
     }
 
     const handlePreviousQuestion = () => {
@@ -75,18 +76,22 @@ const ComposeAssessment = () => {
         const { questionStore } = questions
         console.log(questions.file_upload)
         if (option_a !== correct_answer && option_b !== correct_answer && option_c !== correct_answer && option_d !== correct_answer) {
-            alert("One of the options must match the answer.")
+            setAnswerMatch("One of the options must match the answer.")
+            setAreFieldsEmpty("")
         }
         else if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer || !batch_id) {
-            alert("Please fill up all the necessary fields")
+            setAreFieldsEmpty("Please fill up all the necessary fields")
+            setAnswerMatch("")
         } else if (questionStore.length === questionLength) {
             setQuestionNo(questionNo + 1)
             questionStore.push(questionData)
             console.log(questionStore)
             setprevQuestion(prevQuestion + 1)
+            setAreFieldsEmpty("")
             console.log("Posted")
             setQuestionLength(questionLength + 1)
             setNextQuestion(nextQuestion + 1)
+            setAnswerMatch("")
             setQuestions({
                 ...questions, question: "", option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: ""
             })
@@ -97,7 +102,9 @@ const ComposeAssessment = () => {
             setNextQuestion(nextQuestion + 1)
             setprevQuestion(prevQuestion + 1)
             setQuestionNo(questionNo + 1)
+            setAnswerMatch("")
             setQuestionLength(questionLength + 1)
+            setAreFieldsEmpty("")
             console.log(questionStore)
             questionStore[questionLength].question = questionData.question
             questionStore[questionLength].option_a = questionData.option_a
@@ -110,8 +117,10 @@ const ComposeAssessment = () => {
         else if (questionStore.length > questionLength) {
             setprevQuestion(prevQuestion + 1)
             setQuestionNo(questionNo + 1)
+            setAreFieldsEmpty("")
             console.log(questionStore)
             console.log("Updated")
+            setAnswerMatch("")
             setNextQuestion(nextQuestion + 1)
             setQuestionLength(questionLength + 1)
             let one = questionStore[nextQuestion].question
@@ -136,14 +145,14 @@ const ComposeAssessment = () => {
             setQuestionNo(30)
         }
     }
-  
+
     const handleSubmit = e => {
         e.preventDefault()
         const questionStore = questions.questionStore
         const no_of_question = questionNo
-        const {  set_time, file_upload, batch_id } = questions
-         
-        let attachment = { set_time, file_upload, no_of_question, batch_id} 
+        const { set_time, file_upload, batch_id } = questions
+
+        let attachment = { set_time, file_upload, no_of_question, batch_id }
         if (set_time) {
             const token = localStorage.getItem('token')
             var formData = new FormData()
@@ -218,7 +227,7 @@ const ComposeAssessment = () => {
                     </div>
                     <div className="set_time">
                         <p>Batch ID</p>
-                        <select className="batch-box" id="batch_id" onChange={handleInputChange} >
+                        <select className="batch-box" id="batch_id" onChange={handleBatchNo} >
                             <option value="--">__</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -227,7 +236,7 @@ const ComposeAssessment = () => {
                     </div>
                 </div>
                 <p className="question">Question</p>
-                <textarea value={questions.question} type="text" id="question" style={{ height: "200px", width: "100%" }} onChange={handleInputChange}></textarea>
+                <textarea value={questions.question} type="text" id="question" style={{ height: "90px", width: "100%" }} onChange={handleInputChange}></textarea>
 
                 <div className="input_row_wrapper">
                     <div className="input_row">
@@ -255,6 +264,8 @@ const ComposeAssessment = () => {
                             <p>Answer</p>
                             <input value={questions.correct_answer} type="text" id="correct_answer" onChange={handleInputChange} />
                         </div>
+                        <p style={{ display: answerMatch ? "block" : "none", color: "red", textAlign: "center", marginBottom: "7px" }}>{answerMatch}</p>
+                        <p style={{ display: areFieldsEmpty ? "block" : "none", color: "red", textAlign: "center", marginBottom: "7px" }}>{areFieldsEmpty}</p>
                     </div>
                     <div className="prev_n_next_btn">
                         <button type="button" disabled={questionNo === 1} onClick={handlePreviousQuestion} >Previous</button>
