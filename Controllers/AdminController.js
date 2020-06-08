@@ -12,12 +12,12 @@ const fs = require('fs')
 exports.createApplicationAdmin = async (req, res) => {
   const date = new Date();
   const created_at = moment(date).format('YYYY-MM-DD');
-  const updated_at= moment(date).format('HH:mm, YY/MM/DD')
+  const updated_at= moment(date).format('HH:mm, YY/MM/DD');
   const { link, application_closure_date, batch_id, instructions } = req.body
   const files = req.files.file_upload
   console.log(req.files)
   fileName = files.name
-  console.log()
+ 
   files.mv('uploadingfile/' + fileName), (error) => {
     if (error) {
       res.status(500).json({
@@ -62,6 +62,7 @@ exports.createApplicationAdmin = async (req, res) => {
       })
     }
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       status: 'error',
       code: 99,
