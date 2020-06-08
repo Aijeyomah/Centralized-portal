@@ -139,9 +139,10 @@ const ComposeAssessment = () => {
   
     const handleSubmit = e => {
         e.preventDefault()
+        const questionStore = questions.questionStore
         const no_of_question = questionNo
-        const { questionStore, set_time, file_upload, batch_id } = questions
-        const Questions =  questionStore 
+        const {  set_time, file_upload, batch_id } = questions
+         
         let attachment = { set_time, file_upload, no_of_question, batch_id} 
         if (set_time) {
             const token = localStorage.getItem('token')
@@ -165,7 +166,7 @@ const ComposeAssessment = () => {
                 }).catch(err => {
                     console.log(err)
                 })
-            axios.post(url, Questions, config)
+            axios.post(url, questionStore, config)
                 .then(res => {
                     console.log(res)
                 }).catch(err => {

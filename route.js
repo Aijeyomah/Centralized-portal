@@ -49,6 +49,7 @@ router.post('/auth/Applicationform', verifyUserToken, findSignInCode, createAppl
 router.post('/auth/setnewpassword', verifyToken, setNewPassword)
 router.post('/auth/forgotpassword', forgotPassword)
 router.put('/uploadImage', verifyUserToken, uploadProfilePics)
+router.put('/uploadAdminImage', verifyAdminToken,uploadProfilePics)
 router.post('/auth/createApplication', verifyAdminToken, createApplicationAdmin)
 router.post('/auth/AdminlogOut', verifyAdminToken, logOut)
 router.post('/auth/composeAssessmentAdmin', verifyAdminToken, findSignInCode, composeAssessmentAdmin)

@@ -44,7 +44,7 @@ const Dashboard = (props) => {
                 })
             }).catch(err => {
                 console.log(err.response.data.message)
-                props.history.push('/admindashboard')
+                props.history.push('/login')
             })
         if (!token) {
             props.history.push('/login')

@@ -51,7 +51,7 @@ const AdminDashboard = (props) => {
                 console.log(res)
             }).catch(err => {
                 console.log(err.message)
-                props.history.push('/applicantdashboard')
+                props.history.push('/admin/login')
             })
     }, [])
 
