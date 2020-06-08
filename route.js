@@ -76,7 +76,7 @@ router.get('/getadmindetail', verifyAdminToken, userDetail)
 router.get('/getassessment/:batch_id', verifyUserToken, findSignInCode, getAllAssessmentUser)
 router.get('/getApplicationTable', verifyAdminToken, findSignInCode, getAllFromApplication)
 router.get('/getlastapplicationupdate', verifyAdminToken, findSignInCode, getLastRowFromApplication)
-router.get('/admingetassessment', verifyAdminToken, findSignInCode, getAllAssessmentByAdmin)
+router.get('/admingetassessment/:batch_id', verifyAdminToken, findSignInCode, getAllAssessmentByAdmin)
 router.get('/getAssessmentHistory', verifyAdminToken, findSignInCode, getAllFromFileTimeTable)
 
 module.exports = router
